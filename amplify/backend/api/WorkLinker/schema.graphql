@@ -1,0 +1,54 @@
+type Categorias @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombre: String
+  descripcion: String
+  productos: String
+}
+
+type Carrito @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  idUsuario: ID
+  productos: String
+}
+
+type Productos @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombre: String
+  descripcion: String
+  precio: Float
+  categoria: String
+  cantidadStock: Int
+  valoracionPromedio: String
+}
+
+type Clientes @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombre: String
+  apellido: String
+  correo: String
+  calle: String
+  numero: String
+  colonia: String
+  codigoPostal: Int
+  municipio: String
+  pais: String
+  historialCompras: String
+  carritoActual: String
+  listaDeseos: String
+}
+
+type Empresas @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  correo: String
+  nombre: String
+  direccion: String
+  PaginaWeb: AWSURL
+  calle: String
+  numero: String
+  colonia: String
+  codigoPostal: Int
+  municipio: String
+  pais: String
+  latutud: Float
+  longitud: Float
+} 

@@ -17,7 +17,7 @@ import Inicio from "./pages/Inicio";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#d63384',
+      main: '#5d4fc6',
     },
   },
 
