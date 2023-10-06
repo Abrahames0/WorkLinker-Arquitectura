@@ -55,7 +55,7 @@ Auth.configure(awsconfig);
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/Inicio" replace />,
+    element: <Navigate to="/login-users" replace />,
   },
   {
     path: "/login-users",
