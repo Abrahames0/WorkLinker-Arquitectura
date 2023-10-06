@@ -18,7 +18,7 @@ function NavBar() {
               width="80"
               height="80"
               className="d-inline-block align-top"
-              alt="WorkLinker Logo"
+              alt="WorkLinkerLogo"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
