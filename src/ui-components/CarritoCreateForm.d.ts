@@ -13,18 +13,15 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type CarritoCreateFormInputValues = {
-    idUsuario?: string;
-    productos?: string;
+    totalCarrito?: number;
 };
 export declare type CarritoCreateFormValidationValues = {
-    idUsuario?: ValidationFunction<string>;
-    productos?: ValidationFunction<string>;
+    totalCarrito?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CarritoCreateFormOverridesProps = {
     CarritoCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    idUsuario?: PrimitiveOverrideProps<TextFieldProps>;
-    productos?: PrimitiveOverrideProps<TextFieldProps>;
+    totalCarrito?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type CarritoCreateFormProps = React.PropsWithChildren<{
     overrides?: CarritoCreateFormOverridesProps | undefined | null;

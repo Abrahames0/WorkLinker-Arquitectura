@@ -1,41 +1,45 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
 
 
 
 
-type EagerCategorias = {
+type EagerProductoCarrito = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Categorias, 'id'>;
+    identifier: ManagedIdentifier<ProductoCarrito, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombre?: string | null;
-  readonly descripcion?: string | null;
-  readonly productos?: string | null;
+  readonly carritoID: string;
+  readonly nombreProducto?: string | null;
+  readonly precio?: number | null;
+  readonly cantidad?: number | null;
+  readonly subtotal?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyCategorias = {
+type LazyProductoCarrito = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Categorias, 'id'>;
+    identifier: ManagedIdentifier<ProductoCarrito, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombre?: string | null;
-  readonly descripcion?: string | null;
-  readonly productos?: string | null;
+  readonly carritoID: string;
+  readonly nombreProducto?: string | null;
+  readonly precio?: number | null;
+  readonly cantidad?: number | null;
+  readonly subtotal?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Categorias = LazyLoading extends LazyLoadingDisabled ? EagerCategorias : LazyCategorias
+export declare type ProductoCarrito = LazyLoading extends LazyLoadingDisabled ? EagerProductoCarrito : LazyProductoCarrito
 
-export declare const Categorias: (new (init: ModelInit<Categorias>) => Categorias) & {
-  copyOf(source: Categorias, mutator: (draft: MutableModel<Categorias>) => MutableModel<Categorias> | void): Categorias;
+export declare const ProductoCarrito: (new (init: ModelInit<ProductoCarrito>) => ProductoCarrito) & {
+  copyOf(source: ProductoCarrito, mutator: (draft: MutableModel<ProductoCarrito>) => MutableModel<ProductoCarrito> | void): ProductoCarrito;
 }
 
 type EagerCarrito = {
@@ -44,8 +48,8 @@ type EagerCarrito = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly idUsuario?: string | null;
-  readonly productos?: string | null;
+  readonly ProductoCarritos?: (ProductoCarrito | null)[] | null;
+  readonly totalCarrito?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -56,8 +60,8 @@ type LazyCarrito = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly idUsuario?: string | null;
-  readonly productos?: string | null;
+  readonly ProductoCarritos: AsyncCollection<ProductoCarrito>;
+  readonly totalCarrito?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -74,12 +78,13 @@ type EagerProductos = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombre?: string | null;
+  readonly nombreProducto?: string | null;
   readonly descripcion?: string | null;
   readonly precio?: number | null;
+  readonly stock?: number | null;
+  readonly imagenURL?: string | null;
   readonly categoria?: string | null;
-  readonly cantidadStock?: number | null;
-  readonly valoracionPromedio?: string | null;
+  readonly empresaID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -90,12 +95,13 @@ type LazyProductos = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombre?: string | null;
+  readonly nombreProducto?: string | null;
   readonly descripcion?: string | null;
   readonly precio?: number | null;
+  readonly stock?: number | null;
+  readonly imagenURL?: string | null;
   readonly categoria?: string | null;
-  readonly cantidadStock?: number | null;
-  readonly valoracionPromedio?: string | null;
+  readonly empresaID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -106,102 +112,94 @@ export declare const Productos: (new (init: ModelInit<Productos>) => Productos) 
   copyOf(source: Productos, mutator: (draft: MutableModel<Productos>) => MutableModel<Productos> | void): Productos;
 }
 
-type EagerClientes = {
+type EagerEmpresa = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Clientes, 'id'>;
+    identifier: ManagedIdentifier<Empresa, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombre?: string | null;
-  readonly apellido?: string | null;
-  readonly correo?: string | null;
-  readonly calle?: string | null;
-  readonly numero?: string | null;
-  readonly colonia?: string | null;
-  readonly codigoPostal?: number | null;
-  readonly municipio?: string | null;
-  readonly pais?: string | null;
-  readonly historialCompras?: string | null;
-  readonly carritoActual?: string | null;
-  readonly listaDeseos?: string | null;
+  readonly nombreEmpresa?: string | null;
+  readonly emailEmpresa?: string | null;
+  readonly calleEmpresa?: string | null;
+  readonly numeroEmpresa?: string | null;
+  readonly ciudadEmpresa?: string | null;
+  readonly codigoPostalEmpresa?: number | null;
+  readonly estadoEmpresa?: string | null;
+  readonly paisEmpresa?: string | null;
+  readonly Productos?: (Productos | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-type LazyClientes = {
+type LazyEmpresa = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Clientes, 'id'>;
+    identifier: ManagedIdentifier<Empresa, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombre?: string | null;
-  readonly apellido?: string | null;
-  readonly correo?: string | null;
-  readonly calle?: string | null;
-  readonly numero?: string | null;
-  readonly colonia?: string | null;
-  readonly codigoPostal?: number | null;
-  readonly municipio?: string | null;
-  readonly pais?: string | null;
-  readonly historialCompras?: string | null;
-  readonly carritoActual?: string | null;
-  readonly listaDeseos?: string | null;
+  readonly nombreEmpresa?: string | null;
+  readonly emailEmpresa?: string | null;
+  readonly calleEmpresa?: string | null;
+  readonly numeroEmpresa?: string | null;
+  readonly ciudadEmpresa?: string | null;
+  readonly codigoPostalEmpresa?: number | null;
+  readonly estadoEmpresa?: string | null;
+  readonly paisEmpresa?: string | null;
+  readonly Productos: AsyncCollection<Productos>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
 
-export declare type Clientes = LazyLoading extends LazyLoadingDisabled ? EagerClientes : LazyClientes
+export declare type Empresa = LazyLoading extends LazyLoadingDisabled ? EagerEmpresa : LazyEmpresa
 
-export declare const Clientes: (new (init: ModelInit<Clientes>) => Clientes) & {
-  copyOf(source: Clientes, mutator: (draft: MutableModel<Clientes>) => MutableModel<Clientes> | void): Clientes;
+export declare const Empresa: (new (init: ModelInit<Empresa>) => Empresa) & {
+  copyOf(source: Empresa, mutator: (draft: MutableModel<Empresa>) => MutableModel<Empresa> | void): Empresa;
 }
 
-type EagerEmpresas = {
+type EagerUsuarios = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Empresas, 'id'>;
+    identifier: ManagedIdentifier<Usuarios, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly correo?: string | null;
-  readonly nombre?: string | null;
-  readonly direccion?: string | null;
-  readonly PaginaWeb?: string | null;
-  readonly calle?: string | null;
-  readonly numero?: string | null;
-  readonly colonia?: string | null;
-  readonly codigoPostal?: number | null;
-  readonly municipio?: string | null;
-  readonly pais?: string | null;
-  readonly latutud?: number | null;
-  readonly longitud?: number | null;
+  readonly nombreUsuario?: string | null;
+  readonly apellidoUsuario?: string | null;
+  readonly emailUsuario?: string | null;
+  readonly calleUsuario?: string | null;
+  readonly numeroUsuario?: string | null;
+  readonly ciudadUsuario?: string | null;
+  readonly codigoPostalUsuario?: number | null;
+  readonly estadoUsuario?: string | null;
+  readonly paisUsuario?: string | null;
+  readonly Carrito?: Carrito | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
+  readonly usuariosCarritoId?: string | null;
 }
 
-type LazyEmpresas = {
+type LazyUsuarios = {
   readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Empresas, 'id'>;
+    identifier: ManagedIdentifier<Usuarios, 'id'>;
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly correo?: string | null;
-  readonly nombre?: string | null;
-  readonly direccion?: string | null;
-  readonly PaginaWeb?: string | null;
-  readonly calle?: string | null;
-  readonly numero?: string | null;
-  readonly colonia?: string | null;
-  readonly codigoPostal?: number | null;
-  readonly municipio?: string | null;
-  readonly pais?: string | null;
-  readonly latutud?: number | null;
-  readonly longitud?: number | null;
+  readonly nombreUsuario?: string | null;
+  readonly apellidoUsuario?: string | null;
+  readonly emailUsuario?: string | null;
+  readonly calleUsuario?: string | null;
+  readonly numeroUsuario?: string | null;
+  readonly ciudadUsuario?: string | null;
+  readonly codigoPostalUsuario?: number | null;
+  readonly estadoUsuario?: string | null;
+  readonly paisUsuario?: string | null;
+  readonly Carrito: AsyncItem<Carrito | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
+  readonly usuariosCarritoId?: string | null;
 }
 
-export declare type Empresas = LazyLoading extends LazyLoadingDisabled ? EagerEmpresas : LazyEmpresas
+export declare type Usuarios = LazyLoading extends LazyLoadingDisabled ? EagerUsuarios : LazyUsuarios
 
-export declare const Empresas: (new (init: ModelInit<Empresas>) => Empresas) & {
-  copyOf(source: Empresas, mutator: (draft: MutableModel<Empresas>) => MutableModel<Empresas> | void): Empresas;
+export declare const Usuarios: (new (init: ModelInit<Usuarios>) => Usuarios) & {
+  copyOf(source: Usuarios, mutator: (draft: MutableModel<Usuarios>) => MutableModel<Usuarios> | void): Usuarios;
 }

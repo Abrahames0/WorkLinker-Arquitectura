@@ -1,54 +1,52 @@
-type Categorias @model @auth(rules: [{allow: public}]) {
+type ProductoCarrito @model @auth(rules: [{allow: public}]) {
   id: ID!
-  nombre: String
-  descripcion: String
-  productos: String
+  carritoID: ID! @index(name: "byCarrito")
+  nombreProducto: String
+  precio: Float
+  cantidad: Int
+  subtotal: String
 }
 
 type Carrito @model @auth(rules: [{allow: public}]) {
   id: ID!
-  idUsuario: ID
-  productos: String
+  ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byCarrito", fields: ["id"])
+  totalCarrito: Float
 }
 
 type Productos @model @auth(rules: [{allow: public}]) {
   id: ID!
-  nombre: String
+  nombreProducto: String
   descripcion: String
   precio: Float
+  stock: Int
+  imagenURL: AWSURL
   categoria: String
-  cantidadStock: Int
-  valoracionPromedio: String
+  empresaID: ID! @index(name: "byEmpresa")
 }
 
-type Clientes @model @auth(rules: [{allow: public}]) {
+type Empresa @model @auth(rules: [{allow: public}]) {
   id: ID!
-  nombre: String
-  apellido: String
-  correo: String
-  calle: String
-  numero: String
-  colonia: String
-  codigoPostal: Int
-  municipio: String
-  pais: String
-  historialCompras: String
-  carritoActual: String
-  listaDeseos: String
+  nombreEmpresa: String
+  emailEmpresa: String
+  calleEmpresa: String
+  numeroEmpresa: String
+  ciudadEmpresa: String
+  codigoPostalEmpresa: Int
+  estadoEmpresa: String
+  paisEmpresa: String
+  Productos: [Productos] @hasMany(indexName: "byEmpresa", fields: ["id"])
 }
 
-type Empresas @model @auth(rules: [{allow: public}]) {
+type Usuarios @model @auth(rules: [{allow: public}]) {
   id: ID!
-  correo: String
-  nombre: String
-  direccion: String
-  PaginaWeb: AWSURL
-  calle: String
-  numero: String
-  colonia: String
-  codigoPostal: Int
-  municipio: String
-  pais: String
-  latutud: Float
-  longitud: Float
+  nombreUsuario: String
+  apellidoUsuario: String
+  emailUsuario: String
+  calleUsuario: String
+  numeroUsuario: String
+  ciudadUsuario: String
+  codigoPostalUsuario: Int
+  estadoUsuario: String
+  paisUsuario: String
+  Carrito: Carrito @hasOne
 } 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "WorkLinker",
+    "apiName": "worklinker",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
@@ -15,7 +15,7 @@
     ],
     "conflictResolution": {
       "defaultResolutionStrategy": {
-        "type": "NONE"
+        "type": "AUTOMERGE"
       }
     }
   }

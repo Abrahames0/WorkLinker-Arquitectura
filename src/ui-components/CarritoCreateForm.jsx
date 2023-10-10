@@ -23,20 +23,18 @@ export default function CarritoCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    idUsuario: "",
-    productos: "",
+    totalCarrito: "",
   };
-  const [idUsuario, setIdUsuario] = React.useState(initialValues.idUsuario);
-  const [productos, setProductos] = React.useState(initialValues.productos);
+  const [totalCarrito, setTotalCarrito] = React.useState(
+    initialValues.totalCarrito
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setIdUsuario(initialValues.idUsuario);
-    setProductos(initialValues.productos);
+    setTotalCarrito(initialValues.totalCarrito);
     setErrors({});
   };
   const validations = {
-    idUsuario: [],
-    productos: [],
+    totalCarrito: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -64,8 +62,7 @@ export default function CarritoCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          idUsuario,
-          productos,
+          totalCarrito,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -91,8 +88,8 @@ export default function CarritoCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
           await DataStore.save(new Carrito(modelFields));
@@ -112,54 +109,32 @@ export default function CarritoCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Id usuario"
+        label="Total carrito"
         isRequired={false}
         isReadOnly={false}
-        value={idUsuario}
+        type="number"
+        step="any"
+        value={totalCarrito}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
-              idUsuario: value,
-              productos,
+              totalCarrito: value,
             };
             const result = onChange(modelFields);
-            value = result?.idUsuario ?? value;
+            value = result?.totalCarrito ?? value;
           }
-          if (errors.idUsuario?.hasError) {
-            runValidationTasks("idUsuario", value);
+          if (errors.totalCarrito?.hasError) {
+            runValidationTasks("totalCarrito", value);
           }
-          setIdUsuario(value);
+          setTotalCarrito(value);
         }}
-        onBlur={() => runValidationTasks("idUsuario", idUsuario)}
-        errorMessage={errors.idUsuario?.errorMessage}
-        hasError={errors.idUsuario?.hasError}
-        {...getOverrideProps(overrides, "idUsuario")}
-      ></TextField>
-      <TextField
-        label="Productos"
-        isRequired={false}
-        isReadOnly={false}
-        value={productos}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              idUsuario,
-              productos: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.productos ?? value;
-          }
-          if (errors.productos?.hasError) {
-            runValidationTasks("productos", value);
-          }
-          setProductos(value);
-        }}
-        onBlur={() => runValidationTasks("productos", productos)}
-        errorMessage={errors.productos?.errorMessage}
-        hasError={errors.productos?.hasError}
-        {...getOverrideProps(overrides, "productos")}
+        onBlur={() => runValidationTasks("totalCarrito", totalCarrito)}
+        errorMessage={errors.totalCarrito?.errorMessage}
+        hasError={errors.totalCarrito?.hasError}
+        {...getOverrideProps(overrides, "totalCarrito")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Categorias": {
-            "name": "Categorias",
+        "ProductoCarrito": {
+            "name": "ProductoCarrito",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,22 +10,36 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "nombre": {
-                    "name": "nombre",
+                "carritoID": {
+                    "name": "carritoID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "nombreProducto": {
+                    "name": "nombreProducto",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "descripcion": {
-                    "name": "descripcion",
+                "precio": {
+                    "name": "precio",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
-                "productos": {
-                    "name": "productos",
+                "cantidad": {
+                    "name": "cantidad",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "subtotal": {
+                    "name": "subtotal",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -49,11 +63,20 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Categorias",
+            "pluralName": "ProductoCarritos",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byCarrito",
+                        "fields": [
+                            "carritoID"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -83,17 +106,26 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "idUsuario": {
-                    "name": "idUsuario",
-                    "isArray": false,
-                    "type": "ID",
+                "ProductoCarritos": {
+                    "name": "ProductoCarritos",
+                    "isArray": true,
+                    "type": {
+                        "model": "ProductoCarrito"
+                    },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "carritoID"
+                        ]
+                    }
                 },
-                "productos": {
-                    "name": "productos",
+                "totalCarrito": {
+                    "name": "totalCarrito",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -149,8 +181,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "nombre": {
-                    "name": "nombre",
+                "nombreProducto": {
+                    "name": "nombreProducto",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -170,6 +202,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "stock": {
+                    "name": "stock",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "imagenURL": {
+                    "name": "imagenURL",
+                    "isArray": false,
+                    "type": "AWSURL",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "categoria": {
                     "name": "categoria",
                     "isArray": false,
@@ -177,18 +223,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "cantidadStock": {
-                    "name": "cantidadStock",
+                "empresaID": {
+                    "name": "empresaID",
                     "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "valoracionPromedio": {
-                    "name": "valoracionPromedio",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
+                    "type": "ID",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -216,140 +255,13 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "auth",
+                    "type": "key",
                     "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
+                        "name": "byEmpresa",
+                        "fields": [
+                            "empresaID"
                         ]
                     }
-                }
-            ]
-        },
-        "Clientes": {
-            "name": "Clientes",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "nombre": {
-                    "name": "nombre",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "apellido": {
-                    "name": "apellido",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "correo": {
-                    "name": "correo",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "calle": {
-                    "name": "calle",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "numero": {
-                    "name": "numero",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "colonia": {
-                    "name": "colonia",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "codigoPostal": {
-                    "name": "codigoPostal",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "municipio": {
-                    "name": "municipio",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "pais": {
-                    "name": "pais",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "historialCompras": {
-                    "name": "historialCompras",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "carritoActual": {
-                    "name": "carritoActual",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "listaDeseos": {
-                    "name": "listaDeseos",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Clientes",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
                 },
                 {
                     "type": "auth",
@@ -369,8 +281,8 @@ export const schema = {
                 }
             ]
         },
-        "Empresas": {
-            "name": "Empresas",
+        "Empresa": {
+            "name": "Empresa",
             "fields": {
                 "id": {
                     "name": "id",
@@ -379,89 +291,77 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "correo": {
-                    "name": "correo",
+                "nombreEmpresa": {
+                    "name": "nombreEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "nombre": {
-                    "name": "nombre",
+                "emailEmpresa": {
+                    "name": "emailEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "direccion": {
-                    "name": "direccion",
+                "calleEmpresa": {
+                    "name": "calleEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "PaginaWeb": {
-                    "name": "PaginaWeb",
-                    "isArray": false,
-                    "type": "AWSURL",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "calle": {
-                    "name": "calle",
+                "numeroEmpresa": {
+                    "name": "numeroEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "numero": {
-                    "name": "numero",
+                "ciudadEmpresa": {
+                    "name": "ciudadEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "colonia": {
-                    "name": "colonia",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "codigoPostal": {
-                    "name": "codigoPostal",
+                "codigoPostalEmpresa": {
+                    "name": "codigoPostalEmpresa",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "municipio": {
-                    "name": "municipio",
+                "estadoEmpresa": {
+                    "name": "estadoEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "pais": {
-                    "name": "pais",
+                "paisEmpresa": {
+                    "name": "paisEmpresa",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "latutud": {
-                    "name": "latutud",
-                    "isArray": false,
-                    "type": "Float",
+                "Productos": {
+                    "name": "Productos",
+                    "isArray": true,
+                    "type": {
+                        "model": "Productos"
+                    },
                     "isRequired": false,
-                    "attributes": []
-                },
-                "longitud": {
-                    "name": "longitud",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "empresaID"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -504,10 +404,150 @@ export const schema = {
                     }
                 }
             ]
+        },
+        "Usuarios": {
+            "name": "Usuarios",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "nombreUsuario": {
+                    "name": "nombreUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "apellidoUsuario": {
+                    "name": "apellidoUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "emailUsuario": {
+                    "name": "emailUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "calleUsuario": {
+                    "name": "calleUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "numeroUsuario": {
+                    "name": "numeroUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ciudadUsuario": {
+                    "name": "ciudadUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "codigoPostalUsuario": {
+                    "name": "codigoPostalUsuario",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "estadoUsuario": {
+                    "name": "estadoUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "paisUsuario": {
+                    "name": "paisUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Carrito": {
+                    "name": "Carrito",
+                    "isArray": false,
+                    "type": {
+                        "model": "Carrito"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": [
+                            "id"
+                        ],
+                        "targetNames": [
+                            "usuariosCarritoId"
+                        ]
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "usuariosCarritoId": {
+                    "name": "usuariosCarritoId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Usuarios",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     },
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "23a2274454c1d48330c65ebd01c42e99"
+    "version": "8762e2030dfb8532662adc584bfb56f6"
 };
