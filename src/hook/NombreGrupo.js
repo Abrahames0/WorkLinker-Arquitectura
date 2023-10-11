@@ -1,4 +1,4 @@
-import { Auth } from "aws-amplify";
+/* import { Auth } from "aws-amplify";
 
 export const NombreGrupo = async (username, nombreGrupo, setNombreGrupo) => {
     try {
@@ -24,4 +24,4 @@ export const NombreGrupo = async (username, nombreGrupo, setNombreGrupo) => {
     } catch (error) {
         console.log(error);
     }
-};
+}; */
