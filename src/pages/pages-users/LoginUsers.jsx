@@ -4,7 +4,7 @@ import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { DataStore } from "@aws-amplify/datastore";
-import { Clientes } from "../../models";
+import { Clientes, Usuarios } from "../../models";
 
 function LoginUsers() {
   const [session, setSession] = useState(false);
@@ -19,7 +19,7 @@ function LoginUsers() {
           await addToGroup(data.username);
 
           const sub = DataStore.observeQuery(
-            Clientes,
+            Usuarios,
             (c) => c.correo.eq(data.attributes.email),
             { limit: 1 }
           ).subscribe(({ items }) => {

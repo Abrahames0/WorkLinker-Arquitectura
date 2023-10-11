@@ -3,9 +3,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 //Importaciones AWS
-/* import { translations } from '@aws-amplify/ui-react';
+import { translations } from '@aws-amplify/ui-react';
 import { Amplify, Auth, AuthModeStrategyType, I18n } from 'aws-amplify';
-import awsconfig from './aws-exports'; */
+import awsconfig from './aws-exports';
 //Importaciones Estilo
 import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,7 +32,7 @@ const theme = createTheme({
   },
 });
 
-/* I18n.putVocabularies(translations);
+I18n.putVocabularies(translations);
 I18n.setLanguage('es');
 
 I18n.putVocabularies({
@@ -51,21 +51,21 @@ I18n.putVocabularies({
 });
 
 Amplify.configure({ ...awsconfig, DataStore: { authModeStrategyType: AuthModeStrategyType.MULTI_AUTH } });
-Auth.configure(awsconfig); */
+Auth.configure(awsconfig);
 
 const router = createBrowserRouter([
- /*  {
+  {
     path: "/",
-    element: <Navigate to="/" replace />,
-  }, */
-  /* {
+    element: <Navigate to="/login-empresa" replace />,
+  },
+  {
     path: "/login-users",
     element: <LoginUsers />,
   },
   {
     path: "/login-empresa",
     element: <LoginEmpresa />,
-  }, */
+  },
   {
     path: "/",
     element: <Bienvenida />,
