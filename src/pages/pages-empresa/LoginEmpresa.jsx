@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+/* import { useEffect, useState } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Auth } from "aws-amplify";
@@ -68,3 +68,4 @@ function LoginEmpresa() {
 }
 
 export default withAuthenticator(LoginEmpresa);
+ */
