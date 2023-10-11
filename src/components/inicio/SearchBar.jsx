@@ -13,7 +13,7 @@ function SearchBar() {
         style={{width: '500px'}}
       />
       <Button variant="outline-success">
-        <BiSearchAlt2 size={20}/>
+        <BiSearchAlt2 size={20} />
       </Button>
     </Form> 
   );
