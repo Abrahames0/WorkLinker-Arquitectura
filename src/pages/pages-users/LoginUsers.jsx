@@ -1,14 +1,14 @@
-/* import { withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Auth } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { DataStore } from "@aws-amplify/datastore";
-import { Clientes, Usuarios } from "../../models";
+import { Usuarios } from "../../models";
 
 function LoginUsers() {
   const [session, setSession] = useState(false);
-  const [nombreGrupo, setNombreGrupo] = useState("clientes");
+  const [nombreGrupo, setNombreGrupo] = useState("Usuarios");
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
@@ -63,8 +63,8 @@ function LoginUsers() {
     <div>
       Loading...
       {session ? (
-        nombreGrupo === "clientes" ? (
-          <Navigate to="/inicio-users" />
+        nombreGrupo === "Usuarios" ? (
+          <Navigate to="/user/inicio" />
         ) : (
           <Navigate to="/login-empresa" />
         )
@@ -75,6 +75,4 @@ function LoginUsers() {
   );
 }
 
-
 export default withAuthenticator(LoginUsers);
- */

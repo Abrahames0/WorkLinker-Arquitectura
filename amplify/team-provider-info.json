@@ -1,0 +1,20 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-worklinker-prod-222139-authRole",
+      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-worklinker-prod-222139-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-worklinker-prod-222139-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-worklinker-prod-222139-deployment",
+      "UnauthRoleName": "amplify-worklinker-prod-222139-unauthRole",
+      "StackName": "amplify-worklinker-prod-222139",
+      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-worklinker-prod-222139/e1ab51b0-6a16-11ee-9f24-0a728f85cf8f",
+      "AmplifyAppId": "d3tj6l72ybfrjs"
+    },
+    "categories": {
+      "auth": {
+        "WorkLinker": {}
+      }
+    }
+  }
+}

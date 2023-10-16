@@ -1,47 +1,9 @@
-import { useState, useEffect } from "react";
-import { Auth, DataStore } from "aws-amplify";
-import { IoPerson } from "react-icons/io5";
 import { Navbar, Container, Nav, NavDropdown, Form, Button } from "react-bootstrap";
-import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
-import { Link, useNavigate } from "react-router-dom";
-import { Usuarios } from "../../models";
-
+import WorkLinkerRecortada from "../../../landing/assets/img/WorkLinkerRecortada.png";
+import { Link } from "react-router-dom";
 import {BsCart2, BsSearch } from 'react-icons/bs'
 
-function NavegacionUsuarios({ setSession }) {
-  const navigate = useNavigate();
-  const [ bde, setBde ] = useState("Usuario");
-
-
-  useEffect(() => {
-    async function cargar() {
-      const auth = await Auth.currentAuthenticatedUser();
-      setTimeout(() => {
-        DataStore.query(Usuarios, c => c.correo.eq(auth.attributes.email)).then((e) => {
-          if (e[0]?.nombre) {
-            setBde(e[0].nombre);
-            localStorage.setItem("nombreNav", e[0].nombre);
-            return
-          }
-          localStorage.setItem("nombreNav", "Usuario");
-        })
-      }, 950);
-    }
-    cargar()
-  }, []);
-
-  async function logOut() {
-    try {
-      await Auth.signOut({ global: true });
-      await DataStore.clear();
-      localStorage.clear();
-      sessionStorage.clear();
-      setSession(false);
-      navigate("/");
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-  }
+function NavegacionInicio() {
 
   return (
     <div>
@@ -80,6 +42,7 @@ function NavegacionUsuarios({ setSession }) {
             </NavDropdown>
             <Nav.Link href="/Mapa">Ofertas</Nav.Link>
             <Nav.Link href="/Mapa">Moda</Nav.Link>
+            <Nav.Link href="/login-empresa">Vender</Nav.Link>
             <Nav.Link href="/Mapa">Ayuda</Nav.Link>
             <Form className="d-flex search-form">
                 <Form.Control
@@ -92,13 +55,7 @@ function NavegacionUsuarios({ setSession }) {
             </Form>
           </Nav>
             <Nav>
-            <NavDropdown
-                title={<span><IoPerson /> {localStorage.nombreNav === undefined ? bde : localStorage.nombreNav} </span>} >
-                <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
-                  <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
-                  <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
-                </div>
-              </NavDropdown>
+            <Button variant="outlined" href="/login-users">Login</Button>
               <Nav.Link> <BsCart2 size={20}/> </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -108,4 +65,4 @@ function NavegacionUsuarios({ setSession }) {
   );
 }
 
-export default NavegacionUsuarios;
+export default NavegacionInicio;

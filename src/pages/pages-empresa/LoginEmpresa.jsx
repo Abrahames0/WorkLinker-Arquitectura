@@ -1,4 +1,4 @@
-/* import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Auth } from "aws-amplify";
@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 
 function LoginEmpresa() {
   const [session, setSession] = useState(false);
-  const [nombreGrupo, setNombreGrupo] = useState("empresa");
+  const [nombreGrupo, setNombreGrupo] = useState("Proveedores");
 
   useEffect(() => {
     async function getData() {
@@ -57,7 +57,7 @@ function LoginEmpresa() {
   return (
     <div>
       {session && (
-        nombreGrupo === "empresa" ? (
+        nombreGrupo === "Proveedores" ? (
           <Navigate to="/inicio-empresa" />
         ) : (
           <Navigate to="/login-users" />
@@ -68,4 +68,3 @@ function LoginEmpresa() {
 }
 
 export default withAuthenticator(LoginEmpresa);
- */

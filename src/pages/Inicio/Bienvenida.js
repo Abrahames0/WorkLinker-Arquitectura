@@ -1,8 +1,11 @@
+ import CarouselInicio from "../../components/Inicio/inicio-bienvenida/Carrusel";
+ import NavegacionInicio from "../../components/Inicio/inicio-bienvenida/Navegacion";
 
 function Bienvenida() {
     return(
         <div>
-            Hola bienvenido a Work Linker
+            <NavegacionInicio/>
+            <CarouselInicio/> 
         </div>
     )
 }
