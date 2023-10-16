@@ -572,8 +572,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "emailUsuario": {
-                    "name": "emailUsuario",
+                "correo": {
+                    "name": "correo",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -692,5 +692,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "2c967995b4b8025b63301062a54acc84"
+    "version": "7b44183ebde3f35d68083af84723607b"
 };

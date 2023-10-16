@@ -5,12 +5,11 @@ import { Navbar, Container, Nav, NavDropdown, Form, Button } from "react-bootstr
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Usuarios } from "../../models";
-
 import {BsCart2, BsSearch } from 'react-icons/bs'
 
 function NavegacionUsuarios({ setSession }) {
   const navigate = useNavigate();
-  const [ bde, setBde ] = useState("Usuario");
+  const [ user, setUser ] = useState("Usuario");
 
 
   useEffect(() => {
@@ -19,11 +18,11 @@ function NavegacionUsuarios({ setSession }) {
       setTimeout(() => {
         DataStore.query(Usuarios, c => c.correo.eq(auth.attributes.email)).then((e) => {
           if (e[0]?.nombre) {
-            setBde(e[0].nombre);
+            setUser(e[0].nombre);
             localStorage.setItem("nombreNav", e[0].nombre);
             return
           }
-          localStorage.setItem("nombreNav", "Usuario");
+          localStorage.setItem("nombreNav", "usuario");
         })
       }, 950);
     }
@@ -93,7 +92,7 @@ function NavegacionUsuarios({ setSession }) {
           </Nav>
             <Nav>
             <NavDropdown
-                title={<span><IoPerson /> {localStorage.nombreNav === undefined ? bde : localStorage.nombreNav} </span>} >
+                title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
                 <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
                   <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
                   <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>

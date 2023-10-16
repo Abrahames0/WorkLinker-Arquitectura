@@ -222,7 +222,7 @@ type EagerUsuarios = {
   readonly id: string;
   readonly nombreUsuario?: string | null;
   readonly apellidoUsuario?: string | null;
-  readonly emailUsuario?: string | null;
+  readonly correo?: string | null;
   readonly calleUsuario?: string | null;
   readonly numeroUsuario?: string | null;
   readonly ciudadUsuario?: string | null;
@@ -243,7 +243,7 @@ type LazyUsuarios = {
   readonly id: string;
   readonly nombreUsuario?: string | null;
   readonly apellidoUsuario?: string | null;
-  readonly emailUsuario?: string | null;
+  readonly correo?: string | null;
   readonly calleUsuario?: string | null;
   readonly numeroUsuario?: string | null;
   readonly ciudadUsuario?: string | null;

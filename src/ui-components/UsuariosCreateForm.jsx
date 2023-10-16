@@ -25,7 +25,7 @@ export default function UsuariosCreateForm(props) {
   const initialValues = {
     nombreUsuario: "",
     apellidoUsuario: "",
-    emailUsuario: "",
+    correo: "",
     calleUsuario: "",
     numeroUsuario: "",
     ciudadUsuario: "",
@@ -39,9 +39,7 @@ export default function UsuariosCreateForm(props) {
   const [apellidoUsuario, setApellidoUsuario] = React.useState(
     initialValues.apellidoUsuario
   );
-  const [emailUsuario, setEmailUsuario] = React.useState(
-    initialValues.emailUsuario
-  );
+  const [correo, setCorreo] = React.useState(initialValues.correo);
   const [calleUsuario, setCalleUsuario] = React.useState(
     initialValues.calleUsuario
   );
@@ -64,7 +62,7 @@ export default function UsuariosCreateForm(props) {
   const resetStateValues = () => {
     setNombreUsuario(initialValues.nombreUsuario);
     setApellidoUsuario(initialValues.apellidoUsuario);
-    setEmailUsuario(initialValues.emailUsuario);
+    setCorreo(initialValues.correo);
     setCalleUsuario(initialValues.calleUsuario);
     setNumeroUsuario(initialValues.numeroUsuario);
     setCiudadUsuario(initialValues.ciudadUsuario);
@@ -76,7 +74,7 @@ export default function UsuariosCreateForm(props) {
   const validations = {
     nombreUsuario: [],
     apellidoUsuario: [],
-    emailUsuario: [],
+    correo: [],
     calleUsuario: [],
     numeroUsuario: [],
     ciudadUsuario: [],
@@ -112,7 +110,7 @@ export default function UsuariosCreateForm(props) {
         let modelFields = {
           nombreUsuario,
           apellidoUsuario,
-          emailUsuario,
+          correo,
           calleUsuario,
           numeroUsuario,
           ciudadUsuario,
@@ -175,7 +173,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario: value,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario,
@@ -207,7 +205,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario: value,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario,
@@ -229,17 +227,17 @@ export default function UsuariosCreateForm(props) {
         {...getOverrideProps(overrides, "apellidoUsuario")}
       ></TextField>
       <TextField
-        label="Email usuario"
+        label="Correo"
         isRequired={false}
         isReadOnly={false}
-        value={emailUsuario}
+        value={correo}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario: value,
+              correo: value,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario,
@@ -248,17 +246,17 @@ export default function UsuariosCreateForm(props) {
               estadoUsuario,
             };
             const result = onChange(modelFields);
-            value = result?.emailUsuario ?? value;
+            value = result?.correo ?? value;
           }
-          if (errors.emailUsuario?.hasError) {
-            runValidationTasks("emailUsuario", value);
+          if (errors.correo?.hasError) {
+            runValidationTasks("correo", value);
           }
-          setEmailUsuario(value);
+          setCorreo(value);
         }}
-        onBlur={() => runValidationTasks("emailUsuario", emailUsuario)}
-        errorMessage={errors.emailUsuario?.errorMessage}
-        hasError={errors.emailUsuario?.hasError}
-        {...getOverrideProps(overrides, "emailUsuario")}
+        onBlur={() => runValidationTasks("correo", correo)}
+        errorMessage={errors.correo?.errorMessage}
+        hasError={errors.correo?.hasError}
+        {...getOverrideProps(overrides, "correo")}
       ></TextField>
       <TextField
         label="Calle usuario"
@@ -271,7 +269,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario: value,
               numeroUsuario,
               ciudadUsuario,
@@ -303,7 +301,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario: value,
               ciudadUsuario,
@@ -335,7 +333,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario: value,
@@ -371,7 +369,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario,
@@ -405,7 +403,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario,
@@ -437,7 +435,7 @@ export default function UsuariosCreateForm(props) {
             const modelFields = {
               nombreUsuario,
               apellidoUsuario,
-              emailUsuario,
+              correo,
               calleUsuario,
               numeroUsuario,
               ciudadUsuario,

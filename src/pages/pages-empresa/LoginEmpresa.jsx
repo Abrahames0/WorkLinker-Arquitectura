@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 
 function LoginEmpresa() {
   const [session, setSession] = useState(false);
-  const [nombreGrupo, setNombreGrupo] = useState("Proveedores");
+  const [nombreGrupo, setNombreGrupo] = useState("proveedores");
 
   useEffect(() => {
     async function getData() {

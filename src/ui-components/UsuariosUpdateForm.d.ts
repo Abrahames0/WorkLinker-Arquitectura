@@ -16,7 +16,7 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type UsuariosUpdateFormInputValues = {
     nombreUsuario?: string;
     apellidoUsuario?: string;
-    emailUsuario?: string;
+    correo?: string;
     calleUsuario?: string;
     numeroUsuario?: string;
     ciudadUsuario?: string;
@@ -27,7 +27,7 @@ export declare type UsuariosUpdateFormInputValues = {
 export declare type UsuariosUpdateFormValidationValues = {
     nombreUsuario?: ValidationFunction<string>;
     apellidoUsuario?: ValidationFunction<string>;
-    emailUsuario?: ValidationFunction<string>;
+    correo?: ValidationFunction<string>;
     calleUsuario?: ValidationFunction<string>;
     numeroUsuario?: ValidationFunction<string>;
     ciudadUsuario?: ValidationFunction<string>;
@@ -40,7 +40,7 @@ export declare type UsuariosUpdateFormOverridesProps = {
     UsuariosUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     nombreUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     apellidoUsuario?: PrimitiveOverrideProps<TextFieldProps>;
-    emailUsuario?: PrimitiveOverrideProps<TextFieldProps>;
+    correo?: PrimitiveOverrideProps<TextFieldProps>;
     calleUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     numeroUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     ciudadUsuario?: PrimitiveOverrideProps<TextFieldProps>;

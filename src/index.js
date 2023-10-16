@@ -15,6 +15,7 @@ import LoginUsers from "./pages/pages-users/LoginUsers";
 import LoginEmpresa from "./pages/pages-empresa/LoginEmpresa";
 import Bienvenida from "./pages/Inicio/Bienvenida";
 import InicioUsuario from "./pages/pages-users/InicioUser";
+import PerfilUsuario from "./pages/pages-users/PerfilBdE";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
   {
     path: "/login-users",
     element: <LoginUsers />,
+  },
+  {
+    path: "/perfil-usuario",
+    element: <PerfilUsuario />,
   },
   {
     path: "/login-empresa",

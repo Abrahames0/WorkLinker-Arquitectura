@@ -8,7 +8,7 @@ import { Usuarios } from "../../models";
 
 function LoginUsers() {
   const [session, setSession] = useState(false);
-  const [nombreGrupo, setNombreGrupo] = useState("Usuarios");
+  const [nombreGrupo, setNombreGrupo] = useState("usuarios");
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
@@ -63,7 +63,7 @@ function LoginUsers() {
     <div>
       Loading...
       {session ? (
-        nombreGrupo === "Usuarios" ? (
+        nombreGrupo === "usuarios" ? (
           <Navigate to="/user/inicio" />
         ) : (
           <Navigate to="/login-empresa" />
