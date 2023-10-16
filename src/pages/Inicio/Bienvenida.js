@@ -5,7 +5,8 @@ function Bienvenida() {
     return(
         <div>
             <NavegacionInicio/>
-            <CarouselInicio/> 
+            <CarouselInicio/> '
+            '
         </div>
     )
 }
