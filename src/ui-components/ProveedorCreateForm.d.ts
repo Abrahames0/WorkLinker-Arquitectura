@@ -13,33 +13,36 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ProveedorCreateFormInputValues = {
-    nombreProveedor?: string;
+    correo?: string;
     apellidosProveedor?: string;
     calleProveedor?: string;
     numeroProveedor?: string;
     codigoPostalProveedor?: number;
     estadoProveedor?: string;
     paisProveedor?: string;
+    nombreProveedor?: string;
 };
 export declare type ProveedorCreateFormValidationValues = {
-    nombreProveedor?: ValidationFunction<string>;
+    correo?: ValidationFunction<string>;
     apellidosProveedor?: ValidationFunction<string>;
     calleProveedor?: ValidationFunction<string>;
     numeroProveedor?: ValidationFunction<string>;
     codigoPostalProveedor?: ValidationFunction<number>;
     estadoProveedor?: ValidationFunction<string>;
     paisProveedor?: ValidationFunction<string>;
+    nombreProveedor?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProveedorCreateFormOverridesProps = {
     ProveedorCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    nombreProveedor?: PrimitiveOverrideProps<TextFieldProps>;
+    correo?: PrimitiveOverrideProps<TextFieldProps>;
     apellidosProveedor?: PrimitiveOverrideProps<TextFieldProps>;
     calleProveedor?: PrimitiveOverrideProps<TextFieldProps>;
     numeroProveedor?: PrimitiveOverrideProps<TextFieldProps>;
     codigoPostalProveedor?: PrimitiveOverrideProps<TextFieldProps>;
     estadoProveedor?: PrimitiveOverrideProps<TextFieldProps>;
     paisProveedor?: PrimitiveOverrideProps<TextFieldProps>;
+    nombreProveedor?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ProveedorCreateFormProps = React.PropsWithChildren<{
     overrides?: ProveedorCreateFormOverridesProps | undefined | null;

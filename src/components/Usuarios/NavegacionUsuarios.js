@@ -22,7 +22,7 @@ function NavegacionUsuarios({ setSession }) {
             localStorage.setItem("nombreNav", e[0].nombre);
             return
           }
-          localStorage.setItem("nombreNav", "usuario");
+          localStorage.setItem("nombreNav", "Usuario");
         })
       }, 950);
     }

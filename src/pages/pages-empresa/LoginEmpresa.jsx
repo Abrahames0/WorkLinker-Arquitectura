@@ -25,15 +25,14 @@ function LoginEmpresa() {
   //Agregar los usuarios a sus grupos
   async function addToGroup(username) {
     await Auth.currentSession().then((data) => {
-      var token = data.idToken.jwtToken;
       const requestOptions = {
         method: "POST",
-        headers: { Authorization: "Bearer " + token,
+        headers: { Authorization: "Bearer ",
         "Content-Type": "application/json", },
         body: JSON.stringify({ groupname: nombreGrupo, username: username, idAplicacion: process.env.REACT_APP_API_USER_GROUP }),
       };
       fetch(
-        process.env.REACT_APP_API_WORK_LINKER + "/agregar-usuario-a-grupo",
+        process.env.REACT_APP_API_WORKLINKER + "/agregar-usuario-a-grupo",
         requestOptions
       )
         .then((response) => {
@@ -57,7 +56,7 @@ function LoginEmpresa() {
   return (
     <div>
       {session && (
-        nombreGrupo === "Proveedores" ? (
+        nombreGrupo === "proveedores" ? (
           <Navigate to="/inicio-empresa" />
         ) : (
           <Navigate to="/login-users" />

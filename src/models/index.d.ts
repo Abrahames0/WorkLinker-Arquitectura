@@ -178,7 +178,7 @@ type EagerProveedor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombreProveedor?: string | null;
+  readonly correo?: string | null;
   readonly apellidosProveedor?: string | null;
   readonly calleProveedor?: string | null;
   readonly numeroProveedor?: string | null;
@@ -186,6 +186,7 @@ type EagerProveedor = {
   readonly estadoProveedor?: string | null;
   readonly paisProveedor?: string | null;
   readonly Productos?: (Producto | null)[] | null;
+  readonly nombreProveedor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -196,7 +197,7 @@ type LazyProveedor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombreProveedor?: string | null;
+  readonly correo?: string | null;
   readonly apellidosProveedor?: string | null;
   readonly calleProveedor?: string | null;
   readonly numeroProveedor?: string | null;
@@ -204,6 +205,7 @@ type LazyProveedor = {
   readonly estadoProveedor?: string | null;
   readonly paisProveedor?: string | null;
   readonly Productos: AsyncCollection<Producto>;
+  readonly nombreProveedor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

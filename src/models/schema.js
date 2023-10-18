@@ -441,8 +441,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "nombreProveedor": {
-                    "name": "nombreProveedor",
+                "correo": {
+                    "name": "correo",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -505,6 +505,13 @@ export const schema = {
                             "proveedorID"
                         ]
                     }
+                },
+                "nombreProveedor": {
+                    "name": "nombreProveedor",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -692,5 +699,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "7b44183ebde3f35d68083af84723607b"
+    "version": "ea19597a811031c4ad38334899ab38f6"
 };

@@ -24,17 +24,16 @@ export default function ProveedorUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    nombreProveedor: "",
+    correo: "",
     apellidosProveedor: "",
     calleProveedor: "",
     numeroProveedor: "",
     codigoPostalProveedor: "",
     estadoProveedor: "",
     paisProveedor: "",
+    nombreProveedor: "",
   };
-  const [nombreProveedor, setNombreProveedor] = React.useState(
-    initialValues.nombreProveedor
-  );
+  const [correo, setCorreo] = React.useState(initialValues.correo);
   const [apellidosProveedor, setApellidosProveedor] = React.useState(
     initialValues.apellidosProveedor
   );
@@ -53,18 +52,22 @@ export default function ProveedorUpdateForm(props) {
   const [paisProveedor, setPaisProveedor] = React.useState(
     initialValues.paisProveedor
   );
+  const [nombreProveedor, setNombreProveedor] = React.useState(
+    initialValues.nombreProveedor
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = proveedorRecord
       ? { ...initialValues, ...proveedorRecord }
       : initialValues;
-    setNombreProveedor(cleanValues.nombreProveedor);
+    setCorreo(cleanValues.correo);
     setApellidosProveedor(cleanValues.apellidosProveedor);
     setCalleProveedor(cleanValues.calleProveedor);
     setNumeroProveedor(cleanValues.numeroProveedor);
     setCodigoPostalProveedor(cleanValues.codigoPostalProveedor);
     setEstadoProveedor(cleanValues.estadoProveedor);
     setPaisProveedor(cleanValues.paisProveedor);
+    setNombreProveedor(cleanValues.nombreProveedor);
     setErrors({});
   };
   const [proveedorRecord, setProveedorRecord] =
@@ -80,13 +83,14 @@ export default function ProveedorUpdateForm(props) {
   }, [idProp, proveedorModelProp]);
   React.useEffect(resetStateValues, [proveedorRecord]);
   const validations = {
-    nombreProveedor: [],
+    correo: [],
     apellidosProveedor: [],
     calleProveedor: [],
     numeroProveedor: [],
     codigoPostalProveedor: [],
     estadoProveedor: [],
     paisProveedor: [],
+    nombreProveedor: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -114,13 +118,14 @@ export default function ProveedorUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          nombreProveedor,
+          correo,
           apellidosProveedor,
           calleProveedor,
           numeroProveedor,
           codigoPostalProveedor,
           estadoProveedor,
           paisProveedor,
+          nombreProveedor,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -168,34 +173,35 @@ export default function ProveedorUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Nombre proveedor"
+        label="Correo"
         isRequired={false}
         isReadOnly={false}
-        value={nombreProveedor}
+        value={correo}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreProveedor: value,
+              correo: value,
               apellidosProveedor,
               calleProveedor,
               numeroProveedor,
               codigoPostalProveedor,
               estadoProveedor,
               paisProveedor,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
-            value = result?.nombreProveedor ?? value;
+            value = result?.correo ?? value;
           }
-          if (errors.nombreProveedor?.hasError) {
-            runValidationTasks("nombreProveedor", value);
+          if (errors.correo?.hasError) {
+            runValidationTasks("correo", value);
           }
-          setNombreProveedor(value);
+          setCorreo(value);
         }}
-        onBlur={() => runValidationTasks("nombreProveedor", nombreProveedor)}
-        errorMessage={errors.nombreProveedor?.errorMessage}
-        hasError={errors.nombreProveedor?.hasError}
-        {...getOverrideProps(overrides, "nombreProveedor")}
+        onBlur={() => runValidationTasks("correo", correo)}
+        errorMessage={errors.correo?.errorMessage}
+        hasError={errors.correo?.hasError}
+        {...getOverrideProps(overrides, "correo")}
       ></TextField>
       <TextField
         label="Apellidos proveedor"
@@ -206,13 +212,14 @@ export default function ProveedorUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreProveedor,
+              correo,
               apellidosProveedor: value,
               calleProveedor,
               numeroProveedor,
               codigoPostalProveedor,
               estadoProveedor,
               paisProveedor,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
             value = result?.apellidosProveedor ?? value;
@@ -238,13 +245,14 @@ export default function ProveedorUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreProveedor,
+              correo,
               apellidosProveedor,
               calleProveedor: value,
               numeroProveedor,
               codigoPostalProveedor,
               estadoProveedor,
               paisProveedor,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
             value = result?.calleProveedor ?? value;
@@ -268,13 +276,14 @@ export default function ProveedorUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreProveedor,
+              correo,
               apellidosProveedor,
               calleProveedor,
               numeroProveedor: value,
               codigoPostalProveedor,
               estadoProveedor,
               paisProveedor,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
             value = result?.numeroProveedor ?? value;
@@ -302,13 +311,14 @@ export default function ProveedorUpdateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              nombreProveedor,
+              correo,
               apellidosProveedor,
               calleProveedor,
               numeroProveedor,
               codigoPostalProveedor: value,
               estadoProveedor,
               paisProveedor,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
             value = result?.codigoPostalProveedor ?? value;
@@ -334,13 +344,14 @@ export default function ProveedorUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreProveedor,
+              correo,
               apellidosProveedor,
               calleProveedor,
               numeroProveedor,
               codigoPostalProveedor,
               estadoProveedor: value,
               paisProveedor,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
             value = result?.estadoProveedor ?? value;
@@ -364,13 +375,14 @@ export default function ProveedorUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreProveedor,
+              correo,
               apellidosProveedor,
               calleProveedor,
               numeroProveedor,
               codigoPostalProveedor,
               estadoProveedor,
               paisProveedor: value,
+              nombreProveedor,
             };
             const result = onChange(modelFields);
             value = result?.paisProveedor ?? value;
@@ -384,6 +396,37 @@ export default function ProveedorUpdateForm(props) {
         errorMessage={errors.paisProveedor?.errorMessage}
         hasError={errors.paisProveedor?.hasError}
         {...getOverrideProps(overrides, "paisProveedor")}
+      ></TextField>
+      <TextField
+        label="Nombre proveedor"
+        isRequired={false}
+        isReadOnly={false}
+        value={nombreProveedor}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              correo,
+              apellidosProveedor,
+              calleProveedor,
+              numeroProveedor,
+              codigoPostalProveedor,
+              estadoProveedor,
+              paisProveedor,
+              nombreProveedor: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.nombreProveedor ?? value;
+          }
+          if (errors.nombreProveedor?.hasError) {
+            runValidationTasks("nombreProveedor", value);
+          }
+          setNombreProveedor(value);
+        }}
+        onBlur={() => runValidationTasks("nombreProveedor", nombreProveedor)}
+        errorMessage={errors.nombreProveedor?.errorMessage}
+        hasError={errors.nombreProveedor?.hasError}
+        {...getOverrideProps(overrides, "nombreProveedor")}
       ></TextField>
       <Flex
         justifyContent="space-between"

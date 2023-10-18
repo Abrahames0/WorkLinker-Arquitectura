@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { DataStore } from "@aws-amplify/datastore";
 import { Usuarios } from "../../models";
 
-function LoginUsers() {
+function LoginUsuarios() {
   const [session, setSession] = useState(false);
   const [nombreGrupo, setNombreGrupo] = useState("usuarios");
   const [userData, setUserData] = useState({});
@@ -32,21 +32,20 @@ function LoginUsers() {
         .catch((err) => console.log(err));
     }
     getData();
-  }, []);
+  }, [addToGroup]);
 
 
   //Agregar los usuarios a sus grupos
   async function addToGroup(username) {
     await Auth.currentSession().then((data) => {
-      var token = data.idToken.jwtToken;
       const requestOptions = {
         method: "POST",
-        headers: { Authorization: "Bearer " + token,
+        headers: { Authorization: "Bearer ",
         "Content-Type": "application/json" },
         body: JSON.stringify({ groupname: nombreGrupo, username: username, idAplicacion: process.env.REACT_APP_API_USER_GROUP }),
       };
       fetch(
-        process.env.REACT_APP_API_WORK_LINKER + "/agregar-usuario-a-grupo",
+        process.env.REACT_APP_API_WORKLINKER + "/agregar-usuario-a-grupo",
         requestOptions
       )
         .then((response) => {
@@ -64,7 +63,7 @@ function LoginUsers() {
       Loading...
       {session ? (
         nombreGrupo === "usuarios" ? (
-          <Navigate to="/user/inicio" />
+          <Navigate to="/inicio-usuarios" />
         ) : (
           <Navigate to="/login-empresa" />
         )
@@ -75,4 +74,5 @@ function LoginUsers() {
   );
 }
 
-export default withAuthenticator(LoginUsers);
+
+export default withAuthenticator(LoginUsuarios);

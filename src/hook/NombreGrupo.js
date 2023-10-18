@@ -3,16 +3,15 @@ import { Auth } from "aws-amplify";
 export const NombreGrupo = async (username, nombreGrupo, setNombreGrupo) => {
   try {
     await Auth.currentSession().then((data) => {
-      var token = data.idToken.jwtToken;
+      const url =process.env.REACT_APP_API_WORKLINKER + "/agregar-usuario-a-grupo"
       const requestOptions = {
         method: "POST",
-        headers: { Authorization: "Bearer " + token,
+        headers: { Authorization: "Bearer ",
         "Content-Type": "application/json", },
         body: JSON.stringify({ groupname: nombreGrupo, username: username, idAplicacion: process.env.REACT_APP_API_USER_GROUP }),
       };
       fetch(
-        process.env.REACT_APP_API_WORK_LINKER+"/agregar-usuario-a-grupo",
-        requestOptions
+        url ,requestOptions
       )
         .then((response) => {
           return response.json();

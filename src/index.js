@@ -15,7 +15,9 @@ import LoginUsers from "./pages/pages-users/LoginUsers";
 import LoginEmpresa from "./pages/pages-empresa/LoginEmpresa";
 import Bienvenida from "./pages/Inicio/Bienvenida";
 import InicioUsuario from "./pages/pages-users/InicioUser";
-import PerfilUsuario from "./pages/pages-users/PerfilBdE";
+import PerfilUsuario from "./pages/pages-users/PerfilUsuario";
+import InicioProveedor from "./pages/pages-empresa/InicioProvee";
+import PerfilEmpresa from "./pages/pages-empresa/PerfilEmpresa";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -62,11 +64,19 @@ const router = createBrowserRouter([
     element: <PerfilUsuario />,
   },
   {
+    path: "/perfil-proveedor",
+    element: <PerfilEmpresa />,
+  },
+  {
     path: "/login-empresa",
     element: <LoginEmpresa />,
   },
   {
-    path: "/user/inicio",
+    path: "/inicio-empresa",
+    element: <InicioProveedor />,
+  },
+  {
+    path: "/inicio-usuarios",
     element: < InicioUsuario/>,
   },
   {
