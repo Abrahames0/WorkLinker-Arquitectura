@@ -47,7 +47,7 @@ function NavegacionUsuarios({ setSession }) {
       <Navbar bg="light" expand="lg">
         <Container>
           <Navbar.Brand>
-            <Link to="/Bienvenida">
+            <Link to="/inicio-usuarios">
               <img src={WorkLinkerRecortada} alt="logo" style={{ width: "10rem" }} />
             </Link>
           </Navbar.Brand>
@@ -98,7 +98,7 @@ function NavegacionUsuarios({ setSession }) {
                   <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
                 </div>
               </NavDropdown>
-              <Nav.Link> <BsCart2 size={20}/> </Nav.Link>
+              <Nav.Link href="/carrito"> <BsCart2 size={20}/> </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

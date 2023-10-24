@@ -18,6 +18,8 @@ import InicioUsuario from "./pages/pages-users/InicioUser";
 import PerfilUsuario from "./pages/pages-users/PerfilUsuario";
 import InicioProveedor from "./pages/pages-empresa/InicioProvee";
 import PerfilEmpresa from "./pages/pages-empresa/PerfilEmpresa";
+import Carrito from "./pages/pages-users/Carrito";
+import RegistroUsuario from "./pages/pages-users/RegistroUsuario";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -60,8 +62,16 @@ const router = createBrowserRouter([
     element: <LoginUsers />,
   },
   {
+    path: "/carrito",
+    element: <Carrito />,
+  },
+  {
     path: "/perfil-usuario",
     element: <PerfilUsuario />,
+  },
+  {
+    path: "/registro-Usuario",
+    element: <RegistroUsuario />,
   },
   {
     path: "/perfil-proveedor",
