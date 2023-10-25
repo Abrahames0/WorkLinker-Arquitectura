@@ -586,6 +586,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "telefono": {
+                    "name": "telefono",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "calleUsuario": {
                     "name": "calleUsuario",
                     "isArray": false,
@@ -600,8 +607,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "ciudadUsuario": {
-                    "name": "ciudadUsuario",
+                "colonia": {
+                    "name": "colonia",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -614,15 +621,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "paisUsuario": {
-                    "name": "paisUsuario",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "estadoUsuario": {
-                    "name": "estadoUsuario",
+                "municipioUsuario": {
+                    "name": "municipioUsuario",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -645,6 +645,20 @@ export const schema = {
                             "usuariosCarritoId"
                         ]
                     }
+                },
+                "estadoUsuario": {
+                    "name": "estadoUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "paisUsuario": {
+                    "name": "paisUsuario",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -699,5 +713,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "ea19597a811031c4ad38334899ab38f6"
+    "version": "5299b2e899db52b6c709001dcdd31cde"
 };
