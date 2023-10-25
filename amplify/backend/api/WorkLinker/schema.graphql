@@ -54,12 +54,14 @@ type Usuarios @model @auth(rules: [{allow: public}]) {
   nombreUsuario: String
   apellidoUsuario: String
   correo: String
+  telefono: String
   calleUsuario: String
   numeroUsuario: String
-  ciudadUsuario: String
+  colonia: String
   codigoPostalUsuario: Int
-  paisUsuario: String
-  estadoUsuario: String
+  municipioUsuario: String
   Carrito: Carrito @hasOne
+  estadoUsuario: String
+  paisUsuario: String
 }
  

@@ -1,0 +1,33 @@
+export const paisesHablaEspanola = [
+  "Argentina",
+  "Bolivia",
+  "Chile",
+  "Colombia",
+  "El Salvador",
+  "España",
+  "Guatemala",
+  "Honduras",
+  "México",
+  "Nicaragua",
+  "Panamá",
+  "Paraguay",
+  "Puerto Rico",
+];
+
+export const Categorias = [
+  "electrodomesticos",
+  "Hogar y Muebles",
+  "Moda",
+  "Deportes y finess",
+  "Herramientas",
+  "Construccion",
+  "Industrial y oficinas",
+  "Accesosrios para Vehiculos",
+  "Juegos y juegetes",
+  "Bebes",
+  "Salud y Equipamiento Medico",
+  "Belleza y Cuidado Personal",
+  "Inmuebles",
+  "Compra Internacional",
+  "Productos Sustentables",
+];

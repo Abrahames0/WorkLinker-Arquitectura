@@ -16,23 +16,27 @@ export declare type UsuariosCreateFormInputValues = {
     nombreUsuario?: string;
     apellidoUsuario?: string;
     correo?: string;
+    telefono?: string;
     calleUsuario?: string;
     numeroUsuario?: string;
-    ciudadUsuario?: string;
+    colonia?: string;
     codigoPostalUsuario?: number;
-    paisUsuario?: string;
+    municipioUsuario?: string;
     estadoUsuario?: string;
+    paisUsuario?: string;
 };
 export declare type UsuariosCreateFormValidationValues = {
     nombreUsuario?: ValidationFunction<string>;
     apellidoUsuario?: ValidationFunction<string>;
     correo?: ValidationFunction<string>;
+    telefono?: ValidationFunction<string>;
     calleUsuario?: ValidationFunction<string>;
     numeroUsuario?: ValidationFunction<string>;
-    ciudadUsuario?: ValidationFunction<string>;
+    colonia?: ValidationFunction<string>;
     codigoPostalUsuario?: ValidationFunction<number>;
-    paisUsuario?: ValidationFunction<string>;
+    municipioUsuario?: ValidationFunction<string>;
     estadoUsuario?: ValidationFunction<string>;
+    paisUsuario?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UsuariosCreateFormOverridesProps = {
@@ -40,12 +44,14 @@ export declare type UsuariosCreateFormOverridesProps = {
     nombreUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     apellidoUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     correo?: PrimitiveOverrideProps<TextFieldProps>;
+    telefono?: PrimitiveOverrideProps<TextFieldProps>;
     calleUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     numeroUsuario?: PrimitiveOverrideProps<TextFieldProps>;
-    ciudadUsuario?: PrimitiveOverrideProps<TextFieldProps>;
+    colonia?: PrimitiveOverrideProps<TextFieldProps>;
     codigoPostalUsuario?: PrimitiveOverrideProps<TextFieldProps>;
-    paisUsuario?: PrimitiveOverrideProps<TextFieldProps>;
+    municipioUsuario?: PrimitiveOverrideProps<TextFieldProps>;
     estadoUsuario?: PrimitiveOverrideProps<TextFieldProps>;
+    paisUsuario?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UsuariosCreateFormProps = React.PropsWithChildren<{
     overrides?: UsuariosCreateFormOverridesProps | undefined | null;

@@ -27,12 +27,14 @@ export default function UsuariosUpdateForm(props) {
     nombreUsuario: "",
     apellidoUsuario: "",
     correo: "",
+    telefono: "",
     calleUsuario: "",
     numeroUsuario: "",
-    ciudadUsuario: "",
+    colonia: "",
     codigoPostalUsuario: "",
-    paisUsuario: "",
+    municipioUsuario: "",
     estadoUsuario: "",
+    paisUsuario: "",
   };
   const [nombreUsuario, setNombreUsuario] = React.useState(
     initialValues.nombreUsuario
@@ -41,23 +43,25 @@ export default function UsuariosUpdateForm(props) {
     initialValues.apellidoUsuario
   );
   const [correo, setCorreo] = React.useState(initialValues.correo);
+  const [telefono, setTelefono] = React.useState(initialValues.telefono);
   const [calleUsuario, setCalleUsuario] = React.useState(
     initialValues.calleUsuario
   );
   const [numeroUsuario, setNumeroUsuario] = React.useState(
     initialValues.numeroUsuario
   );
-  const [ciudadUsuario, setCiudadUsuario] = React.useState(
-    initialValues.ciudadUsuario
-  );
+  const [colonia, setColonia] = React.useState(initialValues.colonia);
   const [codigoPostalUsuario, setCodigoPostalUsuario] = React.useState(
     initialValues.codigoPostalUsuario
   );
-  const [paisUsuario, setPaisUsuario] = React.useState(
-    initialValues.paisUsuario
+  const [municipioUsuario, setMunicipioUsuario] = React.useState(
+    initialValues.municipioUsuario
   );
   const [estadoUsuario, setEstadoUsuario] = React.useState(
     initialValues.estadoUsuario
+  );
+  const [paisUsuario, setPaisUsuario] = React.useState(
+    initialValues.paisUsuario
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -67,12 +71,14 @@ export default function UsuariosUpdateForm(props) {
     setNombreUsuario(cleanValues.nombreUsuario);
     setApellidoUsuario(cleanValues.apellidoUsuario);
     setCorreo(cleanValues.correo);
+    setTelefono(cleanValues.telefono);
     setCalleUsuario(cleanValues.calleUsuario);
     setNumeroUsuario(cleanValues.numeroUsuario);
-    setCiudadUsuario(cleanValues.ciudadUsuario);
+    setColonia(cleanValues.colonia);
     setCodigoPostalUsuario(cleanValues.codigoPostalUsuario);
-    setPaisUsuario(cleanValues.paisUsuario);
+    setMunicipioUsuario(cleanValues.municipioUsuario);
     setEstadoUsuario(cleanValues.estadoUsuario);
+    setPaisUsuario(cleanValues.paisUsuario);
     setErrors({});
   };
   const [usuariosRecord, setUsuariosRecord] = React.useState(usuariosModelProp);
@@ -90,12 +96,14 @@ export default function UsuariosUpdateForm(props) {
     nombreUsuario: [],
     apellidoUsuario: [],
     correo: [],
+    telefono: [],
     calleUsuario: [],
     numeroUsuario: [],
-    ciudadUsuario: [],
+    colonia: [],
     codigoPostalUsuario: [],
-    paisUsuario: [],
+    municipioUsuario: [],
     estadoUsuario: [],
+    paisUsuario: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -126,12 +134,14 @@ export default function UsuariosUpdateForm(props) {
           nombreUsuario,
           apellidoUsuario,
           correo,
+          telefono,
           calleUsuario,
           numeroUsuario,
-          ciudadUsuario,
+          colonia,
           codigoPostalUsuario,
-          paisUsuario,
+          municipioUsuario,
           estadoUsuario,
+          paisUsuario,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -190,12 +200,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario: value,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.nombreUsuario ?? value;
@@ -222,12 +234,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario: value,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.apellidoUsuario ?? value;
@@ -254,12 +268,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo: value,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.correo ?? value;
@@ -275,6 +291,40 @@ export default function UsuariosUpdateForm(props) {
         {...getOverrideProps(overrides, "correo")}
       ></TextField>
       <TextField
+        label="Telefono"
+        isRequired={false}
+        isReadOnly={false}
+        value={telefono}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              nombreUsuario,
+              apellidoUsuario,
+              correo,
+              telefono: value,
+              calleUsuario,
+              numeroUsuario,
+              colonia,
+              codigoPostalUsuario,
+              municipioUsuario,
+              estadoUsuario,
+              paisUsuario,
+            };
+            const result = onChange(modelFields);
+            value = result?.telefono ?? value;
+          }
+          if (errors.telefono?.hasError) {
+            runValidationTasks("telefono", value);
+          }
+          setTelefono(value);
+        }}
+        onBlur={() => runValidationTasks("telefono", telefono)}
+        errorMessage={errors.telefono?.errorMessage}
+        hasError={errors.telefono?.hasError}
+        {...getOverrideProps(overrides, "telefono")}
+      ></TextField>
+      <TextField
         label="Calle usuario"
         isRequired={false}
         isReadOnly={false}
@@ -286,12 +336,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario: value,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.calleUsuario ?? value;
@@ -318,12 +370,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario: value,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.numeroUsuario ?? value;
@@ -339,10 +393,10 @@ export default function UsuariosUpdateForm(props) {
         {...getOverrideProps(overrides, "numeroUsuario")}
       ></TextField>
       <TextField
-        label="Ciudad usuario"
+        label="Colonia"
         isRequired={false}
         isReadOnly={false}
-        value={ciudadUsuario}
+        value={colonia}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -350,25 +404,27 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario: value,
+              colonia: value,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
-            value = result?.ciudadUsuario ?? value;
+            value = result?.colonia ?? value;
           }
-          if (errors.ciudadUsuario?.hasError) {
-            runValidationTasks("ciudadUsuario", value);
+          if (errors.colonia?.hasError) {
+            runValidationTasks("colonia", value);
           }
-          setCiudadUsuario(value);
+          setColonia(value);
         }}
-        onBlur={() => runValidationTasks("ciudadUsuario", ciudadUsuario)}
-        errorMessage={errors.ciudadUsuario?.errorMessage}
-        hasError={errors.ciudadUsuario?.hasError}
-        {...getOverrideProps(overrides, "ciudadUsuario")}
+        onBlur={() => runValidationTasks("colonia", colonia)}
+        errorMessage={errors.colonia?.errorMessage}
+        hasError={errors.colonia?.hasError}
+        {...getOverrideProps(overrides, "colonia")}
       ></TextField>
       <TextField
         label="Codigo postal usuario"
@@ -386,12 +442,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario: value,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.codigoPostalUsuario ?? value;
@@ -409,10 +467,10 @@ export default function UsuariosUpdateForm(props) {
         {...getOverrideProps(overrides, "codigoPostalUsuario")}
       ></TextField>
       <TextField
-        label="Pais usuario"
+        label="Municipio usuario"
         isRequired={false}
         isReadOnly={false}
-        value={paisUsuario}
+        value={municipioUsuario}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -420,25 +478,27 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario: value,
+              municipioUsuario: value,
               estadoUsuario,
+              paisUsuario,
             };
             const result = onChange(modelFields);
-            value = result?.paisUsuario ?? value;
+            value = result?.municipioUsuario ?? value;
           }
-          if (errors.paisUsuario?.hasError) {
-            runValidationTasks("paisUsuario", value);
+          if (errors.municipioUsuario?.hasError) {
+            runValidationTasks("municipioUsuario", value);
           }
-          setPaisUsuario(value);
+          setMunicipioUsuario(value);
         }}
-        onBlur={() => runValidationTasks("paisUsuario", paisUsuario)}
-        errorMessage={errors.paisUsuario?.errorMessage}
-        hasError={errors.paisUsuario?.hasError}
-        {...getOverrideProps(overrides, "paisUsuario")}
+        onBlur={() => runValidationTasks("municipioUsuario", municipioUsuario)}
+        errorMessage={errors.municipioUsuario?.errorMessage}
+        hasError={errors.municipioUsuario?.hasError}
+        {...getOverrideProps(overrides, "municipioUsuario")}
       ></TextField>
       <TextField
         label="Estado usuario"
@@ -452,12 +512,14 @@ export default function UsuariosUpdateForm(props) {
               nombreUsuario,
               apellidoUsuario,
               correo,
+              telefono,
               calleUsuario,
               numeroUsuario,
-              ciudadUsuario,
+              colonia,
               codigoPostalUsuario,
-              paisUsuario,
+              municipioUsuario,
               estadoUsuario: value,
+              paisUsuario,
             };
             const result = onChange(modelFields);
             value = result?.estadoUsuario ?? value;
@@ -471,6 +533,40 @@ export default function UsuariosUpdateForm(props) {
         errorMessage={errors.estadoUsuario?.errorMessage}
         hasError={errors.estadoUsuario?.hasError}
         {...getOverrideProps(overrides, "estadoUsuario")}
+      ></TextField>
+      <TextField
+        label="Pais usuario"
+        isRequired={false}
+        isReadOnly={false}
+        value={paisUsuario}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              nombreUsuario,
+              apellidoUsuario,
+              correo,
+              telefono,
+              calleUsuario,
+              numeroUsuario,
+              colonia,
+              codigoPostalUsuario,
+              municipioUsuario,
+              estadoUsuario,
+              paisUsuario: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.paisUsuario ?? value;
+          }
+          if (errors.paisUsuario?.hasError) {
+            runValidationTasks("paisUsuario", value);
+          }
+          setPaisUsuario(value);
+        }}
+        onBlur={() => runValidationTasks("paisUsuario", paisUsuario)}
+        errorMessage={errors.paisUsuario?.errorMessage}
+        hasError={errors.paisUsuario?.hasError}
+        {...getOverrideProps(overrides, "paisUsuario")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -1,8 +1,7 @@
-import { FormControl, InputLabel, TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { paisesHablaEspanola } from "../../files/Catalogos";
 
 const Direciones = () => {
-
-    
   const validaciones = {
     municipio: {
       regex: /[^0-9a-zA-ZñÑáéíóúÁÉÍÓÚ,.´\s&-]/g,
@@ -42,23 +41,35 @@ const Direciones = () => {
   return (
     <div className="row p-2">
       <div className="col-sm-12 col-md-6 p-2">
-        <FormControl fullWidth>
-          <InputLabel>Municipio</InputLabel>
-        </FormControl>
-      </div>
-      <div className="col-sm-12 col-md-6 p-2">
-        <TextField fullWidth label="Colonia / Localidad" name="colonia" />
-      </div>
-      <div className="col-sm-12 col-md-6 p-2">
         <TextField fullWidth label="Calle" name="calle" />
       </div>
       <div className="col-sm-12 col-md-6 p-2 pb-0">
         <TextField fullWidth label="Número exterior o interior" name="numero" />
       </div>
       <div className="col-sm-12 col-md-6 p-2">
+        <TextField fullWidth label="Colonia / Localidad" name="colonia" />
+      </div>
+      <div className="col-sm-12 col-md-6 p-2">
         <TextField fullWidth label="Código postal" name="codigoPostal" />
       </div>
-      <div></div>
+      <div className="col-sm-12 col-md-6 p-2">
+        <TextField fullWidth label="Municipio" name="municipio" />
+      </div>
+      <div className="col-sm-12 col-md-6 p-2">
+        <TextField fullWidth label="Estado" name="estado" />
+      </div>
+      <div className="col-sm-12 col-md-6 p-2">
+      <FormControl fullWidth>
+            <InputLabel>País</InputLabel>
+            <Select fullWidth name='pais' label='pais'>
+              {paisesHablaEspanola.map((v) => (
+                <MenuItem value={v} key={v}>
+                  {v}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+      </div>
     </div>
   );
 };
