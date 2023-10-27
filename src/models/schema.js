@@ -441,6 +441,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "nombreComercial": {
+                    "name": "nombreComercial",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "correo": {
                     "name": "correo",
                     "isArray": false,
@@ -448,45 +455,38 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "apellidosProveedor": {
-                    "name": "apellidosProveedor",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "calleProveedor": {
-                    "name": "calleProveedor",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "numeroProveedor": {
-                    "name": "numeroProveedor",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "codigoPostalProveedor": {
-                    "name": "codigoPostalProveedor",
+                "telefono": {
+                    "name": "telefono",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "estadoProveedor": {
-                    "name": "estadoProveedor",
+                "calle": {
+                    "name": "calle",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "paisProveedor": {
-                    "name": "paisProveedor",
+                "numero": {
+                    "name": "numero",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "colonia": {
+                    "name": "colonia",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "codigoPostal": {
+                    "name": "codigoPostal",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -506,8 +506,22 @@ export const schema = {
                         ]
                     }
                 },
-                "nombreProveedor": {
-                    "name": "nombreProveedor",
+                "municipio": {
+                    "name": "municipio",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "estado": {
+                    "name": "estado",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "pais": {
+                    "name": "pais",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -713,5 +727,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "5299b2e899db52b6c709001dcdd31cde"
+    "version": "914e3ea5f0e9048f90d6a4b85a9ec6f1"
 };

@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Usuarios } from "../../models";
 import {BsCart2, BsSearch } from 'react-icons/bs'
 import { Button } from "@mui/material";
+import { RiNotification2Line } from 'react-icons/ri'
 
 
 function NavegacionUsuarios({ setSession }) {
@@ -100,6 +101,7 @@ function NavegacionUsuarios({ setSession }) {
                   <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
                 </div>
               </NavDropdown>
+              <Nav.Link href="/notificaciones"><RiNotification2Line size={13}/> </Nav.Link>
               <Nav.Link href="/carrito"> <BsCart2 size={20}/> </Nav.Link>
             </Nav>
           </Navbar.Collapse>

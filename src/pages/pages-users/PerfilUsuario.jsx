@@ -77,12 +77,12 @@ function PerfilUsuario() {
                 </>
               )}
             </>
-          ) : nombreGrupo === "proveedores" && (
-            <Navigate to='/login-empresa' />
+          ) : nombreGrupo === "usuarios" && (
+            <Navigate to='/login-users' />
           )}
         </>
       ) : session === false && (
-        <Navigate to='/login-users' />
+        <Navigate to='/login-empresas' />
       )}
     </div>
   );
