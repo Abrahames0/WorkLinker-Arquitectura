@@ -38,15 +38,17 @@ type Repartidor @model @auth(rules: [{allow: public}]) {
 
 type Proveedor @model @auth(rules: [{allow: public}]) {
   id: ID!
+  nombreComercial: String
   correo: String
-  apellidosProveedor: String
-  calleProveedor: String
-  numeroProveedor: String
-  codigoPostalProveedor: Int
-  estadoProveedor: String
-  paisProveedor: String
+  telefono: Int
+  calle: String
+  numero: String
+  colonia: String
+  codigoPostal: Int
   Productos: [Producto] @hasMany(indexName: "byProveedor", fields: ["id"])
-  nombreProveedor: String
+  municipio: String
+  estado: String
+  pais: String
 }
 
 type Usuarios @model @auth(rules: [{allow: public}]) {
