@@ -3,21 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { Auth } from 'aws-amplify';
-import { Usuarios } from '../../models';
+import { Proveedor } from '../../models';
 import { DataStore } from '@aws-amplify/datastore';
 
 import { NombreGrupo } from '../../hook/NombreGrupo';
-import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
-import RegistroUsuarioInformacion from '../../components/Usuarios/registro-Usuario/RegistroUsuarioInformacion';
+import NavegacionEmpresas from '../../components/Empresas/NavegacionEmpresa';
+import RegistroEmpresaInformacion from '../../components/Empresas/RegistroEmpresaInformacion';
 
-function RegistroUsuario() {
+function RegistroEmpresa() {
   const [session, setSession] = useState('');
   const [idOwner, setIdOwner] = useState('');
   const [email, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
-  const [bdeData, setbdeData] = useState({});
 
   useEffect(() => {
     async function getData() {
@@ -25,13 +24,10 @@ function RegistroUsuario() {
         await setSession(true);
         await setIdOwner(data.username);
         await setEmail(data.attributes.email);
-        await NombreGrupo(data.username, 'usuario', setNombreGrupo);
-        const sub = DataStore.observeQuery(Usuarios, (c) => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
+        await NombreGrupo(data.username, 'proveedores', setNombreGrupo);
+        const sub = DataStore.observeQuery(Proveedor, (c) => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
           setExisteBde(items.length);
           setregistroCompleto(items[0]?.registroCompleto === true ? items[0]?.registroCompleto : false);
-          if (items.length > 0) {
-            setbdeData(items[0]);
-          }
         });
         return () => {
           sub.unsubscribe();
@@ -48,14 +44,14 @@ function RegistroUsuario() {
     <div>
       {session ? (
         <>
-          {nombreGrupo === 'usuarios' ? (
-            (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
+          {nombreGrupo === 'proveedores' ? (
+            (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-empresa' />) : (existeBde === 0 || registroCompleto === false) && (
               <>
-                <NavegacionUsuarios setSession={setSession} />
-                 <RegistroUsuarioInformacion /* idUser={idOwner} email={email} bdeData={bdeData} *//>
+                <NavegacionEmpresas setSession={setSession} />
+                 <RegistroEmpresaInformacion idUser={idOwner} email={email}/>
               </>
             )
-          ) : nombreGrupo === 'empresa' && (
+          ) : nombreGrupo === 'proveedores' && (
             <Navigate to='/login-empresa' />
           )}
         </>
@@ -66,4 +62,4 @@ function RegistroUsuario() {
   );
 }
 
-export default RegistroUsuario;
+export default RegistroEmpresa;

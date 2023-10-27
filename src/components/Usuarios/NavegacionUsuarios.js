@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Auth, DataStore } from "aws-amplify";
 import { IoPerson } from "react-icons/io5";
-import { Navbar, Container, Nav, NavDropdown, Form, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Usuarios } from "../../models";
 import {BsCart2, BsSearch } from 'react-icons/bs'
+import { Button } from "@mui/material";
+import { RiNotification2Line } from 'react-icons/ri'
+
 
 function NavegacionUsuarios({ setSession }) {
   const navigate = useNavigate();
@@ -87,7 +90,7 @@ function NavegacionUsuarios({ setSession }) {
                     className="me-2 search-input"
                     aria-label="Search"
                 />
-                <Button className="search-button"> <BsSearch/> </Button>
+                <Button variant="contained"> <BsSearch size={15}/> </Button>
             </Form>
           </Nav>
             <Nav>
@@ -98,6 +101,7 @@ function NavegacionUsuarios({ setSession }) {
                   <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
                 </div>
               </NavDropdown>
+              <Nav.Link href="/notificaciones"><RiNotification2Line size={13}/> </Nav.Link>
               <Nav.Link href="/carrito"> <BsCart2 size={20}/> </Nav.Link>
             </Nav>
           </Navbar.Collapse>
