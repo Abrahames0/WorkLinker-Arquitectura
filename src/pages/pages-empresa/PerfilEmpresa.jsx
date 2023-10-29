@@ -23,7 +23,7 @@ function PerfilEmpresa() {
           .then(async (user) => {
             await setSession(true);
             await NombreGrupo(user.username, "proveedores", setNombreGrupo)
-            await setUser(user.username);  // establecer user.username en el estado del proveedores
+            await setUser(user.username); 
             const sub = DataStore.observeQuery(Proveedor, c => c.correo.eq(user.attributes.email), { limit: 1 })
               .subscribe(({ items }) => { setUserData(items[0]); });
             return () => {
