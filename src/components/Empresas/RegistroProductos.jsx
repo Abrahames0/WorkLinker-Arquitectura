@@ -174,7 +174,7 @@ const handleChange = (event) => {
     if (!validateField(precio, 'El campo precio es requerido')) return false;
     if (!validateField(categoria, 'El campo categoria es requerido')) return false;
     if (!validateField(stock, 'El campo stock es requerido')) return false;
-    /* if (!validateField(imagenURL, 'El campo imagen es requerido')) return false; */
+    if (!validateField(imagenURL, 'El campo imagen es requerido')) return false;
 
     if (error.nombreProducto) {
       Swal.fire({
@@ -265,7 +265,6 @@ useLayoutEffect(() => {
     getEmpresa();
   }, [emailOwner]);
 
-
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
   
@@ -273,7 +272,7 @@ useLayoutEffect(() => {
       const fileName = 'img/' + file.name; 
       await Storage.put(fileName, file, { level: 'public', type: file.type });
   
-      const imageUrl = `https://amplify-worklinker-prod-222139-deployment.s3.amazonaws.com/public/${fileName}`;
+      const imageUrl = `S3_IMAGE_BASE_URL${fileName}`;
       setImagenURL(imageUrl);
   
       // La carga del archivo se realizó con éxito
@@ -284,8 +283,6 @@ useLayoutEffect(() => {
     }
   };
   
-
-
   return (
     <div>
       <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
