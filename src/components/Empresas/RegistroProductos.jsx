@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
-import { DataStore } from "aws-amplify";
+import { DataStore, Storage } from "aws-amplify";
 import { Producto, Proveedor } from "../../models";
 
 import Swal from "sweetalert2";
@@ -20,6 +20,8 @@ function RegistroProductos({ emailOwner } ) {
 
   const navigate = useNavigate()
   const [provedor, setProvedor] = useState(null);
+  const [imagenURL, setImagenURL] = useState(null);
+
 
 
 const PROHIBITED_CHARS = /[?*¨´_"$/\\?¿[\]{}:=^;<>+~,@'%#¡!°¬|+]+/g;
@@ -86,7 +88,7 @@ const handleChange = (event) => {
     descripcion: '',
     precio: '',
     stock: '',
-    imagenURL: '',
+    imagenURL: imagenURL,
     categoria: '',
     error: {},
     help: {}
@@ -131,6 +133,7 @@ const handleChange = (event) => {
   ];
 
   const guardarProducto = async () => {
+    console.log(infProducto.imagenURL,);
     try {
       const productos = new Producto({
         nombreProducto: infProducto.nombreProducto,
@@ -140,7 +143,8 @@ const handleChange = (event) => {
         /* imagenURL: infProducto.imagenURL, */
         categoria: infProducto.categoria,
 
-        proveedorID: provedor.id
+        proveedorID: provedor.id,
+        imagenURL: imagenURL
       })
       await DataStore.save(productos);
       return true
@@ -261,6 +265,27 @@ useLayoutEffect(() => {
     getEmpresa();
   }, [emailOwner]);
 
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+  
+    try {
+      const fileName = 'img/' + file.name; 
+      await Storage.put(fileName, file, { level: 'public', type: file.type });
+  
+      const imageUrl = `https://amplify-worklinker-prod-222139-deployment.s3.amazonaws.com/public/${fileName}`;
+      setImagenURL(imageUrl);
+  
+      // La carga del archivo se realizó con éxito
+      console.log('Archivo cargado exitosamente:', imageUrl);
+    } catch (error) {
+      console.error('Error al cargar la imagen:', error);
+      // Maneja el error aquí
+    }
+  };
+  
+
+
   return (
     <div>
       <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
@@ -306,7 +331,7 @@ useLayoutEffect(() => {
                   endAdornment: (
                     <Button component="label" variant="contained" startIcon={<TbCloudUpload />}>
                       Cargar
-                      <VisuallyHiddenInput type="file" onChange={"hola"} accept="image/*"/>
+                      <VisuallyHiddenInput type="file" onChange={handleImageUpload} accept="image/*"/>
                     </Button>
                   ),
                 }}
