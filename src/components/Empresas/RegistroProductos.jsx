@@ -12,6 +12,8 @@ import { VisuallyHiddenInput } from "@chakra-ui/react";
 
 import { TbCloudUpload } from "react-icons/tb";
 import { VistaPreviaProducto } from "./VistaPreviaProductos";
+import AutocompleteNout from "../componentesRecicables/AutocompleteNout";
+import { Categorias } from "../../files/Catalogos";
 
 
 function RegistroProductos({ emailOwner } ) {
@@ -45,11 +47,11 @@ const validaciones = {
         maxLength: 5,
         help: "Ingresa un precio válido de hasta 5 dígitos numéricos"
     },
-    categoria: {
+    /* categoria: {
         maxLength: 50,
         regex: ALPHA_NUMERIC_EXTENDED,
         help: "El campo categoria tiene un máximo de 50 caracteres"
-    }
+    } */
 };
 
 const handleChange = (event) => {
@@ -67,13 +69,10 @@ const handleChange = (event) => {
         }
     }
 
-    // Aquí puede ir la lógica para manejar el error si existe
     if (error) {
         console.log(help);
     }
 
-
-    // Verificar si existe un error antes de actualizar el estado
     setinfProducto((past) => ({
       ...past,
       [name]: event.target.value,
@@ -128,14 +127,6 @@ const handleChange = (event) => {
       error: infProducto.error?.stock,
       helperText: infProducto.help?.stock,
       value: infProducto.stock,
-    },
-    {
-      id: 5,
-      label: "Categoria del producto",
-      name: "categoria",
-      error: infProducto.error?.categoria,
-      helperText: infProducto.help?.categoria,
-      value: infProducto.categoria,
     },
   ];
 
@@ -274,7 +265,7 @@ useLayoutEffect(() => {
     <div>
       <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
         <CardHeader className="text-center" title="Registro productos"></CardHeader>
-        <h6>Datos</h6>
+        <h5>Datos</h5>
         <Form noValidate>
           <div className="row justify-content-center">
             <Card className="col-xs-12 col-sm-12 col-md-6">
@@ -291,18 +282,19 @@ useLayoutEffect(() => {
                       label={input.label}
                       inputProps={input.validations}
                       value={input.value}
-                      multiline={false}
-                      onPaste={(e) => e.preventDefault()}
+                      multiline={input.name === "descripcion"}
                       onChange={handleChange}
                       helperText={input.helperText}
                       error={input.error}
-                      disabled={input.name === "email"}
                       InputProps={{
                         startAdornment: input.startAdornment,
                       }}
                     />
                   </div>
                 ))}
+                <div className="col-sm-12 col-md-6 p-2">
+                <AutocompleteNout idInput={"categoria"} nombreInput={"Categoria del producto *"} autoInfo={infProducto} setAutoInfo={setinfProducto} arreglo={Categorias}/>
+                </div>
               </div>
               <TextField
                 label="Imagen del producto"

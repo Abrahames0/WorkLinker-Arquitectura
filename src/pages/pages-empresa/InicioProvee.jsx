@@ -8,6 +8,7 @@ import { DataStore } from '@aws-amplify/datastore';
 
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionEmpresas from '../../components/Empresas/NavegacionEmpresa';
+import ListaProductos from '../../components/Empresas/ListaProductosEditarEliminar';
 
 function RegistroEmpresa() {
   const [session, setSession] = useState('');
@@ -47,6 +48,7 @@ function RegistroEmpresa() {
             (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-empresa' />) : (existeBde === 0 || registroCompleto === false) && (
               <>
                 <NavegacionEmpresas setSession={setSession} />
+                <ListaProductos/>
               </>
             )
           ) : nombreGrupo === 'proveedores' && (
