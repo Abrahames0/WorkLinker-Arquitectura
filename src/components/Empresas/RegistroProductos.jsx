@@ -1,14 +1,16 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
-import { Auth, DataStore } from "aws-amplify";
+import { DataStore } from "aws-amplify";
 import { Producto, Proveedor } from "../../models";
 
 import Swal from "sweetalert2";
 
 import { Button, TextField, Card, CardHeader } from "@mui/material";
+import { VisuallyHiddenInput } from "@chakra-ui/react";
 
+import { TbCloudUpload } from "react-icons/tb";
 
 
 function RegistroProductos( emailOwner ) {
@@ -17,35 +19,58 @@ function RegistroProductos( emailOwner ) {
   const [activeStep, setActiveStep] = useState(0)
   const [provedor, setProvedor] = useState({})
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    let error = false;
-    let help = null;
+const PROHIBITED_CHARS = /[?*¨´_"$/\\?¿[\]{}:=^;<>+~,@'%#¡!°¬|+]+/g;
+const ALPHA_NUMERIC_EXTENDED = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9()&.,-\s]{0,150}$/;
+const NUMERIC = /^[0-9]+$/;
 
-    const validaciones = {
-      nombreComercial: {
-        regex: /[^0-9()a-zA-ZñÑáéíóúÜüÁÉÍÓÚ@&':,%#¡.&+\s-]+/g,
-        regex2: /^[0-9()a-zA-ZñÑáéíóúÜüÁÉÍÓÚ@&':,%#¡.&+\s-]{0,250}$/,
-        error: true,
-        help: "Ingresa un Nombre comercial de máximo 250 caracteres válido (No son validos caracteres númericos y especiales).",
-      },
-      telefono: {
-        regex: /[^0-9]/g,
-        regex2: /^[0-9]{10}$/,
-        error: true,
-        help: "Ingrese un número de teléfono válido (10 dígitos).",
-      },
-    };
+const validaciones = {
+    nombreProducto: {
+        maxLength: 150,
+        regex: ALPHA_NUMERIC_EXTENDED,
+        help: "El campo nombreProducto tiene un máximo de 150 caracteres"
+    },
+    descripcion: {
+        maxLength: 900,
+        regex: ALPHA_NUMERIC_EXTENDED,
+        help: "El campo descripcion tiene un máximo de 900 caracteres"
+    },
+    stock: {
+        regex: NUMERIC,
+        maxLength: 10,
+        help: "Ingrese un número de stock (hasta 10 dígitos)"
+    },
+    precio: {
+        regex: NUMERIC,
+        maxLength: 5,
+        help: "Ingresa un precio válido de hasta 5 dígitos numéricos"
+    },
+    categoria: {
+        maxLength: 50,
+        regex: ALPHA_NUMERIC_EXTENDED,
+        help: "El campo categoria tiene un máximo de 50 caracteres"
+    }
+};
+
+const handleChange = (event) => {
+    const { name, value } = event.target;
+    let help = null;
+    let error = false;
 
     if (validaciones[name]) {
-      event.target.value = event.target.value
-        .replace(validaciones[name].regex, "")
-        .replace(/\s{1,}/g, " ");
-      if (!validaciones[name].regex2.test(value)) {
-        help = validaciones[name].help;
-        error = validaciones[name].error;
-      }
+        event.target.value = value.replace(PROHIBITED_CHARS, "").replace(/\s{2,}/g, " ");
+
+        const validation = validaciones[name];
+        if (!validation.regex.test(value) || value.length > validation.maxLength) {
+            help = validation.help;
+            error = true;
+        }
     }
+
+    // Aquí puede ir la lógica para manejar el error si existe
+    if (error) {
+        console.log(help);
+    }
+
 
     // Verificar si existe un error antes de actualizar el estado
     setinfProducto((past) => ({
@@ -60,9 +85,10 @@ function RegistroProductos( emailOwner ) {
     nombreProducto: '',
     descripcion: '',
     precio: '',
+    stock: '',
     imagenURL: '',
     categoria: '',
-    stock: {},
+    error: {},
     help: {}
   });
 
@@ -79,19 +105,35 @@ function RegistroProductos( emailOwner ) {
     {
       id: 2,
       label: "Descripcion del producto",
-      name: "descripcionProducto",
+      name: "descripcion",
+      validations: { maxLength: 900 },
       error: infProducto.error?.descripcion,
       helperText: infProducto.help?.descripcion,
       value: infProducto.descripcion,
     },
-
     {
       id: 3,
       label: "Precio del producto",
-      name: "precioProducto",
+      name: "precio",
       error: infProducto.error?.precio,
       helperText: infProducto.help?.precio,
       value: infProducto.precio,
+    },
+    {
+      id: 4,
+      label: "Stock del producto",
+      name: "stock",
+      error: infProducto.error?.stock,
+      helperText: infProducto.help?.stock,
+      value: infProducto.stock,
+    },
+    {
+      id: 5,
+      label: "Categoria del producto",
+      name: "categoria",
+      error: infProducto.error?.categoria,
+      helperText: infProducto.help?.categoria,
+      value: infProducto.categoria,
     },
   ];
 
@@ -115,7 +157,7 @@ function RegistroProductos( emailOwner ) {
     }
   }
 
-  /* const validateField = (field, message) => {
+  const validateField = (field, message) => {
     if (!field || typeof field !== 'string' || field.trim() === '') {
       Swal.fire({
         icon: 'error',
@@ -125,9 +167,9 @@ function RegistroProductos( emailOwner ) {
       return false
     }
     return true
-  } */
+  }
 
-  /* const validateFieldsForStepZero = () => {
+  const validateFieldsForStepZero = () => {
     const { nombreProducto, descripcion, error } = infProducto;
   
     if (!validateField(nombreProducto, 'El campo Nombre del producto es requerido')) return false;
@@ -151,10 +193,10 @@ function RegistroProductos( emailOwner ) {
       return false;
     }
     return true;
-  }; */
+  };
   
   
- /*  const handleNext = async () => {
+  const handleNext = async () => {
     console.log("¿Entra a handleNext?");
 
     console.log("Valor de activeStep:", activeStep);
@@ -189,11 +231,11 @@ function RegistroProductos( emailOwner ) {
       default:
         break;
     }
-} */
+}
 
 useLayoutEffect(() => {
     async function getEmpresa() {
-      const proveedor = await DataStore.query(Proveedor, (c) => c.email.eq(emailOwner));
+      const proveedor = await DataStore.query(Proveedor, (c) => c.correo.eq(emailOwner));
       setProvedor(proveedor[0]);
     }
     getEmpresa();
@@ -203,7 +245,7 @@ useLayoutEffect(() => {
     <div>
       <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
         <CardHeader className="text-center" title="Registro productos"> </CardHeader>
-        <Form noValidate /* onSubmit={handleSubmit} */>
+        <Form noValidate >
           <div className="row justify-content-center">
             <div className="col-xs-12 col-sm-8 col-md-7 col-lg-6">
               <h6>Datos</h6>
@@ -230,10 +272,30 @@ useLayoutEffect(() => {
                   </div>
                 ))}
               </div>
+              <div className="d-flex justify-content-between">
+                <TextField
+                  label="Imagen del producto"
+                  size="normal"
+                  margin="normal"
+                  placeholder="Carga imagenes del producto "
+                  value={infProducto?.nombreLogo ? infProducto.nombreLogo : ''} 
+                  InputProps={{
+                    endAdornment: (
+                      <Button component="label" variant="contained" startIcon={<TbCloudUpload />}>
+                        Cargar
+                        <VisuallyHiddenInput type="file" onChange={"hola"} accept="image/*" />
+                      </Button>
+                    ),
+                  }}
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                  disabled
+                />
+              </div>
               <div
                 style={{ display: "flex", justifyContent: "center", alignItems: "center"}} >
                 <div className="col-sm-12 col-md-6 p-2">
-                  <Button variant="contained" onClick={"hola"} >Guardar</Button> 
+                  <Button variant="contained" onClick={handleNext} >Guardar</Button> 
                 </div>
                 <div>
                   <Button style={{ backgroundColor: "red" }} href="/inicio-usuarios" variant="contained">
@@ -248,4 +310,5 @@ useLayoutEffect(() => {
     </div>
   );
 }
+
 export default RegistroProductos;
