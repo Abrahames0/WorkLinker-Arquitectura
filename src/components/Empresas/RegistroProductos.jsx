@@ -7,7 +7,7 @@ import { Producto, Proveedor } from "../../models";
 
 import Swal from "sweetalert2";
 
-import { Button, TextField, Card, CardHeader } from "@mui/material";
+import { Button, TextField, Card, CardHeader, InputAdornment} from "@mui/material";
 import { VisuallyHiddenInput } from "@chakra-ui/react";
 
 import { TbCloudUpload } from "react-icons/tb";
@@ -118,6 +118,7 @@ const handleChange = (event) => {
       error: infProducto.error?.precio,
       helperText: infProducto.help?.precio,
       value: infProducto.precio,
+      startAdornment: <InputAdornment position="start">$</InputAdornment>,
     },
     {
       id: 4,
@@ -170,10 +171,15 @@ const handleChange = (event) => {
   }
 
   const validateFieldsForStepZero = () => {
-    const { nombreProducto, descripcion, error } = infProducto;
+    const { nombreProducto, descripcion, precio, categoria, stock, imagenURL, error } = infProducto;
   
     if (!validateField(nombreProducto, 'El campo Nombre del producto es requerido')) return false;
     if (!validateField(descripcion, 'El campo descripcion es requerido')) return false;
+    if (!validateField(precio, 'El campo precio es requerido')) return false;
+    if (!validateField(categoria, 'El campo categoria es requerido')) return false;
+    if (!validateField(stock, 'El campo stock es requerido')) return false;
+    /* if (!validateField(imagenURL, 'El campo imagen es requerido')) return false; */
+
     if (error.nombreProducto) {
       Swal.fire({
         icon: 'error',
@@ -192,9 +198,44 @@ const handleChange = (event) => {
       });
       return false;
     }
+    if (error.precio) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Ups! Hubo un problema',
+        html: '<p>Parece que hay un error en el campo <strong>precio</strong></p>',
+        confirmButtonText: 'Aceptar',
+      });
+      return false;
+    }
+    if (error.categoria) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Ups! Hubo un problema',
+        html: '<p>Parece que hay un error en el campo <strong>categoria</strong></p>',
+        confirmButtonText: 'Aceptar',
+      });
+      return false;
+    }
+    if (error.categoria) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Ups! Hubo un problema',
+        html: '<p>Parece que hay un error en el campo <strong>stock</strong></p>',
+        confirmButtonText: 'Aceptar',
+      });
+      return false;
+    }
+    if (error.imagenURL) {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Ups! Hubo un problema',
+        html: '<p>Parece que hay un error en el campo <strong>Imagen</strong></p>',
+        confirmButtonText: 'Aceptar',
+      });
+      return false;
+    }
     return true;
   };
-  
   
   const handleNext = async () => {
     console.log("¿Entra a handleNext?");
@@ -267,7 +308,10 @@ useLayoutEffect(() => {
                       onChange={handleChange}
                       helperText={input.helperText}
                       error={input.error}
-                      disabled={input.name === "email"} 
+                      disabled={input.name === "email"}
+                      InputProps={{ 
+                        startAdornment: input.startAdornment
+                      }}
                     />
                   </div>
                 ))}
