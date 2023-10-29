@@ -139,12 +139,11 @@ const handleChange = (event) => {
         nombreProducto: infProducto.nombreProducto,
         descripcion: infProducto.descripcion,
         precio: infProducto.precio,
+        imagenURL: imagenURL,
         stock: parseInt(infProducto.stock, 10),
-        /* imagenURL: infProducto.imagenURL, */
         categoria: infProducto.categoria,
 
         proveedorID: provedor.id,
-        imagenURL: imagenURL
       })
       await DataStore.save(productos);
       return true
@@ -174,7 +173,7 @@ const handleChange = (event) => {
     if (!validateField(precio, 'El campo precio es requerido')) return false;
     if (!validateField(categoria, 'El campo categoria es requerido')) return false;
     if (!validateField(stock, 'El campo stock es requerido')) return false;
-    if (!validateField(imagenURL, 'El campo imagen es requerido')) return false;
+    /* if (!validateField(imagenURL, 'El campo imagen es requerido')) return false; */
 
     if (error.nombreProducto) {
       Swal.fire({
@@ -272,7 +271,7 @@ useLayoutEffect(() => {
       const fileName = 'img/' + file.name; 
       await Storage.put(fileName, file, { level: 'public', type: file.type });
   
-      const imageUrl = `S3_IMAGE_BASE_URL${fileName}`;
+      const imageUrl = `https://amplify-worklinker-prod-222139-deployment.s3.amazonaws.com/public/${fileName}`;
       setImagenURL(imageUrl);
   
       // La carga del archivo se realizó con éxito
@@ -353,7 +352,7 @@ useLayoutEffect(() => {
             </Card>
             {/* Vista previa */}
             <div className="col-xs-12 col-sm-12 col-md-6">
-              <VistaPreviaProducto data={infProducto} />
+              <VistaPreviaProducto data={infProducto} imagenURL={imagenURL} />
             </div>
           </div>
         </Form>

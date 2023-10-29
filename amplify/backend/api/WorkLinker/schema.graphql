@@ -6,6 +6,7 @@ type Producto @model @auth(rules: [{allow: public}]) {
   stock: Int
   imagenURL: String
   categoria: String
+  statusVisible: Boolean
   proveedorID: ID! @index(name: "byProveedor")
 }
 

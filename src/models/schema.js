@@ -52,6 +52,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "statusVisible": {
+                    "name": "statusVisible",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "proveedorID": {
                     "name": "proveedorID",
                     "isArray": false,
@@ -727,5 +734,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "504194668e3eb8fa093ebf416b8a9224"
+    "version": "e8364ec8bcaa0bd331d3c017f6334016"
 };

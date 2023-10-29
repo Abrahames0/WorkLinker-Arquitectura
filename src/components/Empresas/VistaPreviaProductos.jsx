@@ -1,7 +1,7 @@
 import { CardHeader } from "@mui/material";
 import { Card } from "react-bootstrap";
 
- export function VistaPreviaProducto({ data }) {
+ export function VistaPreviaProducto({ data, imagenURL }) {
     return (
       <div>
         <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
@@ -11,7 +11,7 @@ import { Card } from "react-bootstrap";
               <h5>Datos del Producto</h5>
               <div className="row p-2">
               <div className="d-flex justify-content-center">
-                {data.imagenURL ? <img src={data.imagenURL} alt="Imagen del producto" style={{ width: '100%', maxWidth: '200px' }} /> : <p>No hay imagen cargada.</p>}
+                {imagenURL ? <img src={imagenURL} alt="Imagen del producto" style={{ width: '100%', maxWidth: '200px' }} /> : <p>No hay imagen cargada.</p>}
               </div>
                 <div className="col-sm-12 col-md-6 p-2">
                   <strong>Nombre del producto:</strong> {data.nombreProducto}

@@ -18,6 +18,7 @@ type EagerProducto = {
   readonly stock?: number | null;
   readonly imagenURL?: string | null;
   readonly categoria?: string | null;
+  readonly statusVisible?: boolean | null;
   readonly proveedorID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -35,6 +36,7 @@ type LazyProducto = {
   readonly stock?: number | null;
   readonly imagenURL?: string | null;
   readonly categoria?: string | null;
+  readonly statusVisible?: boolean | null;
   readonly proveedorID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
