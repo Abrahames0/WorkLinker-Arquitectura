@@ -7,16 +7,18 @@ import { Producto, Proveedor } from "../../models";
 
 import Swal from "sweetalert2";
 
-import { Button, TextField, Card, CardHeader, InputAdornment} from "@mui/material";
+import { Button, TextField, CardHeader, InputAdornment, Card} from "@mui/material";
 import { VisuallyHiddenInput } from "@chakra-ui/react";
 
 import { TbCloudUpload } from "react-icons/tb";
+import { VistaPreviaProducto } from "./VistaPreviaProductos";
 
 
 function RegistroProductos({ emailOwner } ) {
 
   const navigate = useNavigate()
   const [provedor, setProvedor] = useState(null);
+
 
 const PROHIBITED_CHARS = /[?*¨´_"$/\\?¿[\]{}:=^;<>+~,@'%#¡!°¬|+]+/g;
 const ALPHA_NUMERIC_EXTENDED = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9()&.,-\s]{0,150}$/;
@@ -271,11 +273,11 @@ useLayoutEffect(() => {
   return (
     <div>
       <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
-        <CardHeader className="text-center" title="Registro productos"> </CardHeader>
-        <Form noValidate >
+        <CardHeader className="text-center" title="Registro productos"></CardHeader>
+        <h6>Datos</h6>
+        <Form noValidate>
           <div className="row justify-content-center">
-            <div className="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-              <h6>Datos</h6>
+            <Card className="col-xs-12 col-sm-12 col-md-6">
               <div className="row p-2">
                 {inputs.map((input) => (
                   <div className="col-sm-12 col-md-6 p-2" key={input.id}>
@@ -295,44 +297,49 @@ useLayoutEffect(() => {
                       helperText={input.helperText}
                       error={input.error}
                       disabled={input.name === "email"}
-                      InputProps={{ 
-                        startAdornment: input.startAdornment
+                      InputProps={{
+                        startAdornment: input.startAdornment,
                       }}
                     />
                   </div>
                 ))}
               </div>
+              <TextField
+                label="Imagen del producto"
+                size="normal"
+                margin="normal"
+                placeholder="Carga imagenes del producto "
+                value={infProducto?.imagenURL ? infProducto.imagenURL : ""}
+                InputProps={{
+                  endAdornment: (
+                    <Button component="label" variant="contained" startIcon={<TbCloudUpload />}>
+                      Cargar
+                      <VisuallyHiddenInput type="file" onChange={"hola"} accept="image/*"/>
+                    </Button>
+                  ),
+                }}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                disabled
+              />
               <div className="d-flex justify-content-between">
-                <TextField
-                  label="Imagen del producto"
-                  size="normal"
-                  margin="normal"
-                  placeholder="Carga imagenes del producto "
-                  value={infProducto?.imagenURL ? infProducto.imagenURL : ''} 
-                  InputProps={{
-                    endAdornment: (
-                      <Button component="label" variant="contained" startIcon={<TbCloudUpload />}>
-                        Cargar
-                        <VisuallyHiddenInput type="file" onChange={"hola"} accept="image/*" />
-                      </Button>
-                    ),
-                  }}
-                  fullWidth
-                  InputLabelProps={{ shrink: true }}
-                  disabled
-                />
-              </div>
-              <div
-                style={{ display: "flex", justifyContent: "center", alignItems: "center"}} >
-                <div className="col-sm-12 col-md-6 p-2">
-                  <Button variant="contained" onClick={handleNext} >Guardar</Button> 
-                </div>
-                <div>
-                  <Button style={{ backgroundColor: "red" }} href="/inicio-usuarios" variant="contained">
-                    Cancelar
-                  </Button>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <div className="col-sm-12 col-md-6 p-2">
+                    <Button variant="contained" onClick={handleNext}>
+                      Guardar
+                    </Button>
+                  </div>
+                  <div>
+                    <Button style={{ backgroundColor: "red" }} href="/inicio-empresa" variant="contained">
+                      Cancelar
+                    </Button>
+                  </div>
                 </div>
               </div>
+            </Card>
+            {/* Vista previa */}
+            <div className="col-xs-12 col-sm-12 col-md-6">
+              <VistaPreviaProducto data={infProducto} />
             </div>
           </div>
         </Form>
