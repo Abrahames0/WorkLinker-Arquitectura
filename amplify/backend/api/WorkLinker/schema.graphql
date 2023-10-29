@@ -4,7 +4,7 @@ type Producto @model @auth(rules: [{allow: public}]) {
   descripcion: String
   precio: String
   stock: Int
-  imagenURL: AWSURL
+  imagenURL: String
   categoria: String
   proveedorID: ID! @index(name: "byProveedor")
 }
@@ -65,4 +65,5 @@ type Usuarios @model @auth(rules: [{allow: public}]) {
   Carrito: Carrito @hasOne
   estadoUsuario: String
   paisUsuario: String
-} 
+}
+ 

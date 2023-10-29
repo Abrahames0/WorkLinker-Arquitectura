@@ -13,11 +13,10 @@ import { VisuallyHiddenInput } from "@chakra-ui/react";
 import { TbCloudUpload } from "react-icons/tb";
 
 
-function RegistroProductos( emailOwner ) {
+function RegistroProductos({ emailOwner } ) {
 
   const navigate = useNavigate()
-  const [activeStep, setActiveStep] = useState(0)
-  const [provedor, setProvedor] = useState({})
+  const [provedor, setProvedor] = useState(null);
 
 const PROHIBITED_CHARS = /[?*¨´_"$/\\?¿[\]{}:=^;<>+~,@'%#¡!°¬|+]+/g;
 const ALPHA_NUMERIC_EXTENDED = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9()&.,-\s]{0,150}$/;
@@ -140,21 +139,21 @@ const handleChange = (event) => {
 
   const guardarProducto = async () => {
     try {
-      const proveedores = new Producto({
+      const productos = new Producto({
         nombreProducto: infProducto.nombreProducto,
         descripcion: infProducto.descripcion,
         precio: infProducto.precio,
-        stock: infProducto.stock,
-        imagenURL: infProducto.imagenURL,
+        stock: parseInt(infProducto.stock, 10),
+        /* imagenURL: infProducto.imagenURL, */
         categoria: infProducto.categoria,
 
-        proveedorID: provedor.proveedorID
+        proveedorID: provedor.id
       })
-      await DataStore.save(proveedores);
+      await DataStore.save(productos);
       return true
     } catch (error) {
       console.error(error);
-      return false;
+      throw error;
     }
   }
 
@@ -237,42 +236,29 @@ const handleChange = (event) => {
     return true;
   };
   
-  const handleNext = async () => {
-    console.log("¿Entra a handleNext?");
+    const handleNext = async () => {
+      console.log("Entrando a handleNext");
 
-    console.log("Valor de activeStep:", activeStep);
-    switch (activeStep) {
-      case 0:
-        if (validateFieldsForStepZero()) {
-          localStorage.setItem('infProducto', JSON.stringify(infProducto));
-          setActiveStep(prevActiveStep => prevActiveStep + 1);
-        }
-        break;
-  
-      case 2:
-        const guardadoCorrectamente = await guardarProducto();
-        console.log(guardadoCorrectamente);
-
-        if (guardadoCorrectamente) {
+      try {
+          if (validateFieldsForStepZero()) {
+              await guardarProducto();
+              Swal.fire({
+                  title: '¡Registro completado!',
+                  icon: 'success',
+                  confirmButtonText: 'Aceptar',
+              }).then(() => {
+                  navigate('/inicio-empresa');
+              });
+          }
+      } catch (error) {
+          console.error("Error al guardar el producto:", error);
           Swal.fire({
-            title: '¡Registro completado!',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-          }).then(() => {
-            navigate('/inicio-empresa');
+              icon: 'error',
+              title: 'Ocurrió un error al guardar el registro',
+              confirmButtonText: 'Aceptar',
           });
-        }  else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Ocurrió un error al guardar el registro',
-            confirmButtonText: 'Aceptar',
-          });
-        }
-        break;
-      default:
-        break;
-    }
-}
+      }
+  };  
 
 useLayoutEffect(() => {
     async function getEmpresa() {
@@ -322,7 +308,7 @@ useLayoutEffect(() => {
                   size="normal"
                   margin="normal"
                   placeholder="Carga imagenes del producto "
-                  value={infProducto?.nombreLogo ? infProducto.nombreLogo : ''} 
+                  value={infProducto?.imagenURL ? infProducto.imagenURL : ''} 
                   InputProps={{
                     endAdornment: (
                       <Button component="label" variant="contained" startIcon={<TbCloudUpload />}>
