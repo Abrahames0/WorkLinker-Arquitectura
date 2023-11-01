@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 
 import { Producto } from "../../models";
-import { DataStore, SortDirection } from "aws-amplify";
+import { Auth, DataStore, Predicates, SortDirection } from "aws-amplify";
 
 import { Pagination, Stack } from "@mui/material";
 
 import { SinCoincidencias } from "./SinCoincidencias";
 import ListaProductos from "./ListaProductos";
-import Filtros from "../componentesRecicables/Filtros";
 
 function ListaProductosEditarEliminar() {
   const [producto, setProducto] = useState([]);
   const [selectedProducto, setSelectedProducto] = useState(null);
-
-  const [filtros, setFiltros] = useState({
-    nombreProducto: '',
-    categoria: null,
-    stock: null,
-    precio: null
-  });
 
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
@@ -26,7 +18,7 @@ function ListaProductosEditarEliminar() {
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
   const currentResults = producto.slice(indexOfFirstResult, indexOfLastResult);
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function getData() {
       let producto = [];
       producto = await DataStore.query(
@@ -34,6 +26,26 @@ function ListaProductosEditarEliminar() {
         { sort: (s) => s.createdAt(SortDirection.DESCENDING),}
       );
       setProducto(producto);
+    }
+    getData();
+  }, []); */
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const currentUser = await Auth.currentAuthenticatedUser();
+        const userId = currentUser.attributes.sub;
+    
+        const productosFromDB = await DataStore.query(Producto, Predicates.ALL);
+        console.log("Productos obtenidos de la base de datos:", productosFromDB);
+
+        const filteredProducts = productosFromDB.filter(
+          product => product.statusVisible === true && product.proveedorID === userId
+        );
+        setProducto(filteredProducts);
+      } catch (error) {
+        console.error("Error obteniendo productos:", error);
+      }
     }
     getData();
   }, []);

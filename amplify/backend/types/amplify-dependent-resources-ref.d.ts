@@ -16,11 +16,5 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolId": "string",
       "UserPoolName": "string"
     }
-  },
-  "storage": {
-    "s3worklinkerstorage0c1ad922": {
-      "BucketName": "string",
-      "Region": "string"
-    }
   }
 }

@@ -25,7 +25,7 @@ function RegistroProductos({ emailOwner } ) {
 
 
 const PROHIBITED_CHARS = /[?*¨´_"$/\\?¿[\]{}:=^;<>+~,@'%#¡!°¬|+]+/g;
-const ALPHA_NUMERIC_EXTENDED = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9()&.,-\s]{0,150}$/;
+const ALPHA_NUMERIC_EXTENDED = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9()&.,-\s]{0,1500}$/;
 const NUMERIC = /^[0-9]+$/;
 
 const validaciones = {
@@ -35,7 +35,6 @@ const validaciones = {
         help: "El campo nombreProducto tiene un máximo de 150 caracteres"
     },
     descripcion: {
-        maxLength: 1500,
         regex: ALPHA_NUMERIC_EXTENDED,
         help: "El campo descripcion tiene un máximo de 900 caracteres"
     },
@@ -109,7 +108,6 @@ const handleChange = (event) => {
       id: 2,
       label: "Descripcion del producto",
       name: "descripcion",
-      validations: { maxLength: 1500 },
       error: infProducto.error?.descripcion,
       helperText: infProducto.help?.descripcion,
       value: infProducto.descripcion,

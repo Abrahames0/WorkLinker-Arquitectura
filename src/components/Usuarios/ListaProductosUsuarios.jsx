@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {  Link, useNavigate } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 import { DataStore } from "aws-amplify";
 import { Proveedor } from "../../models";
@@ -8,9 +8,6 @@ import { motion } from "framer-motion";
 import { Image } from "@chakra-ui/react";
 import { Card, useMediaQuery } from "@mui/material";
 
-import { TbCategory, TbH5 } from 'react-icons/tb';
-import { AiOutlineStock } from 'react-icons/ai';
-import { FaMoneyBillWave, FaAudioDescription, } from "react-icons/fa";
 
 function ListaProductosUsuarios({ producto, selectedproducto }) {
 
@@ -19,12 +16,6 @@ function ListaProductosUsuarios({ producto, selectedproducto }) {
   const isMobile = useMediaQuery('(max-width: 1024px)');
   const TextCard = { fontSize: '15px', color: '#566573' };
   const TitleCard = { fontSize: '20px' };
-
-  /* const cardStyle = {
-    marginTop: "15px",
-    paddingBottom: "10px",
-    cursor: "pointer",
-  }; */
   
   const titleStyle = {
     ...TitleCard,
@@ -46,8 +37,8 @@ function ListaProductosUsuarios({ producto, selectedproducto }) {
     paddingBottom: "10px",
     cursor: "pointer",
     backgroundColor: "white",
-    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",  // sombra sutil
-    borderRadius: "5px", // bordes redondeados
+    boxShadow: "0 2px 5px rgba(0,0,0,0.1)", 
+    borderRadius: "5px",
   };
 
   useEffect(() => {
@@ -93,7 +84,7 @@ function ListaProductosUsuarios({ producto, selectedproducto }) {
   return (
     <motion.div whileHover={{ scale: 1.05 }} >
       {isMobile ? (
-        <Link to='' >
+        <Link to={`/producto/${producto?.id}`} target="_blank" >
           {renderCardContent()}
         </Link>
       ) : (

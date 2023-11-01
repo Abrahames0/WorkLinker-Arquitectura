@@ -16,7 +16,6 @@ import LoginEmpresa from "./pages/pages-empresa/LoginEmpresa";
 import Bienvenida from "./pages/Inicio/Bienvenida";
 import InicioUsuario from "./pages/pages-users/InicioUser";
 import PerfilUsuario from "./pages/pages-users/PerfilUsuario";
-import InicioProveedor from "./pages/pages-empresa/InicioProvee";
 import PerfilEmpresa from "./pages/pages-empresa/PerfilEmpresa";
 import Carrito from "./pages/pages-users/Carrito";
 import RegistroUsuario from "./pages/pages-users/RegistroUsuario";
@@ -24,6 +23,8 @@ import RegistroEmpresa from "./pages/pages-empresa/RegistroEmpresa";
 import RegistroProducto from "./pages/pages-empresa/AgregarProducto";
 import ProductosPausados from "./pages/pages-empresa/ProductosPausados";
 import Loader from "./components/componentesRecicables/Loader";
+import DetallesdeProducto from "./pages/pages-users/DetallesProducto";
+import InicioEmpresaProvee from "./pages/pages-empresa/InicioProvee";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -99,7 +100,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/inicio-empresa",
-    element: <InicioProveedor />,
+    element: <InicioEmpresaProvee />,
   },
   {
     path: "/inicio-usuarios",
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
   {
     path: "/productos-pausados",
     element: <ProductosPausados />,
+  },
+  {
+    path: "/producto/:id",
+    element: <DetallesdeProducto />,
   },
   {
     path: "/",

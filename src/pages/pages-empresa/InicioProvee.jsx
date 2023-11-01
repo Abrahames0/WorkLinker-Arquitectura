@@ -10,34 +10,34 @@ import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionEmpresas from '../../components/Empresas/NavegacionEmpresa';
 import ListaProductos from '../../components/Empresas/ListaProductosEditarEliminar';
 
-function RegistroEmpresa() {
-  const [session, setSession] = useState('');
+function InicioEmpresaProvee() {
+  const [session, setSession] = useState(null);
   const [idOwner, setIdOwner] = useState('');
   const [email, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
-  const [existeBde, setExisteBde] = useState('');
-  const [registroCompleto, setregistroCompleto] = useState(false);
+  const [existeBde, setExisteBde] = useState(null);
+  const [registroCompleto, setRegistroCompleto] = useState(false);
 
   useEffect(() => {
-    async function getData() {
-      await Auth.currentAuthenticatedUser().then(async (data) => {
-        await setSession(true);
-        await setIdOwner(data.username);
-        await setEmail(data.attributes.email);
-        await NombreGrupo(data.username, 'proveedores', setNombreGrupo);
-        const sub = DataStore.observeQuery(Proveedor, (c) => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
+    const fetchData = async () => {
+      try {
+        const data = await Auth.currentAuthenticatedUser();
+        setSession(true);
+        setIdOwner(data.username);
+        setEmail(data.attributes.email);
+        NombreGrupo(data.username, 'proveedores', setNombreGrupo);
+        
+        const sub = DataStore.observeQuery(Proveedor, c => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
           setExisteBde(items.length);
-          setregistroCompleto(items[0]?.registroCompleto === true ? items[0]?.registroCompleto : false);
+          setRegistroCompleto(items[0]?.registroCompleto || false);
         });
-        return () => {
-          sub.unsubscribe();
-        };
-      }).catch((err) => {
+        return () => sub.unsubscribe();
+      } catch (err) {
         setSession(false);
-        console.log(err);
-      });
-    }
-    getData();
+        console.error(err);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -62,4 +62,4 @@ function RegistroEmpresa() {
   );
 }
 
-export default RegistroEmpresa;
+export default InicioEmpresaProvee;
