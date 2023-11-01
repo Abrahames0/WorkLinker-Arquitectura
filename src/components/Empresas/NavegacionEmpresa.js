@@ -55,7 +55,7 @@ function NavegacionEmpresas({ setSession }) {
           <Nav>
             <Nav.Link href="/agregar-producto">Agregar</Nav.Link>
             <Nav.Link href="/Mapa">Catalogar</Nav.Link>
-            <Nav.Link href="/Mapa">Productos pausados</Nav.Link>
+            <Nav.Link href="/productos-pausados">Productos pausados</Nav.Link>
           </Nav>
             <Nav>
             <NavDropdown
