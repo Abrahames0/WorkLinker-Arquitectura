@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import NavegacionUsuarios from "../../components/Usuarios/NavegacionUsuarios";
+import NavegacionUsuarios from "../../../components/Usuarios/NavegacionUsuarios";
 
 function Carrito(params) {
     return(

@@ -18,9 +18,10 @@ import InicioUsuario from "./pages/pages-users/InicioUser";
 import PerfilUsuario from "./pages/pages-users/PerfilUsuario";
 import InicioProveedor from "./pages/pages-empresa/InicioProvee";
 import PerfilEmpresa from "./pages/pages-empresa/PerfilEmpresa";
-import Carrito from "./pages/pages-users/Carrito";
 import RegistroUsuario from "./pages/pages-users/RegistroUsuario";
 import RegistroEmpresa from "./pages/pages-empresa/RegistroEmpresa";
+import Carrito from "./pages/pages-users/carrito/Carrito";
+import Pagos from "./pages/pages-users/carrito/Pagos";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
