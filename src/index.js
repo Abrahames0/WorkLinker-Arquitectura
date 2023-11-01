@@ -20,8 +20,12 @@ import InicioProveedor from "./pages/pages-empresa/InicioProvee";
 import PerfilEmpresa from "./pages/pages-empresa/PerfilEmpresa";
 import RegistroUsuario from "./pages/pages-users/RegistroUsuario";
 import RegistroEmpresa from "./pages/pages-empresa/RegistroEmpresa";
+<<<<<<< HEAD
 import Carrito from "./pages/pages-users/carrito/Carrito";
 import Pagos from "./pages/pages-users/carrito/Pagos";
+=======
+import RegistroProducto from "./pages/pages-empresa/AgregarProducto";
+>>>>>>> 2770c9e466e5bca6b0e5cb8a6e1127b95810acc0
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -79,10 +83,10 @@ const router = createBrowserRouter([
     path: "/registro-empresa",
     element: <RegistroEmpresa />,
   },
- /*  {
+  {
     path: "/agregar-producto",
-    element: <AgregarProducto />,
-  }, */
+    element: <RegistroProducto />,
+  },
   {
     path: "/perfil-proveedor",
     element: <PerfilEmpresa />,

@@ -53,7 +53,7 @@ function NavegacionEmpresas({ setSession }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
-            <Nav.Link href="/Mapa">Agregar</Nav.Link>
+            <Nav.Link href="/agregar-producto">Agregar</Nav.Link>
             <Nav.Link href="/Mapa">Catalogar</Nav.Link>
             <Nav.Link href="/Mapa">Productos pausados</Nav.Link>
           </Nav>

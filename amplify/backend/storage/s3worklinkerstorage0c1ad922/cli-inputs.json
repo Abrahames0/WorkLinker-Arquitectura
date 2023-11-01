@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3worklinkerstorage0c1ad922",
+  "bucketName": "worklinker-storage-0c1ad922",
+  "policyUUID": "e8bd6f41",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
