@@ -36,13 +36,13 @@ function ListaProductosEditarEliminar() {
         const currentUser = await Auth.currentAuthenticatedUser();
         const userId = currentUser.attributes.sub;
     
-        const productosFromDB = await DataStore.query(Producto, Predicates.ALL);
-        console.log("Productos obtenidos de la base de datos:", productosFromDB);
-
-        const filteredProducts = productosFromDB.filter(
-          product => product.statusVisible === true && product.proveedorID === userId
+        const productosFromDB = await DataStore.query(
+          Producto, 
+          producto => producto.proveedorID('eq', userId)
+                            .statusVisible('eq', true)
         );
-        setProducto(filteredProducts);
+        console.log("Productos obtenidos de la base de datos:", productosFromDB);
+        setProducto(productosFromDB);
       } catch (error) {
         console.error("Error obteniendo productos:", error);
       }
