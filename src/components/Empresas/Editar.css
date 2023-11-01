@@ -1,0 +1,8 @@
+.swal2-popup {
+    z-index: 2000 !important;
+  }
+  
+  .MuiDialog-root {
+    z-index: 1000 !important;
+  }
+  

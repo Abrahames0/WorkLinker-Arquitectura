@@ -5,20 +5,12 @@ import { DataStore, SortDirection } from "aws-amplify";
 
 import { Pagination, Stack } from "@mui/material";
 
-import { SinCoincidencias } from "./SinCoincidencias";
-import ListaProductos from "./ListaProductos";
-import Filtros from "../componentesRecicables/Filtros";
+import ListaProductosUsuarios from "./ListaProductosUsuarios";
+import { SinCoincidencias } from "../Empresas/SinCoincidencias";
 
-function ListaProductosEditarEliminar() {
+function ListaProductosVender() {
   const [producto, setProducto] = useState([]);
   const [selectedProducto, setSelectedProducto] = useState(null);
-
-  const [filtros, setFiltros] = useState({
-    nombreProducto: '',
-    categoria: null,
-    stock: null,
-    precio: null
-  });
 
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
@@ -48,7 +40,7 @@ function ListaProductosEditarEliminar() {
             </div>
           <div className="col-lg-11 d-flex flex-row flex-wrap">
             {currentResults.map((producto) => (
-              <ListaProductos producto={producto} key={producto.id} productoId={producto.id} selectedProducto={selectedProducto} setSelectedProducto={setSelectedProducto}/>
+              <ListaProductosUsuarios producto={producto} key={producto.id} productoId={producto.id} selectedProducto={selectedProducto} setSelectedProducto={setSelectedProducto}/>
             ))}
           </div>
           <div className="row">
@@ -66,4 +58,4 @@ function ListaProductosEditarEliminar() {
   );
 }
 
-export default ListaProductosEditarEliminar;
+export default ListaProductosVender;

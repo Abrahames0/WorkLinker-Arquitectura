@@ -7,7 +7,7 @@ import { Producto, Proveedor } from "../../models";
 
 import Swal from "sweetalert2";
 
-import { Button, TextField, CardHeader, InputAdornment, Card} from "@mui/material";
+import { Button, TextField, CardHeader, InputAdornment, Card, } from "@mui/material";
 import { VisuallyHiddenInput } from "@chakra-ui/react";
 
 import { TbCloudUpload } from "react-icons/tb";
@@ -35,14 +35,14 @@ const validaciones = {
         help: "El campo nombreProducto tiene un máximo de 150 caracteres"
     },
     descripcion: {
-        maxLength: 900,
+        maxLength: 1500,
         regex: ALPHA_NUMERIC_EXTENDED,
         help: "El campo descripcion tiene un máximo de 900 caracteres"
     },
     stock: {
         regex: NUMERIC,
-        maxLength: 10,
-        help: "Ingrese un número de stock (hasta 10 dígitos)"
+        maxLength: 4,
+        help: "Ingrese un número de stock (hasta 4 dígitos)"
     },
     precio: {
         regex: NUMERIC,
@@ -90,6 +90,7 @@ const handleChange = (event) => {
     stock: '',
     imagenURL: imagenURL,
     categoria: '',
+    statusVisible: true,
     error: {},
     help: {}
   });
@@ -108,7 +109,7 @@ const handleChange = (event) => {
       id: 2,
       label: "Descripcion del producto",
       name: "descripcion",
-      validations: { maxLength: 900 },
+      validations: { maxLength: 1500 },
       error: infProducto.error?.descripcion,
       helperText: infProducto.help?.descripcion,
       value: infProducto.descripcion,
@@ -142,6 +143,7 @@ const handleChange = (event) => {
         imagenURL: imagenURL,
         stock: parseInt(infProducto.stock, 10),
         categoria: infProducto.categoria,
+        statusVisible: infProducto.statusVisible,
 
         proveedorID: provedor.id,
       })
@@ -166,14 +168,13 @@ const handleChange = (event) => {
   }
 
   const validateFieldsForStepZero = () => {
-    const { nombreProducto, descripcion, precio, categoria, stock, imagenURL, error } = infProducto;
+    const { nombreProducto, descripcion, precio, categoria, stock, error } = infProducto;
   
     if (!validateField(nombreProducto, 'El campo Nombre del producto es requerido')) return false;
     if (!validateField(descripcion, 'El campo descripcion es requerido')) return false;
     if (!validateField(precio, 'El campo precio es requerido')) return false;
     if (!validateField(categoria, 'El campo categoria es requerido')) return false;
     if (!validateField(stock, 'El campo stock es requerido')) return false;
-    /* if (!validateField(imagenURL, 'El campo imagen es requerido')) return false; */
 
     if (error.nombreProducto) {
       Swal.fire({
@@ -271,7 +272,7 @@ useLayoutEffect(() => {
       const fileName = 'img/' + file.name; 
       await Storage.put(fileName, file, { level: 'public', type: file.type });
   
-      const imageUrl = `https://amplify-worklinker-prod-222139-deployment.s3.amazonaws.com/public/${fileName}`;
+     const imageUrl = `https://worklinker-storage-0c1ad922222139-prod.s3.amazonaws.com/public/${fileName}`;
       setImagenURL(imageUrl);
   
       // La carga del archivo se realizó con éxito

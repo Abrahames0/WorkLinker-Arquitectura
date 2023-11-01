@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
-
-import { Producto } from "../../models";
-import { DataStore, SortDirection } from "aws-amplify";
-
-import { Pagination, Stack } from "@mui/material";
-
 import { SinCoincidencias } from "./SinCoincidencias";
 import ListaProductos from "./ListaProductos";
-import Filtros from "../componentesRecicables/Filtros";
+import { DataStore, SortDirection } from "aws-amplify";
+import { Producto } from "../../models";
+import { Pagination, Stack } from "@mui/material";
 
-function ListaProductosEditarEliminar() {
+function ListaProductosPausados() {
   const [producto, setProducto] = useState([]);
   const [selectedProducto, setSelectedProducto] = useState(null);
-
-  const [filtros, setFiltros] = useState({
-    nombreProducto: '',
-    categoria: null,
-    stock: null,
-    precio: null
-  });
 
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
@@ -30,7 +19,7 @@ function ListaProductosEditarEliminar() {
     async function getData() {
       let producto = [];
       producto = await DataStore.query(
-        Producto, (c) => c.and((c) => [c.statusVisible.eq(true)]),
+        Producto, (c) => c.and((c) => [c.statusVisible.eq(false)]),
         { sort: (s) => s.createdAt(SortDirection.DESCENDING),}
       );
       setProducto(producto);
@@ -40,7 +29,6 @@ function ListaProductosEditarEliminar() {
 
   return (
     <div className="col-12 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
-      {/* <Filtros filtros={filtros} setFiltros={setFiltros} /> */}
       {producto.length > 0 ? (
         <div className="row p-1">
             <div style={{ color: "#797D7F", fontSize: "14px", float: "left" }}>
@@ -66,4 +54,4 @@ function ListaProductosEditarEliminar() {
   );
 }
 
-export default ListaProductosEditarEliminar;
+export default ListaProductosPausados;
