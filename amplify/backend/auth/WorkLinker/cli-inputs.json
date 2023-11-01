@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "worklid2fb8543",
     "userPoolName": "WorkLinker",
     "autoVerifiedAttributes": [
@@ -15,7 +15,7 @@
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Bienvenido a WorkLinker",
-    "emailVerificationMessage": "Tu cÃ³digo de verificaciÃ³n es: {####}",
+    "emailVerificationMessage": "             Bienvenido usuario\nTu codigo de verificacion es: {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
@@ -62,6 +62,7 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [],
+    "hostedUI": false
   }
 }

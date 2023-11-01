@@ -167,53 +167,30 @@ function RegistroEmpresaInformacion() {
     return true;
   };
   
-  const handleNext = async () => {
-    console.log("¿Entra a handleNext?");
-    
-
-    console.log("Valor de activeStep:", activeStep);
-    switch (activeStep) {
-      case 0:
-        if (validateFieldsForStepZero()) {
-          localStorage.setItem('empContacto', JSON.stringify(empContacto));
-          setActiveStep(prevActiveStep => prevActiveStep + 1);
-        }
-        break;
-  
-      case 1:
-        if (validateFieldsForStepTwo()) {
-          localStorage.setItem('empUbicacion', JSON.stringify(empUbicacion));
-          setActiveStep(prevActiveStep => prevActiveStep + 1);
-        }
-        break;
-  
-      case 2:
-        const guardadoCorrectamente = await guardarEmpresa();
-        console.log(guardadoCorrectamente);
-
-        if (guardadoCorrectamente) {
-          Swal.fire({
-            title: '¡Registro completado!',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-          }).then(() => {
-            navigate('/inicio-empresa');
-          });
-        }  else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Ocurrió un error al guardar el registro',
-            confirmButtonText: 'Aceptar',
-          });
-        }
-        break;
-      default:
-        break;
+  const handleSave = async () => {
+    if (!validateFieldsForStepZero() || !validateFieldsForStepTwo()) {
+      return;
     }
-}
+    
+    const guardadoCorrectamente = await guardarEmpresa();
+    if (guardadoCorrectamente) {
+      Swal.fire({
+        title: '¡Registro completado!',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      }).then(() => {
+        navigate('/inicio-empresa');
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrió un error al guardar el registro',
+        confirmButtonText: 'Aceptar',
+      });
+    }
+  };
 
   useEffect(() => {
-    // Obtener el correo del usuario y guardarlo en el estado
     async function getCurrentUserEmail() {
       const userInfo = await Auth.currentUserInfo();
       const userEmail = userInfo.attributes.email;
@@ -258,13 +235,13 @@ function RegistroEmpresaInformacion() {
               </div>
               <div
                 style={{ display: "flex", justifyContent: "center", alignItems: "center"}} >
-                <div className="col-sm-12 col-md-6 p-2">
-                  <Button variant="contained" onClick={handleNext} >Guardar</Button> 
-                </div>
-                <div>
+                  <div>
                   <Button style={{ backgroundColor: "red" }} href="/inicio-usuarios" variant="contained">
                     Cancelar
                   </Button>
+                </div>
+                <div className="col-sm-12 col-md-6 p-2">
+                  <Button variant="contained" onClick={handleSave} >Guardar</Button> 
                 </div>
               </div>
             </div>

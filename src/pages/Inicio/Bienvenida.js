@@ -1,4 +1,5 @@
- import CarouselInicio from "../../components/Inicio/inicio-bienvenida/Carrusel";
+ import Footer from "../../components/Footer";
+import CarouselInicio from "../../components/Inicio/inicio-bienvenida/Carrusel";
  import NavegacionInicio from "../../components/Inicio/inicio-bienvenida/Navegacion";
 import ListaProductosVender from "../../components/Usuarios/ListaProductosVender";
 
@@ -8,6 +9,7 @@ function Bienvenida() {
             <NavegacionInicio/>
             <CarouselInicio/> 
             <ListaProductosVender/>
+            <Footer/>
         </div>
     )
 }
