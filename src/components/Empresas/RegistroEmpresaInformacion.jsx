@@ -104,7 +104,7 @@ function RegistroEmpresaInformacion() {
       const proveedores = new Proveedor({
         nombreComercial: empContacto.nombreComercial,
         correo: empContacto.email,
-        telefono: parseInt(empContacto.telefono, 10),
+        telefono: empContacto.telefono,
         calle: empUbicacion.calle,
         numero: empUbicacion.numero,
         colonia: empUbicacion.colonia,
