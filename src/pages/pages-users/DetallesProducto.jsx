@@ -1,69 +1,49 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Typography, Grid, Paper } from '@mui/material';
+import { DataStore } from 'aws-amplify';
+import { Producto } from '../../models'; // Importa tu modelo de producto
+import { useParams } from 'react-router-dom';
 
-import { Navigate } from 'react-router-dom';
-
-import { Auth } from 'aws-amplify';
-import { Usuarios } from '../../models';
-import { DataStore } from "aws-amplify";
-
-import { NombreGrupo } from '../../hook/NombreGrupo';
-import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
-import ComDetallesProducto from '../../components/Usuarios/detalles-productos/ComDetallesProducto';
-
-function DetallesdeProducto() {
-  const [session, setSession] = useState('');
-  const [idOwner, setIdOwner] = useState('');
-  const [email, setEmail] = useState('');
-  const [nombreGrupo, setNombreGrupo] = useState('');
-  const [existeBde, setExisteBde] = useState('');
-  const [registroCompleto, setregistroCompleto] = useState(false);
-  const [bdeData, setbdeData] = useState({});
+const ComDetallesProducto = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    async function getData() {
-      await Auth.currentAuthenticatedUser().then(async (data) => {
-        await setSession(true);
-        await setIdOwner(data.username);
-        await setEmail(data.attributes.email);
-        await NombreGrupo(data.username, 'usuario', setNombreGrupo);
-        const sub = DataStore.observeQuery(Usuarios, (c) => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
-          setExisteBde(items.length);
-          setregistroCompleto(items[0]?.registroCompleto === true ? items[0]?.registroCompleto : false);
-          if (items.length > 0) {
-            setbdeData(items[0]);
-          }
-        });
-        return () => {
-          sub.unsubscribe();
-        };
-      }).catch((err) => {
-        setSession(false);
-        console.log(err);
-      });
+    const fetchProduct = async () => {
+      try {
+        const productData = await DataStore.query(Producto, id);
+        setProduct(productData);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    getData();
-  }, []);
+
+    fetchProduct();
+  }, [id]);
+
+  if (!product) {
+    return <p>Loading...</p>;
+  }
 
   return (
-    <div>
-      {session ? (
-        <>
-          {nombreGrupo === 'usuarios' ? (
-            (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
-              <>
-                <NavegacionUsuarios setSession={setSession} />
-                <ComDetallesProducto />
-              </>
-            )
-          ) : nombreGrupo === 'empresa' && (
-            <Navigate to='/login-empresa' />
-          )}
-        </>
-      ) : session === false && (
-        <Navigate to='/login-users' />
-      )}
-    </div>
+    <Paper elevation={3} style={{ padding: '16px' }}>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <img src={product.imagenURL} alt={product.nombreProducto} style={{ width: '100%' }} />
+        </Grid>
+        <Grid item xs={6}>
+          <Typography variant="h5">{product.nombreProducto}</Typography>
+          <Typography variant="body2" color="textSecondary">
+            {product.description}
+          </Typography>
+          <Typography variant="h6">Precio: {product.precio}</Typography>
+          <Button variant="contained" color="primary" style={{ marginTop: '16px' }}>
+            Add to Cart
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
   );
-}
+};
 
-export default DetallesdeProducto;
+export default ComDetallesProducto;

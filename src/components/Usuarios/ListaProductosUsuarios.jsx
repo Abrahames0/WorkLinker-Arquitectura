@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {  Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import { DataStore } from "aws-amplify";
 import { Proveedor } from "../../models";
 
@@ -12,6 +12,8 @@ import { Card, useMediaQuery } from "@mui/material";
 function ListaProductosUsuarios({ producto, selectedproducto }) {
 
   const [, setProvedor] = useState({});
+  // Declara navigate
+  const navigate = useNavigate();
 
   const isMobile = useMediaQuery('(max-width: 1024px)');
   const TextCard = { fontSize: '15px', color: '#566573' };
@@ -83,13 +85,14 @@ function ListaProductosUsuarios({ producto, selectedproducto }) {
 
   return (
     <motion.div whileHover={{ scale: 1.05 }} >
-      {isMobile ? (
-        <Link to={`/producto/${producto?.id}`} target="_blank" >
+  
+        <div
+          onClick={() => navigate(`/producto/${producto.id}`)} // Utiliza navigate
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
           {renderCardContent()}
-        </Link>
-      ) : (
-        renderCardContent()
-      )}
+        </div>
+    
     </motion.div>
   )
 }
