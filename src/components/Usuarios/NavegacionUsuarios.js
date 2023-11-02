@@ -9,11 +9,17 @@ import {BsCart2, BsSearch } from 'react-icons/bs'
 import { Button } from "@mui/material";
 import { RiNotification2Line } from 'react-icons/ri'
 
+import { useColorModeValue } from '@chakra-ui/react';
+import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
 
 function NavegacionUsuarios({ setSession }) {
   const navigate = useNavigate();
   const [ user, setUser ] = useState("Usuario");
 
+  const navLightStyle = { backgroundColor: '#f8f9fa' };
+  const navDarkStyle = { backgroundColor: '#343a40' };
+
+  const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
 
   useEffect(() => {
     async function cargar() {
@@ -47,7 +53,7 @@ function NavegacionUsuarios({ setSession }) {
 
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar style={navStyle} expand="lg">
         <Container>
           <Navbar.Brand>
             <Link to="/inicio-usuarios">
@@ -76,9 +82,6 @@ function NavegacionUsuarios({ setSession }) {
               <NavDropdown.Item href="#action/3.3">Más vendidos</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Ver más categorias</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="/Mapa">Ofertas</Nav.Link>
             <Nav.Link href="/Mapa">Moda</Nav.Link>
@@ -105,6 +108,7 @@ function NavegacionUsuarios({ setSession }) {
               <Nav.Link href="/carrito"> <BsCart2 size={20}/> </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+          <ToggleDarkMode/>
         </Container>
       </Navbar>
     </div>

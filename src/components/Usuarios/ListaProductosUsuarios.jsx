@@ -10,7 +10,6 @@ import { Card } from "@mui/material";
 function ListaProductosUsuarios({ producto, selectedproducto }) {
 
   const [, setProvedor] = useState({});
-  // Declara navigate
   const navigate = useNavigate();
 
   const TextCard = { fontSize: '15px', color: '#566573' };

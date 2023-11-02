@@ -1,38 +1,26 @@
-import { CardHeader } from "@mui/material";
-import { Card } from "react-bootstrap";
+import { Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 
- export function VistaPreviaProducto({ data, imagenURL }) {
-    return (
-      <div>
-        <Card sx={{ justifyContent: "center", alignItems: "center", border: 0, m: 1 }} variant="outlined">
-          <CardHeader className="text-center" title="Vista previa del producto"> </CardHeader>
-          <div className="row justify-content-center">
-            <div className="col-xs-12 col-sm-8 col-md-7 col-lg-6">
-              <h5>Datos del Producto</h5>
-              <div className="row p-2">
-              <div className="d-flex justify-content-center">
-                {imagenURL ? <img src={imagenURL} alt="Imagen del producto" style={{ width: '100%', maxWidth: '200px' }} /> : <p>No hay imagen cargada.</p>}
-              </div>
-                <div className="col-sm-12 col-md-6 p-2">
-                  <strong>Nombre del producto:</strong> {data.nombreProducto}
-                </div>
-                <div className="col-sm-12 col-md-6 p-2">
-                  <strong>Descripcion:</strong> {data.descripcion}
-                </div>
-                <div className="col-sm-12 col-md-6 p-2">
-                  <strong>Precio:</strong> ${data.precio}
-                </div>
-                <div className="col-sm-12 col-md-6 p-2">
-                  <strong>Stock:</strong> {data.stock}
-                </div>
-                <div className="col-sm-12 col-md-6 p-2">
-                  <strong>Categoria:</strong> {data.categoria}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </div>
-    );
-  }
-  
+export function VistaPreviaProducto({ data, imagenURL }) {
+  return (
+    <Card sx={{ m: 3 }}>
+      <CardHeader title="Vista previa del producto" titleTypographyProps={{ align: 'center', variant: 'h5' }} />
+      <CardContent>
+        <Grid container spacing={3} justifyContent="center">
+          <Grid item xs={12} sm={6} md={4} lg={3} align="center">
+            {imagenURL
+              ? <img src={imagenURL} alt="Imagen del producto" style={{ width: '100%', maxWidth: '200px' }} />
+              : <Typography>No hay imagen cargada.</Typography>}
+          </Grid>
+          <Grid item xs={12} sm={6} md={8} lg={9}>
+            <Typography variant="h6">Datos del Producto</Typography>
+            <Typography><strong>Nombre del producto:</strong> {data.nombreProducto}</Typography>
+            <Typography><strong>Descripcion:</strong> {data.descripcion}</Typography>
+            <Typography><strong>Precio:</strong> ${data.precio}</Typography>
+            <Typography><strong>Stock:</strong> {data.stock}</Typography>
+            <Typography><strong>Categoria:</strong> {data.categoria}</Typography>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
+  );
+}
