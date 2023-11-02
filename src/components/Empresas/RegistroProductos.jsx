@@ -270,7 +270,7 @@ useLayoutEffect(() => {
       const fileName = 'img/' + file.name; 
       await Storage.put(fileName, file, { level: 'public', type: file.type });
   
-     const imageUrl = `https://worklinker-storage-0c1ad922222139-prod.s3.amazonaws.com/public/${fileName}`;
+     const imageUrl = `https://worklinkerd500aa700a28476bb7438a0dbef726b3222139-prod.s3.amazonaws.com/public/${fileName}`;
       setImagenURL(imageUrl);
   
       // La carga del archivo se realizó con éxito
