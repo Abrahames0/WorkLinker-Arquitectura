@@ -7,6 +7,7 @@ import { Usuarios } from "../../models";
 import { Typography, Button } from "@mui/material";
 //import Footer from '../../components/Footer';
 import NavegacionUsuarios from "../../components/Usuarios/NavegacionUsuarios";
+import Footer from "../../components/Footer";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ function PerfilUsuario() {
                 <>
                   <NavegacionUsuarios setSession={setSession} />
                   <SinRegistro />
+                  <Footer/>
                 </>
               )}
             </>

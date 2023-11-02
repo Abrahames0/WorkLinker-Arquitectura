@@ -1,14 +1,71 @@
-import { Button } from "@mui/material";
-import NavegacionUsuarios from "../../../components/Usuarios/NavegacionUsuarios";
+import React, { useState, useEffect } from 'react';
 
-function Carrito(params) {
-    return(
-        <div>
-        <NavegacionUsuarios/>
-            No hay productos agregados 
-            <Button href="/inicio-usuarios" >Agregar productos </Button>
-        </div>
-    )
+import { Navigate } from 'react-router-dom';
+
+import { Auth } from 'aws-amplify';
+import { DataStore } from '@aws-amplify/datastore';
+
+import CarritoUsuario from '../../../components/Usuarios/CarritoUsuario';
+import Footer from '../../../components/Footer';
+import NavegacionUsuarios from '../../../components/Usuarios/NavegacionUsuarios';
+import { Usuarios } from '../../../models';
+import { NombreGrupo } from '../../../hook/NombreGrupo';
+
+function Carrito() {
+  const [session, setSession] = useState('');
+  const [, setIdOwner] = useState('');
+  const [, setEmail] = useState('');
+  const [nombreGrupo, setNombreGrupo] = useState('');
+  const [existeBde, setExisteBde] = useState('');
+  const [registroCompleto, setregistroCompleto] = useState(false);
+  const [, setbdeData] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      await Auth.currentAuthenticatedUser().then(async (data) => {
+        await setSession(true);
+        await setIdOwner(data.username);
+        await setEmail(data.attributes.email);
+        await NombreGrupo(data.username, 'usuario', setNombreGrupo);
+        const sub = DataStore.observeQuery(Usuarios, (c) => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
+          setExisteBde(items.length);
+          setregistroCompleto(items[0]?.registroCompleto === true ? items[0]?.registroCompleto : false);
+          if (items.length > 0) {
+            setbdeData(items[0]);
+          }
+        });
+        return () => {
+          sub.unsubscribe();
+        };
+      }).catch((err) => {
+        setSession(false);
+        console.log(err);
+      });
+    }
+    getData();
+  }, []);
+
+  return (
+    <div>
+      {session ? (
+        <>
+          {nombreGrupo === 'usuarios' ? (
+            (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
+              <>
+                <NavegacionUsuarios setSession={setSession} />
+                 <CarritoUsuario/>
+                 <Footer/>
+              </>
+            )
+          ) : nombreGrupo === 'empresa' && (
+            <Navigate to='/login-empresa' />
+          )}
+        </>
+      ) : session === false && (
+        <Navigate to='/login-users' />
+      )}
+    </div>
+  );
 }
 
 export default Carrito;

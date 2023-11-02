@@ -9,6 +9,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionEmpresas from '../../components/Empresas/NavegacionEmpresa';
 import RegistroEmpresaInformacion from '../../components/Empresas/RegistroEmpresaInformacion';
+import Footer from '../../components/Footer';
 
 function RegistroEmpresa() {
   const [session, setSession] = useState('');
@@ -49,6 +50,7 @@ function RegistroEmpresa() {
               <>
                 <NavegacionEmpresas setSession={setSession} />
                  <RegistroEmpresaInformacion idUser={idOwner} email={email}/>
+                 <Footer/>
               </>
             )
           ) : nombreGrupo === 'proveedores' && (

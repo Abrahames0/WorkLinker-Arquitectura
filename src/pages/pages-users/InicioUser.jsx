@@ -10,15 +10,16 @@ import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import CarouselInicio from '../../components/Inicio/inicio-bienvenida/Carrusel';
 import ListaProductosVender from '../../components/Usuarios/ListaProductosVender';
+import Footer from '../../components/Footer';
 
 function RegistroUsuario() {
   const [session, setSession] = useState('');
-  const [idOwner, setIdOwner] = useState('');
-  const [email, setEmail] = useState('');
+  const [, setIdOwner] = useState('');
+  const [, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
-  const [bdeData, setbdeData] = useState({});
+  const [, setbdeData] = useState({});
 
   useEffect(() => {
     async function getData() {
@@ -55,6 +56,7 @@ function RegistroUsuario() {
                 <NavegacionUsuarios setSession={setSession} />
                 <CarouselInicio/>
                 <ListaProductosVender/>
+                <Footer/>
               </>
             )
           ) : nombreGrupo === 'empresa' && (

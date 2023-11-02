@@ -9,6 +9,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionEmpresas from '../../components/Empresas/NavegacionEmpresa';
 import ListaProductosPausados from '../../components/Empresas/ListaPausados';
+import Footer from '../../components/Footer';
 
 function ProductosPausados() {
   const [session, setSession] = useState('');
@@ -49,6 +50,7 @@ function ProductosPausados() {
               <>
                 <NavegacionEmpresas setSession={setSession} />
                 <ListaProductosPausados/>
+                <Footer/>
               </>
             )
           ) : nombreGrupo === 'proveedores' && (

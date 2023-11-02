@@ -9,11 +9,12 @@ import { DataStore } from '@aws-amplify/datastore';
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionEmpresas from '../../components/Empresas/NavegacionEmpresa';
 import ListaProductos from '../../components/Empresas/ListaProductosEditarEliminar';
+import Footer from '../../components/Footer';
 
 function InicioEmpresaProvee() {
   const [session, setSession] = useState(null);
-  const [idOwner, setIdOwner] = useState('');
-  const [email, setEmail] = useState('');
+  const [, setIdOwner] = useState('');
+  const [, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState(null);
   const [registroCompleto, setRegistroCompleto] = useState(false);
@@ -49,6 +50,7 @@ function InicioEmpresaProvee() {
               <>
                 <NavegacionEmpresas setSession={setSession} />
                 <ListaProductos/>
+                <Footer/>
               </>
             )
           ) : nombreGrupo === 'proveedores' && (

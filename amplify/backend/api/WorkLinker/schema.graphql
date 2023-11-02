@@ -2,7 +2,7 @@ type Producto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: priv
   id: ID!
   nombreProducto: String
   descripcion: String
-  precio: String
+  precio: Int
   stock: Int
   imagenURL: String
   categoria: String
@@ -24,9 +24,9 @@ type Carrito @model @auth(rules: [{allow: public}]) {
 type ProductoCarrito @model @auth(rules: [{allow: public}]) {
   id: ID!
   carritoID: ID! @index(name: "byCarrito")
-  precio: Float
+  precio: String
   cantidad: Int
-  subTotal: String
+  subTotal: Int
   nombreProducto: String
 }
 

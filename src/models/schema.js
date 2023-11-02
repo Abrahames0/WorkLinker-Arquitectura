@@ -27,7 +27,7 @@ export const schema = {
                 "precio": {
                     "name": "precio",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -339,7 +339,7 @@ export const schema = {
                 "precio": {
                     "name": "precio",
                     "isArray": false,
-                    "type": "Float",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -353,7 +353,7 @@ export const schema = {
                 "subTotal": {
                     "name": "subTotal",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -814,5 +814,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "931d5281744918e75262777364996759"
+    "version": "0d3a513ce8a571fc66f3a0d94f10689c"
 };

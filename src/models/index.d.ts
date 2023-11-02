@@ -14,7 +14,7 @@ type EagerProducto = {
   readonly id: string;
   readonly nombreProducto?: string | null;
   readonly descripcion?: string | null;
-  readonly precio?: string | null;
+  readonly precio?: number | null;
   readonly stock?: number | null;
   readonly imagenURL?: string | null;
   readonly categoria?: string | null;
@@ -32,7 +32,7 @@ type LazyProducto = {
   readonly id: string;
   readonly nombreProducto?: string | null;
   readonly descripcion?: string | null;
-  readonly precio?: string | null;
+  readonly precio?: number | null;
   readonly stock?: number | null;
   readonly imagenURL?: string | null;
   readonly categoria?: string | null;
@@ -113,9 +113,9 @@ type EagerProductoCarrito = {
   };
   readonly id: string;
   readonly carritoID: string;
-  readonly precio?: number | null;
+  readonly precio?: string | null;
   readonly cantidad?: number | null;
-  readonly subTotal?: string | null;
+  readonly subTotal?: number | null;
   readonly nombreProducto?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -128,9 +128,9 @@ type LazyProductoCarrito = {
   };
   readonly id: string;
   readonly carritoID: string;
-  readonly precio?: number | null;
+  readonly precio?: string | null;
   readonly cantidad?: number | null;
-  readonly subTotal?: string | null;
+  readonly subTotal?: number | null;
   readonly nombreProducto?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

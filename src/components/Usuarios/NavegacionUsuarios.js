@@ -5,12 +5,25 @@ import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Usuarios } from "../../models";
-import {BsCart2, BsSearch } from 'react-icons/bs'
-import { Button } from "@mui/material";
-import { RiNotification2Line } from 'react-icons/ri'
+import { BsSearch } from 'react-icons/bs'
+import { Button, IconButton } from "@mui/material";
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
+import Badge from '@mui/material/Badge';
+
+
+import { styled } from '@mui/material/styles';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 function NavegacionUsuarios({ setSession }) {
   const navigate = useNavigate();
@@ -26,9 +39,9 @@ function NavegacionUsuarios({ setSession }) {
       const auth = await Auth.currentAuthenticatedUser();
       setTimeout(() => {
         DataStore.query(Usuarios, c => c.correo.eq(auth.attributes.email)).then((e) => {
-          if (e[0]?.nombre) {
-            setUser(e[0].nombre);
-            localStorage.setItem("nombreNav", e[0].nombre);
+          if (e[0]?.nombreUsuario) {
+            setUser(e[0].nombreUsuario);
+            localStorage.setItem("nombreNav", e[0].nombreUsuario);
             return
           }
           localStorage.setItem("nombreNav", "Usuario");
@@ -96,19 +109,24 @@ function NavegacionUsuarios({ setSession }) {
                 <Button variant="contained"> <BsSearch size={15}/> </Button>
             </Form>
           </Nav>
-            <Nav>
-            <NavDropdown
-                title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
-                <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
-                  <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
-                  <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
-                </div>
-              </NavDropdown>
-              <Nav.Link href="/notificaciones"><RiNotification2Line size={13}/> </Nav.Link>
-              <Nav.Link href="/carrito"> <BsCart2 size={20}/> </Nav.Link>
+            <Nav className="mx-3">
+              <NavDropdown
+                  title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
+                  <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
+                    <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
+                    <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
+                  </div>
+                </NavDropdown>
             </Nav>
+            <IconButton aria-label="cart" href="/carrito">
+              <StyledBadge badgeContent={4} color="secondary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
           </Navbar.Collapse>
-          <ToggleDarkMode/>
+          <Nav className="mx-3">
+           <ToggleDarkMode/>
+          </Nav>
         </Container>
       </Navbar>
     </div>

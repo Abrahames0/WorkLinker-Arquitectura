@@ -5,8 +5,8 @@ export function ToggleDarkMode() {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Button onClick={toggleColorMode}>
-         {colorMode === 'light' ? <MdDarkMode size={20}/> : <MdOutlineDarkMode size={20}/>}
+    <Button colorScheme='teal' variant='ghost' onClick={toggleColorMode}>
+         {colorMode === 'light' ? <MdDarkMode size={25}/> : <MdOutlineDarkMode size={25}/>}
     </Button>
   )
 }

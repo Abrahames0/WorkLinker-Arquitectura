@@ -9,15 +9,16 @@ import { DataStore } from '@aws-amplify/datastore';
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import RegistroUsuarioInformacion from '../../components/Usuarios/registro-Usuario/RegistroUsuarioInformacion';
+import Footer from '../../components/Footer';
 
 function RegistroUsuario() {
   const [session, setSession] = useState('');
-  const [idOwner, setIdOwner] = useState('');
-  const [email, setEmail] = useState('');
+  const [, setIdOwner] = useState('');
+  const [, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
-  const [bdeData, setbdeData] = useState({});
+  const [, setbdeData] = useState({});
 
   useEffect(() => {
     async function getData() {
@@ -53,6 +54,7 @@ function RegistroUsuario() {
               <>
                 <NavegacionUsuarios setSession={setSession} />
                  <RegistroUsuarioInformacion /* idUser={idOwner} email={email} bdeData={bdeData} *//>
+                 <Footer/>
               </>
             )
           ) : nombreGrupo === 'empresa' && (

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
-import { NombreGrupo } from "../../hook/NombreGrupo";
 import { Navigate, useNavigate } from "react-router-dom";
-import { DataStore } from "@aws-amplify/datastore";
+
+import { Auth } from "aws-amplify";
 import { Proveedor } from "../../models";
+import { DataStore } from "@aws-amplify/datastore";
+
 import { Typography, Button } from "@mui/material";
-//import Footer from '../../components/Footer';
+
+import Footer from "../../components/Footer";
+import { NombreGrupo } from "../../hook/NombreGrupo";
 import NavegacionEmpresas from "../../components/Empresas/NavegacionEmpresa";
 
 function PerfilEmpresa() {
@@ -74,6 +77,7 @@ function PerfilEmpresa() {
                 <>
                   <NavegacionEmpresas setSession={setSession} />
                   <SinRegistro />
+                  <Footer/>
                 </>
               )}
             </>

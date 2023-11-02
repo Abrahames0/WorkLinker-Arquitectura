@@ -6,7 +6,8 @@ import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.pn
 import { Link, useNavigate } from "react-router-dom";
 import { Proveedor } from "../../models";
 import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
-
+import { FiLogOut } from 'react-icons/fi';
+import { CgProfile } from 'react-icons/cg';
 
 import { useColorModeValue } from '@chakra-ui/react';
 
@@ -25,9 +26,9 @@ function NavegacionEmpresas({ setSession }) {
       const auth = await Auth.currentAuthenticatedUser();
       setTimeout(() => {
         DataStore.query(Proveedor, c => c.correo.eq(auth.attributes.email)).then((e) => {
-          if (e[0]?.nombre) {
-            setUser(e[0].nombre);
-            localStorage.setItem("nombreNav", e[0].nombre);
+          if (e[0]?.correo) {
+            setUser(e[0].correo);
+            localStorage.setItem("nombreNav", e[0].correo);
             return
           }
           localStorage.setItem("nombreNav", "Proveedor");
@@ -66,16 +67,21 @@ function NavegacionEmpresas({ setSession }) {
             <Nav.Link href="/Mapa">Catalogar</Nav.Link>
             <Nav.Link href="/productos-pausados">Productos pausados</Nav.Link>
           </Nav>
-            <Nav>
-            <NavDropdown
-                title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
-                <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
-                  <Nav.Link href='/perfil-proveedor'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
-                  <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
-                </div>
-              </NavDropdown>
-              <ToggleDarkMode/>
-            </Nav>
+              <Nav className="pb-">
+                  <NavDropdown title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
+                      <div className="p-1" style={{ maxHeight: '4rem' }}>
+                          <Nav.Link href='/perfil-proveedor' className="dropdown-item">
+                              <span className="me-2"><CgProfile /></span> Perfil
+                          </Nav.Link>
+                          <Nav.Link onClick={() => logOut()} className="dropdown-item">
+                              <span className="me-2"><FiLogOut /></span> Cerrar Sesión
+                          </Nav.Link>
+                      </div>
+                  </NavDropdown>
+              </Nav>
+              <Nav>
+                <ToggleDarkMode/>
+              </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

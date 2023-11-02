@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 import { Auth } from 'aws-amplify';
+import { Proveedor } from "../../models";
 import { DataStore } from '@aws-amplify/datastore';
 
-import { Navigate } from "react-router-dom";
+import Footer from "../../components/Footer";
 import { NombreGrupo } from "../../hook/NombreGrupo";
-import { Proveedor } from "../../models";
 import RegistroProductos from "../../components/Empresas/RegistroProductos";
 import NavegacionEmpresas from "../../components/Empresas/NavegacionEmpresa";
 
@@ -49,6 +50,7 @@ function RegistroProducto() {
                     <RegistroProductos emailOwner={emailOwner} />
                   </div>
                 </div>
+                <Footer/>
               </>
             )
           ) : nombreGrupo === "usuarios" && (
