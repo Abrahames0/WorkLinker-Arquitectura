@@ -64,7 +64,7 @@ const ComDetallesProducto = ({ email }) => {
     return <Loader />;
   }
 
-  /* const obtenerCarritoUsuario = async (userID) => {
+/*   const obtenerCarritoUsuario = async (userID) => {
     try {
         // Crear un nuevo carrito
         const nuevoCarrito = await DataStore.save(
@@ -84,6 +84,7 @@ const ComDetallesProducto = ({ email }) => {
 
     return null;
 }; */
+
 const obtenerCarritoUsuario = async (email) => {
   try {
     const todosLosUsuarios = await DataStore.query(Usuarios);

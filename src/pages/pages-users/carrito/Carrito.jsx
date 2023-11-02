@@ -14,7 +14,7 @@ import { NombreGrupo } from '../../../hook/NombreGrupo';
 function Carrito() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
-  const [, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
@@ -53,7 +53,7 @@ function Carrito() {
             (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
               <>
                 <NavegacionUsuarios setSession={setSession} />
-                 <CarritoUsuario/>
+                 <CarritoUsuario email={email}/>
                  <Footer/>
               </>
             )

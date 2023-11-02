@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
@@ -83,7 +83,6 @@ type EagerCarrito = {
   };
   readonly id: string;
   readonly TotalCarrito?: number | null;
-  readonly ProductoCarritos?: (ProductoCarrito | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -95,7 +94,6 @@ type LazyCarrito = {
   };
   readonly id: string;
   readonly TotalCarrito?: number | null;
-  readonly ProductoCarritos: AsyncCollection<ProductoCarrito>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -112,11 +110,11 @@ type EagerProductoCarrito = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly carritoID: string;
   readonly precio?: string | null;
   readonly cantidad?: number | null;
   readonly subTotal?: number | null;
   readonly nombreProducto?: string | null;
+  readonly usuariosID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -127,11 +125,11 @@ type LazyProductoCarrito = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly carritoID: string;
   readonly precio?: string | null;
   readonly cantidad?: number | null;
   readonly subTotal?: number | null;
   readonly nombreProducto?: string | null;
+  readonly usuariosID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -237,12 +235,11 @@ type EagerUsuarios = {
   readonly colonia?: string | null;
   readonly codigoPostalUsuario?: number | null;
   readonly municipioUsuario?: string | null;
-  readonly Carrito?: Carrito | null;
   readonly estadoUsuario?: string | null;
   readonly paisUsuario?: string | null;
+  readonly ProductoCarritos?: (ProductoCarrito | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly usuariosCarritoId?: string | null;
 }
 
 type LazyUsuarios = {
@@ -260,12 +257,11 @@ type LazyUsuarios = {
   readonly colonia?: string | null;
   readonly codigoPostalUsuario?: number | null;
   readonly municipioUsuario?: string | null;
-  readonly Carrito: AsyncItem<Carrito | undefined>;
   readonly estadoUsuario?: string | null;
   readonly paisUsuario?: string | null;
+  readonly ProductoCarritos: AsyncCollection<ProductoCarrito>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly usuariosCarritoId?: string | null;
 }
 
 export declare type Usuarios = LazyLoading extends LazyLoadingDisabled ? EagerUsuarios : LazyUsuarios
