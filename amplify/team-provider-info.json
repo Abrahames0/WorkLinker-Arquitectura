@@ -16,7 +16,14 @@
         "WorkLinker": {}
       },
       "storage": {
-        "s3worklinkerstorage0c1ad922": {}
+        "s3worklinkerstorage0c1ad922": {},
+        "s397e01a0a": {}
+      },
+      "function": {
+        "S3Triggerc263e2a9": {
+          "deploymentBucketName": "amplify-worklinker-prod-222139-deployment",
+          "s3Key": "amplify-builds/S3Triggerc263e2a9-776f50737a4949352f6f-build.zip"
+        }
       }
     }
   }

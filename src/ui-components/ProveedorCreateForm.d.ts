@@ -24,7 +24,7 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type ProveedorCreateFormInputValues = {
     nombreComercial?: string;
     correo?: string;
-    telefono?: number;
+    telefono?: string;
     calle?: string;
     numero?: string;
     colonia?: string;
@@ -36,7 +36,7 @@ export declare type ProveedorCreateFormInputValues = {
 export declare type ProveedorCreateFormValidationValues = {
     nombreComercial?: ValidationFunction<string>;
     correo?: ValidationFunction<string>;
-    telefono?: ValidationFunction<number>;
+    telefono?: ValidationFunction<string>;
     calle?: ValidationFunction<string>;
     numero?: ValidationFunction<string>;
     colonia?: ValidationFunction<string>;

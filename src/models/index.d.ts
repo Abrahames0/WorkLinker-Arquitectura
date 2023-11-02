@@ -182,7 +182,7 @@ type EagerProveedor = {
   readonly id: string;
   readonly nombreComercial?: string | null;
   readonly correo?: string | null;
-  readonly telefono?: number | null;
+  readonly telefono?: string | null;
   readonly calle?: string | null;
   readonly numero?: string | null;
   readonly colonia?: string | null;
@@ -203,7 +203,7 @@ type LazyProveedor = {
   readonly id: string;
   readonly nombreComercial?: string | null;
   readonly correo?: string | null;
-  readonly telefono?: number | null;
+  readonly telefono?: string | null;
   readonly calle?: string | null;
   readonly numero?: string | null;
   readonly colonia?: string | null;

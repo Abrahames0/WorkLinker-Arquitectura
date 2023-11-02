@@ -518,7 +518,7 @@ export const schema = {
                 "telefono": {
                     "name": "telefono",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -808,5 +808,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "e8364ec8bcaa0bd331d3c017f6334016"
+    "version": "931d5281744918e75262777364996759"
 };
