@@ -12,12 +12,12 @@ import ComDetallesProducto from '../../components/Usuarios/detalles-productos/Co
 
 function DetallesdeProducto() {
   const [session, setSession] = useState('');
-  const [idOwner, setIdOwner] = useState('');
-  const [email, setEmail] = useState('');
+  const [, setIdOwner] = useState('');
+  const [, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
-  const [bdeData, setbdeData] = useState({});
+  const [, setbdeData] = useState({});
 
   useEffect(() => {
     async function getData() {

@@ -7,7 +7,7 @@ import { Producto, Proveedor } from "../../models";
 
 import Swal from "sweetalert2";
 
-import { Button, TextField, CardHeader, InputAdornment, Card, } from "@mui/material";
+import { Button, TextField, CardHeader, InputAdornment, Card, Snackbar, Alert } from "@mui/material";
 import { VisuallyHiddenInput } from "@chakra-ui/react";
 
 import { TbCloudUpload } from "react-icons/tb";
@@ -15,14 +15,15 @@ import { VistaPreviaProducto } from "./VistaPreviaProductos";
 import AutocompleteNout from "../componentesRecicables/AutocompleteNout";
 import { Categorias } from "../../files/Catalogos";
 
-
 function RegistroProductos({ emailOwner } ) {
 
   const navigate = useNavigate()
   const [provedor, setProvedor] = useState(null);
   const [imagenURL, setImagenURL] = useState(null);
 
-
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');  
 
 const PROHIBITED_CHARS = /[?*¨´_"$/\\?¿[\]{}:=^;<>+~,@'%#¡!°¬|+]+/g;
 const ALPHA_NUMERIC_EXTENDED = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9()&.,-\s]{0,1500}$/;
@@ -48,11 +49,6 @@ const validaciones = {
         maxLength: 5,
         help: "Ingresa un precio válido de hasta 5 dígitos numéricos"
     },
-    /* categoria: {
-        maxLength: 50,
-        regex: ALPHA_NUMERIC_EXTENDED,
-        help: "El campo categoria tiene un máximo de 50 caracteres"
-    } */
 };
 
 const handleChange = (event) => {
@@ -270,16 +266,26 @@ useLayoutEffect(() => {
       const fileName = 'img/' + file.name; 
       await Storage.put(fileName, file, { level: 'public', type: file.type });
   
-     const imageUrl = `https://worklinkerd500aa700a28476bb7438a0dbef726b3222139-prod.s3.amazonaws.com/public/${fileName}`;
+      const imageUrl = `https://worklinkerd500aa700a28476bb7438a0dbef726b3222139-prod.s3.amazonaws.com/public/${fileName}`;
       setImagenURL(imageUrl);
   
       // La carga del archivo se realizó con éxito
       console.log('Archivo cargado exitosamente:', imageUrl);
+  
+      // Muestra una alerta de éxito
+      setSnackbarMessage('Imagen guardada exitosamente');
+      setSnackbarSeverity('success');
+      setOpenSnackbar(true);
     } catch (error) {
       console.error('Error al cargar la imagen:', error);
-      // Maneja el error aquí
+  
+      // Muestra una alerta de error
+      setSnackbarMessage('Error al guardar la imagen');
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
     }
   };
+  
   
   return (
     <div>
@@ -320,14 +326,18 @@ useLayoutEffect(() => {
                 label="Imagen del producto"
                 size="normal"
                 margin="normal"
-                placeholder="Carga imagenes del producto "
-                value={infProducto?.imagenURL ? infProducto.imagenURL : ""}
+                placeholder="Carga imágenes del producto"
+                value={imagenURL ? imagenURL : ""}
                 InputProps={{
                   endAdornment: (
-                    <Button component="label" variant="contained" startIcon={<TbCloudUpload />}>
-                      Cargar
-                      <VisuallyHiddenInput type="file" onChange={handleImageUpload} accept="image/*"/>
-                    </Button>
+                    <label htmlFor="icon-button-file">
+                      <Button component="span" variant="contained" startIcon={<TbCloudUpload />}
+                        sx={{ backgroundColor: '#5c6bc0','&:hover': {backgroundColor: '#3949ab'}}}>
+                        Cargar
+                      </Button>
+                      <VisuallyHiddenInput
+                        accept="image/*" id="icon-button-file" type="file" onChange={handleImageUpload} />
+                    </label>
                   ),
                 }}
                 fullWidth
@@ -356,6 +366,16 @@ useLayoutEffect(() => {
           </div>
         </Form>
       </Card>
+      <Snackbar
+        open={openSnackbar} autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+         sx={{ '& .MuiSnackbarContent-root': { fontSize: '1.25rem' } }}>
+        <Alert onClose={() => setOpenSnackbar(false)} severity={snackbarSeverity}
+          sx={{ width: '100%', fontSize: '1rem' }} 
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

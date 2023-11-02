@@ -3,27 +3,17 @@ import { Proveedor, Producto } from "../../models";
 import { Auth } from "aws-amplify";
 import { DataStore } from "@aws-amplify/datastore";
 import { NombreGrupo } from "../../hook/NombreGrupo";
-import { Pagination, Stack } from "@mui/material";
 import { SinCoincidencias } from "./SinCoincidencias";
 import ListaProductos from "./ListaProductos";
 
 function ListaProductosEditarEliminar() {
-  const [nombreGrupo, setNombreGrupo] = useState("");
-  const [producto, setProducto] = useState([]);
+  const [, setNombreGrupo] = useState("");
   const [selectedProducto, setSelectedProducto] = useState(null);
   const [provedorData, setProvedorData] = useState({});
   const [Productos, setProductos] = useState([]);
-  const [session, setSession] = useState("");
-  const [user, setUser] = useState("");
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 10;
-  const indexOfLastResult = currentPage * resultsPerPage;
-  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const currentResults = producto.slice(indexOfFirstResult, indexOfLastResult);
+  const [, setSession] = useState("");
 
   useEffect(() => {
-    // Your first useEffect logic here
     async function saves() {
       try {
         await Auth.currentAuthenticatedUser().then(async (user) => {
@@ -46,20 +36,16 @@ function ListaProductosEditarEliminar() {
 
   console.log(provedorData.id);
   useEffect(() => {
-    // Your second useEffect logic here
-
       try {
         const sub = DataStore.observeQuery(Producto, (c) => c.proveedorID.eq(provedorData.id)).subscribe(({ items }) => {
           setProductos(items);
         });
-
         return () => {
           sub.unsubscribe();
         };
       } catch (error) {
         console.log(error);
       }
-    
   }, [provedorData]);
 
 
@@ -89,13 +75,6 @@ function ListaProductosEditarEliminar() {
               className="col-lg-12 d-flex justify-content-center align-items-center"
               style={{ paddingTop: "2rem" }}
             >
-              <Stack spacing={2} className="justify-content-center align-items-center">
-                <Pagination
-                  count={Math.ceil(producto.length / resultsPerPage)}
-                  page={currentPage}
-                  onChange={(event, value) => setCurrentPage(value)}
-                />
-              </Stack>
             </div>
           </div>
         </div>

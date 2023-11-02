@@ -16,29 +16,27 @@ export default function Footer() {
   const textColor = colorMode === 'dark' ? 'grey.300' : 'text.secondary';
 
   return (
-    <Box component="footer" sx={{ bgcolor: bgColor, py: 6, }}>
+    <Box component="footer" sx={{ bgcolor: bgColor, py: 6 }}>
       <Container maxWidth="lg">
         <Grid container spacing={4} justifyContent="space-between">
           <Grid item xs={12} sm={4}>
-            <Grid item xs={12} sm={4}>
-                <Box component="img" src={logo} alt="Logo de mi compañía" sx={{ height: 50 }} />
-            </Grid>
-            <Typography variant="subtitle1" color="text.secondary">
+            <Box component="img" src={logo} alt="Logo de mi compañía" sx={{ height: 70 }} />
+            <Typography variant="subtitle1" color={textColor}>
               © {new Date().getFullYear()} Todos los derechos reservados.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h6" color={textColor} gutterBottom>
               Recursos
             </Typography>
-            <Link href="#" color="text.secondary">Repartidor</Link><br/>
-            <Link href="#" color="text.secondary">Vender</Link>
+            <Link href="#" color={textColor}>Repartidor</Link><br/>
+            <Link href="#" color={textColor}>Vender</Link>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h6" color={textColor} gutterBottom>
               Contactos
             </Typography>
-            <Link href="mailto:info@micompañia.com" color="text.secondary">
+            <Link href="mailto:info@micompañia.com" color={textColor}>
               info@worklinker.com.mx
             </Link>
           </Grid>
