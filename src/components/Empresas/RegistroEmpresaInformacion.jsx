@@ -15,7 +15,6 @@ import Direcciones from "../componentesRecicables/Direcciones";
 function RegistroEmpresaInformacion() {
 
   const navigate = useNavigate()
-  const [activeStep, setActiveStep] = useState(0)
 
   const handleChange = (event) => {
     const { name, value } = event.target;

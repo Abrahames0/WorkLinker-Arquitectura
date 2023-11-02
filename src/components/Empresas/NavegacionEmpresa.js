@@ -5,10 +5,19 @@ import { Navbar, Container, Nav, NavDropdown, } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Proveedor } from "../../models";
+import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
+
+
+import { useColorModeValue } from '@chakra-ui/react';
 
 function NavegacionEmpresas({ setSession }) {
   const navigate = useNavigate();
   const [ user, setUser ] = useState("Proveedor");
+
+  const navLightStyle = { backgroundColor: '#f8f9fa' };
+  const navDarkStyle = { backgroundColor: '#343a40' };
+
+  const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
 
 
   useEffect(() => {
@@ -43,7 +52,7 @@ function NavegacionEmpresas({ setSession }) {
 
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar style={navStyle} expand="lg">
         <Container>
           <Navbar.Brand>
             <Link to="/inicio-empresa">
@@ -65,6 +74,7 @@ function NavegacionEmpresas({ setSession }) {
                   <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
                 </div>
               </NavDropdown>
+              <ToggleDarkMode/>
             </Nav>
           </Navbar.Collapse>
         </Container>

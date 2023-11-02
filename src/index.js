@@ -20,12 +20,12 @@ import PerfilEmpresa from "./pages/pages-empresa/PerfilEmpresa";
 import RegistroUsuario from "./pages/pages-users/RegistroUsuario";
 import RegistroEmpresa from "./pages/pages-empresa/RegistroEmpresa";
 import Carrito from "./pages/pages-users/carrito/Carrito";
-import Pagos from "./pages/pages-users/carrito/Pagos";
 import RegistroProducto from "./pages/pages-empresa/AgregarProducto";
 import ProductosPausados from "./pages/pages-empresa/ProductosPausados";
 import Loader from "./components/componentesRecicables/Loader";
 import DetallesdeProducto from "./pages/pages-users/DetallesProducto";
 import InicioEmpresaProvee from "./pages/pages-empresa/InicioProvee";
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -125,11 +125,20 @@ const router = createBrowserRouter([
   },
 ]);
 
+const config = {
+  initialColorMode: 'dark', // o 'light' para el modo claro por defecto
+  useSystemColorMode: false, // true si quieres que use la preferencia del sistema
+}
+
+const themes = extendTheme({ config })
+
 function App() {
   return (
+    <ChakraProvider theme={themes}>
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
     </ThemeProvider>
+   </ChakraProvider>
   );
 }
 
