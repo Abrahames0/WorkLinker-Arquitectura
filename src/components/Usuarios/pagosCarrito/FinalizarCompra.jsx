@@ -5,6 +5,7 @@ import { ProductoCarrito, Usuarios } from '../../../models';
 import { Auth, DataStore } from 'aws-amplify';
 import Loader from '../../componentesRecicables/Loader';
 import CreditCardForm from './FormTarjetas';
+import { notificacionCompra } from '../../../hook/senEmail';
 
 const CheckoutComponent = () => {
 const [userData, setUserData] = useState(null);
@@ -66,7 +67,14 @@ useEffect(() => {
   };
 }, []);
 
+
+
+
 const handlePayClick = async () => {
+  const totalPrecio = productosCarrito.reduce((total, producto) => total + parseInt(producto.precio), 0);
+  const nombresProductos = productosCarrito.map(producto => producto.nombreProducto);
+  const nombresProductosSeparadosPorComas = nombresProductos.join(', ');
+
   if (!isFormValid) {
     alert('Introduce tu método de pago.');
     return;
@@ -78,10 +86,12 @@ const handlePayClick = async () => {
     clearTimeout(timeoutId);
   }
 
+
   // Creamos un nuevo timeout
   const newTimeoutId = setTimeout(() => {
     setIsLoading(false);
     alert('La compra se realizó con éxito.');
+    notificacionCompra(userData,productosCarrito,totalPrecio,nombresProductosSeparadosPorComas)
     vaciarCarrito();
   }, 4000);
 
