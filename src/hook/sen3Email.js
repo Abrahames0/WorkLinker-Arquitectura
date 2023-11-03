@@ -1,18 +1,14 @@
-export async function notificacionEnvio(pkg, repartidorCorreo) {
+export async function notificacionLLegada(pkg, repartidorCorreo, ) {
     try {
       console.log("notificacionCompra: Inicio de la función");        
-        
-      // URL de la función lambda que envía la notificación de seguimiento
-      const url = process.env.REACT_APP_API_WORKLINKER+ "/correoseguimientopaquete";
-
+      const url = process.env.REACT_APP_API_WORKLINKER+ "/correollegadapaquete";
+  
       const requestData ={
         repartidor: {
             email: pkg.correoCliente,
-            cliente: pkg.informacionDeCliente,
-            producto: pkg.productosParaEntregar,
-            estado: "En camino",
-            destino: pkg.direccionDeEntrega,
-            correoElectronico: repartidorCorreo
+            nombre: pkg.informacionDeCliente,
+            paquetes: pkg.productosParaEntregar,
+            correo: repartidorCorreo
           }
       }
   

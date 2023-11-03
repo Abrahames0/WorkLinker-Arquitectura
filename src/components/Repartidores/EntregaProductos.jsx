@@ -3,8 +3,9 @@ import { DataStore } from 'aws-amplify';
 import { RepartirProducto } from '../../models';
 import { Card, CardContent, Button, Typography, Container, Grid } from '@mui/material';
 import { notificacionEnvio } from '../../hook/sen2Email';
+import { notificacionLLegada } from '../../hook/sen3Email';
 
-function RepartidorView({ repartidorID }) {
+function RepartidorView({ repartidorID, repartidorCorreo }) {
   const [packages, setPackages] = useState([]);
 
   useEffect(() => {
@@ -17,10 +18,27 @@ function RepartidorView({ repartidorID }) {
   }, [repartidorID]);
 
   const handleInDelivery = async (pkg) => {
-    notificacionEnvio(pkg, repartidorID)
+    notificacionEnvio(pkg, repartidorCorreo)
     console.log('Paquete en reparto:', pkg.id);
     // Luego podrías actualizar el paquete para reflejar que está en reparto
   };
+
+  const handleEntregado = async (pkg) => {
+    try {
+      // Notificar la llegada del paquete
+      notificacionLLegada(pkg, repartidorCorreo);
+      
+      // Borrar el paquete de la base de datos
+      await DataStore.delete(RepartirProducto, pkg.id);      
+      setPackages(currentPackages => 
+        currentPackages.filter(p => p.id !== pkg.id)
+      );
+      
+      console.log('Paquete entregado y borrado:', pkg.id);
+    } catch (error) {
+      console.error('Error al borrar el paquete:', error);
+    }
+  };  
 
   return (
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh' }}>
@@ -40,7 +58,7 @@ function RepartidorView({ repartidorID }) {
                   Dirección de entrega: {pkg.direccionDeEntrega}
                 </Typography>
                 <Typography variant="body1">
-                  Información de cliente: {pkg.informacionDeCliente}
+                  Información de cliente: {pkg.informacionDeCliente} {pkg.correoCliente}
                 </Typography>
                 <Button 
                   variant="contained" 
@@ -56,8 +74,7 @@ function RepartidorView({ repartidorID }) {
                   color="primary" 
                   fullWidth 
                   style={{ marginTop: '20px' }}
-                  // Aquí podrías agregar la funcionalidad para marcar como entregado
-                  onClick={() => console.log('Marcar como entregado')}
+                  onClick={() => handleEntregado(pkg)}
                 >
                   Marcar como entregado
                 </Button>

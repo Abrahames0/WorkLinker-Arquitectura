@@ -70,7 +70,7 @@ function PerfilRepartidor() {
               {userData !== "" && userData !== undefined ? (
                 <>
                   <NavegacionRepartidores setSession={setSession} />
-                  <RepartidorView repartidorID={userData.id}  />
+                  <RepartidorView repartidorID={userData.id} repartidorCorreo={userData.correo}  />
                   <Footer/>
                 </>
               ) : (
