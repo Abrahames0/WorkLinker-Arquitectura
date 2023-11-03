@@ -1,89 +1,230 @@
 import React, { useState, useEffect } from 'react';
-import { DataStore } from 'aws-amplify';
+
+import { DataStore, Auth } from 'aws-amplify';
 import { ProductoCarrito, Usuarios } from '../../models';
-import { Button, List, ListItem, ListItemText, Divider, FormControl, Select, MenuItem, } from '@mui/material';
 
-const Carrito = ({email}) => {
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { Button, IconButton, TextField, Box, Alert, Snackbar, Typography, Card, Grid, CardContent, Container,} from '@mui/material';
+
+const Carrito = () => {
   const [productosCarrito, setProductosCarrito] = useState([]);
-  const [formaPago, setFormaPago] = useState('');
-  const [userID, setUserID] = useState('');
-
-  const obtenerUserIDPorEmail = async (email) => {
-    try {
-        // Obtener todos los usuarios
-        const usuarios = await DataStore.query(Usuarios);
-        
-        // Encontrar un usuario que coincida con el correo electrónico proporcionado
-        const usuario = usuarios.find(u => u.correo === email);
-        
-        if (usuario) {
-            return usuario.id; // Retorna el ID del usuario encontrado
-        } else {
-            console.error('Usuario no encontrado.');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error al obtener el userID:', error);
-        return null;
+  const [userData, setUserData] = useState(null);
+  const [alerta, setAlerta] = useState(false);
+  
+  // Consigue el usuario autenticado y guarda su información
+  useEffect(() => {
+    let sub;
+    async function getAuthenticatedUser() {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        sub = DataStore.observeQuery(Usuarios, c => c.correo.eq(user.attributes.email), { limit: 1 })
+          .subscribe(({ items }) => {
+            if (items.length > 0) {
+              setUserData(items[0]);
+            }
+          });
+      } catch (error) {
+        console.error('Error al obtener el usuario autenticado:', error);
+      }
     }
-};
+    getAuthenticatedUser();
 
-  const manejarCambioPago = (event) => {
-    setFormaPago(event.target.value);
+    return () => {
+      if (sub) sub.unsubscribe();
+    };
+  }, []);
+
+useEffect(() => {
+  let subscription;
+
+  async function obtenerProductosCarrito() {
+    if (userData) {
+      const productos = await DataStore.query(ProductoCarrito, c => c.usuariosID.eq(userData.id));
+      setProductosCarrito(productos);
+    }
+  }
+  if (userData) {
+    obtenerProductosCarrito();
+
+    // Suscribirse a cambios
+    subscription = DataStore.observe(ProductoCarrito, c => c.usuariosID.eq(userData.id)).subscribe(() => {
+      obtenerProductosCarrito();
+    });
+  }
+  return () => {
+    if (subscription) subscription.unsubscribe();
+  };
+}, [userData]);
+
+  const eliminarProductoDelCarrito = async (productoId) => {
+    try {
+      const productoAEliminar = await DataStore.query(ProductoCarrito, productoId);
+      if (productoAEliminar) {
+        await DataStore.delete(productoAEliminar);
+      }
+    } catch (error) {
+      console.error('Error al eliminar el producto del carrito:', error);
+    }
   };
 
-  useEffect(() => {
-    const obtenerUserID = async () => {
-      const userID = await obtenerUserIDPorEmail(email);
-      setUserID(userID);
-    };
+  // Función para cerrar la alerta
+  const handleCloseAlert = () => {
+    setAlerta(false);
+  };
 
-    obtenerUserID();
-  }, [email]);
+  const calcularTotal = () => {
+    return productosCarrito.reduce((acc, producto) => {
+      return acc + (producto.cantidad * producto.precio);
+    }, 0);
+  };
 
-  useEffect(() => {
-    if (userID) {
-      const obtenerProductosCarrito = async () => {
-        try {
-          const productos = await DataStore.query(ProductoCarrito, p => p.usuariosID("eq", userID));
-          setProductosCarrito(productos);
-        } catch (error) {
-          console.error('Error al obtener productos del carrito:', error);
-        }
-      };
+  const handleDecrease = (productoId) => {
+    actualizarCantidadProducto(productoId, -1);
+  };
 
-      obtenerProductosCarrito();
+  const handleIncrease = (productoId) => {
+    const producto = productosCarrito.find(p => p.id === productoId);
+    
+    if ((producto.cantidad + 1) <= 5) { // Verificar si la nueva cantidad sería 5 o menos
+      actualizarCantidadProducto(productoId, 1);
+    } else {
+      setAlerta(true); // Mostrar alerta si se intenta agregar más de 5 productos
     }
-  }, [userID]);
+  };
+
+  const handleQuantityChange = (productoId, event) => {
+    const nuevaCantidad = parseInt(event.target.value, 10);
+    
+    if (nuevaCantidad <= 5 && nuevaCantidad >= 0) { // Verificar si la nueva cantidad es 5 o menos y no negativa
+      actualizarCantidadProducto(productoId, nuevaCantidad - productosCarrito.find(p => p.id === productoId).cantidad);
+    } else if (nuevaCantidad > 5) {
+      setAlerta(true); // Mostrar alerta si se intenta establecer una cantidad mayor que 5
+    }
+  };
+
+  const actualizarCantidadProducto = async (productoId, change) => {
+    try {
+      const producto = productosCarrito.find(p => p.id === productoId);
+      if (!producto) {
+        console.error('Producto no encontrado en el carrito.');
+        return;
+      }
+      
+      const nuevaCantidad = producto.cantidad + change;
+      
+      if (nuevaCantidad < 1 || nuevaCantidad > producto.stock) {
+        setAlerta(true);
+        return;
+      }
+
+      const original = await DataStore.query(ProductoCarrito, productoId);
+      await DataStore.save(
+        ProductoCarrito.copyOf(original, updated => {
+          updated.cantidad = nuevaCantidad;
+        })
+      );
+      
+      setProductosCarrito(currentProductos => {
+        return currentProductos.map(p => {
+          if (p.id === productoId) {
+            return { ...p, cantidad: nuevaCantidad };
+          }
+          return p;
+        });
+      });
+    } catch (error) {
+      console.error('Error al actualizar la cantidad del producto:', error);
+    }
+  };
 
   return (
-    <div>
-      <h2>Tu Carrito</h2>
-      <List>
-        {productosCarrito.map(producto => (
-          <>
-            <ListItem key={producto.id}>
-              <ListItemText primary={producto.nombreProducto} secondary={`Cantidad: ${producto.cantidad}, Precio: ${producto.precio}`} />
-            </ListItem>
-            <Divider />
-          </>
-        ))}
-      </List>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh' }}>
+    <Container  style={{ flex: 1 }}>
+      <Typography variant="h4" gutterBottom align="center">
+        Bolsa de compra
+      </Typography>
 
-      <FormControl fullWidth>
-        <Select
-          value={formaPago}
-          onChange={manejarCambioPago}
-        >
-          <MenuItem value={'tarjeta'}>Tarjeta de crédito/débito</MenuItem>
-          <MenuItem value={'paypal'}>PayPal</MenuItem>
-          <MenuItem value={'efectivo'}>Efectivo</MenuItem>
-        </Select>
-      </FormControl>
+      <Grid container spacing={3}>
+        {/* Productos */}
+        <Grid item xs={12} md={8}>
+          {productosCarrito.map((producto) => (
+            <Card variant="outlined" key={producto.id}>
+              <CardContent>
+                <Typography variant="h5">{producto.nombreProducto}</Typography>
+                <Box display="flex" alignItems="center">
+                  <img src={producto.imagenURL} alt={producto.nombreProducto} style={{ width: 66, height: 66 }} />
+                  <Typography variant="body3">
+                    Cantidad: {producto.cantidad}, Precio: {producto.precio}
+                  </Typography>
+                  <IconButton edge="end" aria-label="delete" onClick={() => eliminarProductoDelCarrito(producto.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
 
-      <Button variant="contained" color="primary">
-        Proceder al pago
-      </Button>
+                <Box display="flex" alignItems="center" marginTop="16px">
+                  <IconButton onClick={() => handleDecrease(producto.id)} color="primary">
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
+
+                  <TextField
+                    id={`quantity_${producto.id}`}
+                    value={producto.cantidad}
+                    onChange={(e) => handleQuantityChange(producto.id, e)}
+                    type="number"
+                    InputProps={{ inputProps: { min: 1, max: producto.stock } }}
+                    variant="outlined"
+                    size="small"
+                    style={{ maxWidth: '80px', margin: '0 8px' }}
+                  />
+                  <IconButton onClick={() => handleIncrease(producto.id)} color="primary">
+                    <AddCircleOutlineIcon />
+                  </IconButton>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Grid>
+
+        <Grid item xs={12} md={4} className='pb-3'>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography  variant="h5">Resumen</Typography>
+              <Typography sx={{mt:2}} variant="h6">Subtotal: ${calcularTotal()}</Typography>
+            </CardContent>
+          </Card>
+          <Button 
+            variant="contained" 
+            color="primary"
+            fullWidth
+            href='/pago-tarjeta'
+            sx={{
+              mt: 2,
+              borderRadius: '50px',
+            }}
+          >
+            Pago con tarjeta de Débito/Crédito
+          </Button>
+          <Button 
+            variant="outlined" 
+            color="primary"
+            fullWidth
+            sx={{
+              mt: 2,
+              borderRadius: '50px',
+            }}
+          >
+            Paypal
+          </Button>
+        </Grid>
+        <Snackbar open={alerta} autoHideDuration={2000} onClose={handleCloseAlert} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert onClose={handleCloseAlert} severity="error" sx={{ width: '100%' }}>
+          ¡Atención! Solo puedes agregar 5 prodcutos maximo.
+        </Alert>
+      </Snackbar>
+      </Grid>
+    </Container>
     </div>
   );
 };

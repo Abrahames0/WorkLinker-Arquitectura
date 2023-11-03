@@ -27,6 +27,7 @@ type ProductoCarrito @model @auth(rules: [{allow: public}, {allow: owner}, {allo
   subTotal: Int
   nombreProducto: String
   usuariosID: ID! @index(name: "byUsuarios")
+  imagenURL: String
 }
 
 type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {

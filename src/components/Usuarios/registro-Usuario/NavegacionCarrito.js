@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { Auth, DataStore } from "aws-amplify";
 import { IoPerson } from "react-icons/io5";
 import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
-import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
+import WorkLinkerRecortada from "../../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
-import { ProductoCarrito, Usuarios } from "../../models";
+import { Usuarios } from "../../../models";
 import { BsSearch } from 'react-icons/bs'
 import { Button, IconButton } from "@mui/material";
 
 import { useColorModeValue } from '@chakra-ui/react';
-import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
+import { ToggleDarkMode } from "../../Inicio/inicio-bienvenida/ColorPagina";
 import Badge from '@mui/material/Badge';
 
 
@@ -25,10 +25,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function NavegacionUsuarios({ setSession }) {
+function NavegacionCarrito({ setSession, productosCarrito }) {
   const navigate = useNavigate();
   const [ user, setUser ] = useState("Usuario");
-  const [productosCarrito, setProductosCarrito] = useState([]);
 
   const navLightStyle = { backgroundColor: '#f8f9fa' };
   const navDarkStyle = { backgroundColor: '#343a40' };
@@ -50,37 +49,6 @@ function NavegacionUsuarios({ setSession }) {
       }, 950);
     }
     cargar()
-  }, []);
-
-  useEffect(() => {
-    let subscription;
-  
-    // Función para obtener los productos del carrito del usuario actual
-    const cargarProductosCarrito = async () => {
-      try {
-        const authUser = await Auth.currentAuthenticatedUser();
-        const usuarios = await DataStore.query(Usuarios, c => c.correo.eq(authUser.attributes.email));
-        if (usuarios.length > 0) {
-          const usuario = usuarios[0];
-          const productosDelCarrito = await DataStore.query(ProductoCarrito, pc => pc.usuariosID.eq(usuario.id));
-          setProductosCarrito(productosDelCarrito);
-        }
-      } catch (error) {
-        console.error('Error al cargar los productos del carrito:', error);
-      }
-    };
-  
-    cargarProductosCarrito();
-  
-    // Suscribirse a cambios en ProductoCarrito
-    subscription = DataStore.observe(ProductoCarrito).subscribe(msg => {
-      if (msg.model === ProductoCarrito) {
-        cargarProductosCarrito();
-      }
-    });
-  
-    // Limpieza de la suscripción al desmontar el componente
-    return () => subscription && subscription.unsubscribe();
   }, []);
 
   async function logOut() {
@@ -151,9 +119,9 @@ function NavegacionUsuarios({ setSession }) {
                 </NavDropdown>
             </Nav>
             <IconButton aria-label="cart" href="/carrito">
-              <StyledBadge badgeContent={productosCarrito.length} color="secondary">
-                <ShoppingCartIcon />
-              </StyledBadge>
+                <StyledBadge badgeContent={productosCarrito.length} color="secondary">
+                    <ShoppingCartIcon />
+                </StyledBadge>
             </IconButton>
           </Navbar.Collapse>
           <Nav className="mx-3">
@@ -165,4 +133,4 @@ function NavegacionUsuarios({ setSession }) {
   );
 }
 
-export default NavegacionUsuarios;
+export default NavegacionCarrito;

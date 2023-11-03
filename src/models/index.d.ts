@@ -115,6 +115,7 @@ type EagerProductoCarrito = {
   readonly subTotal?: number | null;
   readonly nombreProducto?: string | null;
   readonly usuariosID: string;
+  readonly imagenURL?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -130,6 +131,7 @@ type LazyProductoCarrito = {
   readonly subTotal?: number | null;
   readonly nombreProducto?: string | null;
   readonly usuariosID: string;
+  readonly imagenURL?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

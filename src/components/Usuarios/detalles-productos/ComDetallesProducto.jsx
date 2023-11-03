@@ -90,35 +90,10 @@ const ComDetallesProducto = ({ email }) => {
     return <Loader />;
   }
 
-/*   const obtenerCarritoUsuario = async (userID) => {
-    try {
-        // Crear un nuevo carrito
-        const nuevoCarrito = await DataStore.save(
-            new Carrito({
-                "TotalCarrito": 0, // inicializar con 0 o el valor que prefieras
-                // Asegúrate de que todos los campos necesarios estén aquí
-            })
-        );
-
-        // Aquí podrías asociar el carrito al usuario si es necesario
-        // ...
-
-        return nuevoCarrito.id;
-    } catch (error) {
-        console.error('Error al obtener o crear el carrito del usuario:', error);
-    }
-
-    return null;
-}; */
-
 const obtenerCarritoUsuario = async (email) => {
   try {
     const todosLosUsuarios = await DataStore.query(Usuarios);
-    console.log('Todos los usuarios:', todosLosUsuarios); // Imprime todos los usuarios para depuración
-
-    // Encuentra un usuario que coincida con el correo electrónico proporcionado
     const usuario = todosLosUsuarios.find(u => u.correo === email);
-
     if (usuario) {
         if (usuario.Carrito) {
             return usuario.Carrito.id;
@@ -173,7 +148,8 @@ const agregarAlCarrito = async () => {
           "cantidad": quantity,
           "subTotal": quantity * parseFloat(product.precio),
           "nombreProducto": product.nombreProducto,
-          "usuariosID": userData.id
+          "usuariosID": userData.id,
+          "imagenURL": product.imagenURL,
         })
       );
       console.log('Producto agregado al carrito:', nuevoProductoCarrito);

@@ -5,16 +5,16 @@ import { Navigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { DataStore } from '@aws-amplify/datastore';
 
-import CarritoUsuario from '../../../components/Usuarios/CarritoUsuario';
 import Footer from '../../../components/Footer';
 import NavegacionUsuarios from '../../../components/Usuarios/NavegacionUsuarios';
 import { Usuarios } from '../../../models';
 import { NombreGrupo } from '../../../hook/NombreGrupo';
+import CheckoutComponent from '../../../components/Usuarios/pagosCarrito/FinalizarCompra';
 
-function Carrito() {
+function PagoTarjetaCredito() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
-  const [email, setEmail] = useState('');
+  const [, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
@@ -53,7 +53,7 @@ function Carrito() {
             (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
               <>
                 <NavegacionUsuarios setSession={setSession}  />
-                 <CarritoUsuario email={email} />
+                 <CheckoutComponent />
                  <Footer/>
               </>
             )
@@ -68,4 +68,4 @@ function Carrito() {
   );
 }
 
-export default Carrito;
+export default PagoTarjetaCredito;

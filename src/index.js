@@ -22,10 +22,10 @@ import RegistroEmpresa from "./pages/pages-empresa/RegistroEmpresa";
 import Carrito from "./pages/pages-users/carrito/Carrito";
 import RegistroProducto from "./pages/pages-empresa/AgregarProducto";
 import ProductosPausados from "./pages/pages-empresa/ProductosPausados";
-import Loader from "./components/componentesRecicables/Loader";
 import DetallesdeProducto from "./pages/pages-users/DetallesProducto";
 import InicioEmpresaProvee from "./pages/pages-empresa/InicioProvee";
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import PagoTarjetaCredito from "./pages/pages-users/carrito/PagoTarjetaCredito";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -68,8 +68,8 @@ const router = createBrowserRouter([
     element: <LoginUsers />,
   },
   {
-    path: "/pruebitas",
-    element: <Loader />,
+    path: "/pago-tarjeta",
+    element: <PagoTarjetaCredito />,
   },
   {
     path: "/carrito",
