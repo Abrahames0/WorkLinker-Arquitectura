@@ -14,7 +14,7 @@ export async function notificacionCompra(userData,productosCarrito,totalPrecio,n
 
       const requestData ={
         repartidor: {
-            nombre: userData.nombre,
+            nombre: userData.nombreUsuario,
             nombrePaquete: nombresProductosSeparadosPorComas,
             precioPaquete: totalPrecio,
             fechaCompra: fechaCompra,
