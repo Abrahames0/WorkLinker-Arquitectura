@@ -55,6 +55,10 @@ type EagerRepartirProducto = {
   };
   readonly id: string;
   readonly repartidorID: string;
+  readonly productosParaEntregar?: string | null;
+  readonly direccionDeEntrega?: string | null;
+  readonly informacionDeCliente?: string | null;
+  readonly correoCliente?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -66,6 +70,10 @@ type LazyRepartirProducto = {
   };
   readonly id: string;
   readonly repartidorID: string;
+  readonly productosParaEntregar?: string | null;
+  readonly direccionDeEntrega?: string | null;
+  readonly informacionDeCliente?: string | null;
+  readonly correoCliente?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -148,9 +156,10 @@ type EagerRepartidor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly NombreRepartidor?: string | null;
-  readonly DescripcionRepartidor?: string | null;
+  readonly correo?: string | null;
+  readonly descripcionRepartidor?: string | null;
   readonly RepartirProductos?: (RepartirProducto | null)[] | null;
+  readonly nombreRepartidor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -161,9 +170,10 @@ type LazyRepartidor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly NombreRepartidor?: string | null;
-  readonly DescripcionRepartidor?: string | null;
+  readonly correo?: string | null;
+  readonly descripcionRepartidor?: string | null;
   readonly RepartirProductos: AsyncCollection<RepartirProducto>;
+  readonly nombreRepartidor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

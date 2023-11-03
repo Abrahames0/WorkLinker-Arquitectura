@@ -22,24 +22,28 @@ export default function RepartidorCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    NombreRepartidor: "",
-    DescripcionRepartidor: "",
+    correo: "",
+    descripcionRepartidor: "",
+    nombreRepartidor: "",
   };
-  const [NombreRepartidor, setNombreRepartidor] = React.useState(
-    initialValues.NombreRepartidor
+  const [correo, setCorreo] = React.useState(initialValues.correo);
+  const [descripcionRepartidor, setDescripcionRepartidor] = React.useState(
+    initialValues.descripcionRepartidor
   );
-  const [DescripcionRepartidor, setDescripcionRepartidor] = React.useState(
-    initialValues.DescripcionRepartidor
+  const [nombreRepartidor, setNombreRepartidor] = React.useState(
+    initialValues.nombreRepartidor
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setNombreRepartidor(initialValues.NombreRepartidor);
-    setDescripcionRepartidor(initialValues.DescripcionRepartidor);
+    setCorreo(initialValues.correo);
+    setDescripcionRepartidor(initialValues.descripcionRepartidor);
+    setNombreRepartidor(initialValues.nombreRepartidor);
     setErrors({});
   };
   const validations = {
-    NombreRepartidor: [],
-    DescripcionRepartidor: [],
+    correo: [],
+    descripcionRepartidor: [],
+    nombreRepartidor: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -67,8 +71,9 @@ export default function RepartidorCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          NombreRepartidor,
-          DescripcionRepartidor,
+          correo,
+          descripcionRepartidor,
+          nombreRepartidor,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -115,56 +120,84 @@ export default function RepartidorCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Nombre repartidor"
+        label="Correo"
         isRequired={false}
         isReadOnly={false}
-        value={NombreRepartidor}
+        value={correo}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              NombreRepartidor: value,
-              DescripcionRepartidor,
+              correo: value,
+              descripcionRepartidor,
+              nombreRepartidor,
             };
             const result = onChange(modelFields);
-            value = result?.NombreRepartidor ?? value;
+            value = result?.correo ?? value;
           }
-          if (errors.NombreRepartidor?.hasError) {
-            runValidationTasks("NombreRepartidor", value);
+          if (errors.correo?.hasError) {
+            runValidationTasks("correo", value);
           }
-          setNombreRepartidor(value);
+          setCorreo(value);
         }}
-        onBlur={() => runValidationTasks("NombreRepartidor", NombreRepartidor)}
-        errorMessage={errors.NombreRepartidor?.errorMessage}
-        hasError={errors.NombreRepartidor?.hasError}
-        {...getOverrideProps(overrides, "NombreRepartidor")}
+        onBlur={() => runValidationTasks("correo", correo)}
+        errorMessage={errors.correo?.errorMessage}
+        hasError={errors.correo?.hasError}
+        {...getOverrideProps(overrides, "correo")}
       ></TextField>
       <TextField
         label="Descripcion repartidor"
         isRequired={false}
         isReadOnly={false}
-        value={DescripcionRepartidor}
+        value={descripcionRepartidor}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              NombreRepartidor,
-              DescripcionRepartidor: value,
+              correo,
+              descripcionRepartidor: value,
+              nombreRepartidor,
             };
             const result = onChange(modelFields);
-            value = result?.DescripcionRepartidor ?? value;
+            value = result?.descripcionRepartidor ?? value;
           }
-          if (errors.DescripcionRepartidor?.hasError) {
-            runValidationTasks("DescripcionRepartidor", value);
+          if (errors.descripcionRepartidor?.hasError) {
+            runValidationTasks("descripcionRepartidor", value);
           }
           setDescripcionRepartidor(value);
         }}
         onBlur={() =>
-          runValidationTasks("DescripcionRepartidor", DescripcionRepartidor)
+          runValidationTasks("descripcionRepartidor", descripcionRepartidor)
         }
-        errorMessage={errors.DescripcionRepartidor?.errorMessage}
-        hasError={errors.DescripcionRepartidor?.hasError}
-        {...getOverrideProps(overrides, "DescripcionRepartidor")}
+        errorMessage={errors.descripcionRepartidor?.errorMessage}
+        hasError={errors.descripcionRepartidor?.hasError}
+        {...getOverrideProps(overrides, "descripcionRepartidor")}
+      ></TextField>
+      <TextField
+        label="Nombre repartidor"
+        isRequired={false}
+        isReadOnly={false}
+        value={nombreRepartidor}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              correo,
+              descripcionRepartidor,
+              nombreRepartidor: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.nombreRepartidor ?? value;
+          }
+          if (errors.nombreRepartidor?.hasError) {
+            runValidationTasks("nombreRepartidor", value);
+          }
+          setNombreRepartidor(value);
+        }}
+        onBlur={() => runValidationTasks("nombreRepartidor", nombreRepartidor)}
+        errorMessage={errors.nombreRepartidor?.errorMessage}
+        hasError={errors.nombreRepartidor?.hasError}
+        {...getOverrideProps(overrides, "nombreRepartidor")}
       ></TextField>
       <Flex
         justifyContent="space-between"

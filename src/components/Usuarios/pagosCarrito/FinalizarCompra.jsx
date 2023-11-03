@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Typography, Card, CardContent, Button, Box} from '@mui/material';
 
-import { ProductoCarrito, Usuarios } from '../../../models';
+import { ProductoCarrito, Repartidor, RepartirProducto, Usuarios } from '../../../models';
 import { Auth, DataStore } from 'aws-amplify';
 import Loader from '../../componentesRecicables/Loader';
 import CreditCardForm from './FormTarjetas';
@@ -15,7 +15,6 @@ const [isFormValid, setIsFormValid] = useState(false);
 const [timeoutId, setTimeoutId] = useState(null); // Guardamos el ID del timeout para limpiarlo después
 
 useEffect(() => {
-  // Este efecto se ejecuta cuando el componente se desmonta
   return () => {
     if (timeoutId) {
       clearTimeout(timeoutId); // Limpieza del timeout al desmontar
@@ -67,68 +66,66 @@ useEffect(() => {
   };
 }, []);
 
-
-
-
 const handlePayClick = async () => {
-  const totalPrecio = productosCarrito.reduce((total, producto) => total + parseInt(producto.precio), 0);
-  const nombresProductos = productosCarrito.map(producto => producto.nombreProducto);
-  const nombresProductosSeparadosPorComas = nombresProductos.join(', ');
+  try {
+    setIsLoading(true);
+    
+    if (!isFormValid) {
+      alert('Introduce tu método de pago.');
+      setIsLoading(false);
+      return;
+    }
+    
+    // Asignar un repartidor y guardar la información en las tablas
+    const assignedDelivererId = await assignDeliverer(); 
+    await saveDeliveryInfo(assignedDelivererId, productosCarrito);
+    
+    const totalPrecio = productosCarrito.reduce((total, producto) => total + parseInt(producto.precio), 0);
+    const nombresProductos = productosCarrito.map(producto => producto.nombreProducto);
+    const nombresProductosSeparadosPorComas = nombresProductos.join(', ');
+    
+    const newTimeoutId = setTimeout(() => {
+      notificacionCompra(userData, productosCarrito, totalPrecio, nombresProductosSeparadosPorComas)
+      vaciarCarrito();
+    }, 4000);
 
-  if (!isFormValid) {
-    alert('Introduce tu método de pago.');
-    return;
-  }
-
-  setIsLoading(true);
-  // Limpiamos un timeout existente si hubiera uno
-  if (timeoutId) {
-    clearTimeout(timeoutId);
-  }
-
-
-  // Creamos un nuevo timeout
-  const newTimeoutId = setTimeout(() => {
-    setIsLoading(false);
+    setTimeoutId(newTimeoutId);
     alert('La compra se realizó con éxito.');
-    notificacionCompra(userData,productosCarrito,totalPrecio,nombresProductosSeparadosPorComas)
-    vaciarCarrito();
-  }, 4000);
-
-  // Guardamos el ID del nuevo timeout en el estado
-  setTimeoutId(newTimeoutId);
+  } catch (error) {
+    setIsLoading(false);
+    alert('Ocurrió un error al procesar la compra.');
+    console.error(error);
+  }
 };
 
+// Función para elegir y asignar un repartidor (esto es solo un ejemplo básico)
+async function assignDeliverer() {
+  const deliverers = await DataStore.query(Repartidor);
+  const randomIndex = Math.floor(Math.random() * deliverers.length);
+  return deliverers[randomIndex].id;
+}
+
+// Función para guardar información de la entrega en la tabla "RepartirProducto"
+async function saveDeliveryInfo(delivererId, products) {
+  for (const product of products) {
+    await DataStore.save(
+      new RepartirProducto({
+        repartidorID: delivererId,
+        productosParaEntregar: product.nombreProducto,
+        correoCliente: `${userData.correo}`,
+        direccionDeEntrega: `${userData.calleUsuario} ${userData.numeroUsuario}, ${userData.colonia}`,
+        informacionDeCliente: `${userData.nombreUsuario} ${userData.apellidoUsuario}, ${userData.telefono}`
+      })
+    );
+  }
+}
   const onCardDetailsChange = (isValid) => {
     setIsFormValid(isValid);
   };
 
-  useEffect(() => {
-    let timeoutId;
-    
-    const processPayment = () => {
-      // Supongamos que esta es tu lógica de procesamiento de pago
-      setIsLoading(true);
-      timeoutId = setTimeout(() => {
-        setIsLoading(false);
-        alert('La compra se realizó con éxito.');
-        vaciarCarrito();
-      }, 40000);
-    };
-    
-    
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, []);
-
   const vaciarCarrito = async () => {
-    // Suponiendo que tienes una función que puede vaciar el carrito en tu backend
-    // Esto es un ejemplo y deberías reemplazarlo con tu lógica de vaciado del carrito
     await DataStore.delete(ProductoCarrito, c => c.usuariosID.eq(userData.id));
-    setProductosCarrito([]); // Limpia el estado local del carrito
+    setProductosCarrito([]); 
   };
 
   return (
@@ -136,11 +133,9 @@ const handlePayClick = async () => {
       <Typography variant="h4" gutterBottom>
         Datos de envios
       </Typography>
-
       <Typography variant="h6" gutterBottom>
         Nombre y dirección:
       </Typography>
-
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
         <Card variant="outlined">
@@ -150,7 +145,7 @@ const handlePayClick = async () => {
                 <>
                     <h5>{userData.nombreUsuario} {userData.apellidoUsuario}</h5>
                     <div>{userData.calleUsuario} {userData.numeroUsuario}, {userData.colonia}</div>
-                    <div>{userData.telefono}</div>
+                    <div>{userData.correo} {userData.telefono}</div>
                 </>
                 ) : (
                 <div><Loader/></div>
@@ -177,16 +172,7 @@ const handlePayClick = async () => {
           ))}
             </CardContent>
           </Card>
-          <Button 
-        variant="contained" 
-        color="primary"
-        fullWidth
-        sx={{
-          mt: 2,
-          borderRadius: '50px',
-        }}
-        onClick={handlePayClick} // Añade el manejador de eventos aquí
-      >
+      <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, borderRadius: '50px', }} onClick={handlePayClick} >
         Pagar
       </Button>
         </Grid>

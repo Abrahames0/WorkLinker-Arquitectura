@@ -193,6 +193,34 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "productosParaEntregar": {
+                    "name": "productosParaEntregar",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "direccionDeEntrega": {
+                    "name": "direccionDeEntrega",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "informacionDeCliente": {
+                    "name": "informacionDeCliente",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "correoCliente": {
+                    "name": "correoCliente",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -498,15 +526,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "NombreRepartidor": {
-                    "name": "NombreRepartidor",
+                "correo": {
+                    "name": "correo",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "DescripcionRepartidor": {
-                    "name": "DescripcionRepartidor",
+                "descripcionRepartidor": {
+                    "name": "descripcionRepartidor",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -527,6 +555,13 @@ export const schema = {
                             "repartidorID"
                         ]
                     }
+                },
+                "nombreRepartidor": {
+                    "name": "nombreRepartidor",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -934,5 +969,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "8571f059695469ba3039a1601b9e8fc0"
+    "version": "e717582cb61c756e847cddbc6dd5c2a1"
 };

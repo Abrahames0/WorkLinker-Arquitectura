@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Grid, Paper, IconButton, TextField, Box, Snackbar, Alert } from '@mui/material';
+import { Button, Typography, Grid, Paper, IconButton, TextField, Box, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Slide } from '@mui/material';
 import { DataStore,Auth } from 'aws-amplify';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Producto, Carrito, ProductoCarrito, Usuarios } from '../../../models';
 import Loader from '../../componentesRecicables/Loader';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ListaProductosVender from '../ListaProductosVender';
+
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ContinueShoppingIcon from '@mui/icons-material/AddShoppingCart'; // Un ícono que podría representar continuar comprando
 
 const ComDetallesProducto = ({ email }) => {
   const { id } = useParams();
@@ -14,11 +18,22 @@ const ComDetallesProducto = ({ email }) => {
   const [quantity, setQuantity] = useState(1);
   const [alert, setAlert] = useState(false);
   const [userData , setUserData]= useState([]);
-  const [productos , setProductos]= useState([])
+  const [productos , setProductos]= useState([]);
+  const [alertaCarrito, setAlertaCarrito] = useState(false);
+  const navigate = useNavigate();
 
+  const irAlCarrito = () => {
+    navigate('/carrito'); 
+  };
 
+  const seguirComprando = () => {
+    navigate('/inicio-usuarios'); 
+  };
 
-  //Consigue id autenticado 
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
   useEffect(() => {
     async function saves() {
       try {
@@ -36,9 +51,6 @@ const ComDetallesProducto = ({ email }) => {
     }
     saves()
   }, []);
-
-//////////////////////////////////
-
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -140,7 +152,7 @@ const agregarAlCarrito = async () => {
 
       // Actualizar el estado con la nueva lista de productos en el carrito
       setProductos(nuevosProductos);
-
+      setAlertaCarrito(true);
       const nuevoProductoCarrito = await DataStore.save(
         new ProductoCarrito({
           "carritoID": carritoID,
@@ -162,7 +174,8 @@ const agregarAlCarrito = async () => {
 };
 
 return (
-  <Paper className="p-2 row d-flex align-items-center justify-content-center" elevation={3} style={{ padding: '16px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh' }}>
+  <Paper className="p-2 row d-flex align-items-center justify-content-center" >
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <div style={{ maxWidth: '100%', maxHeight: '450px' }}>
@@ -214,19 +227,45 @@ return (
         <Button variant="contained" color="primary" onClick={agregarAlCarrito} style={{ marginTop: '16px' }} size="large">
           Agregar {quantity} al carrito
         </Button>
+        <Dialog
+          open={alertaCarrito}
+          TransitionComponent={Transition} // Efecto de transición
+          keepMounted
+          onClose={() => setAlertaCarrito(false)}
+          aria-describedby="alerta-carrito-descripcion"
+        >
+          <DialogTitle>{"Producto agregado al carrito"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alerta-carrito-descripcion">
+              ¿Te gustaría ir a tu carrito o prefieres seguir comprando?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={irAlCarrito}
+              color="primary"
+              variant="contained"
+              startIcon={<ShoppingCartIcon />}
+            >
+              Ir al carrito
+            </Button>
+            <Button
+              onClick={seguirComprando}
+              color="secondary"
+              variant="outlined"
+              startIcon={<ContinueShoppingIcon />}
+              autoFocus
+            >
+              Seguir comprando
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     </Grid>
-    <div>
-      <p>Cantidad de productos en el carrito: {productos.length}</p>
-      <ul>
-        {productos.map((producto, index) => (
-          <li key={index}>
-            {producto.cantidad} x {producto.nombreProducto} - ${producto.precio}
-          </li>
-        ))}
-      </ul>
-    </div>
   </Paper>
+  <h4 className="p-2 row d-flex align-items-center justify-content-center" >Te podria interesar</h4>
+  <ListaProductosVender/>
+  </div>
 );
 };
 

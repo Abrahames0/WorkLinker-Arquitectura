@@ -29,8 +29,8 @@ export default function Footer() {
             <Typography variant="h6" color={textColor} gutterBottom>
               Recursos
             </Typography>
-            <Link href="#" color={textColor}>Repartidor</Link><br/>
-            <Link href="#" color={textColor}>Vender</Link>
+            <Link href="/login-repartidores" color={textColor}>Repartidor</Link><br/>
+            <Link href="/login-empresa" color={textColor}>Vender</Link>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Typography variant="h6" color={textColor} gutterBottom>

@@ -26,6 +26,12 @@ import DetallesdeProducto from "./pages/pages-users/DetallesProducto";
 import InicioEmpresaProvee from "./pages/pages-empresa/InicioProvee";
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import PagoTarjetaCredito from "./pages/pages-users/carrito/PagoTarjetaCredito";
+import LoginRepartidor from "./pages/pages-repartidor/LoginRepartidor";
+import InicioRepartidor from "./pages/pages-repartidor/InicioRepartidor";
+import PerfilRepartidor from "./pages/pages-repartidor/PerfilRepartidor";
+import RegistroRepartidorInformacion from "./components/Repartidores/RegistroRepartidorInformacion";
+import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
+import DetallesCompras from "./pages/pages-users/DetallesCompras";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -63,9 +69,22 @@ const theme = createTheme({
 });
 
 const router = createBrowserRouter([
+  
   {
     path: "/login-users",
     element: <LoginUsers />,
+  },
+  {
+    path: "/login-repartidores",
+    element: <LoginRepartidor />,
+  },
+  {
+    path: "/inicio-repartidores",
+    element: <InicioRepartidor />,
+  },
+  {
+    path: "/usuario-compras",
+    element: <DetallesCompras/>,
   },
   {
     path: "/pago-tarjeta",
@@ -112,12 +131,20 @@ const router = createBrowserRouter([
     element: <LoginEmpresa />,
   },
   {
+    path: "/registro-repartidor",
+    element: <RegistroRepartidor />,
+  },
+  {
     path: "/productos-pausados",
     element: <ProductosPausados />,
   },
   {
     path: "/producto/:id",
     element: <DetallesdeProducto />,
+  },
+  {
+    path: "/perfil-repartidor",
+    element: <PerfilRepartidor />,
   },
   {
     path: "/",

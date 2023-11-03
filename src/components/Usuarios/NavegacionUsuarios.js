@@ -141,7 +141,7 @@ function NavegacionUsuarios({ setSession }) {
                 <Button variant="contained"> <BsSearch size={15}/> </Button>
             </Form>
           </Nav>
-            <Nav className="mx-3">
+            <Nav className="mx-1">
               <NavDropdown
                   title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
                   <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
@@ -149,6 +149,9 @@ function NavegacionUsuarios({ setSession }) {
                     <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
                   </div>
                 </NavDropdown>
+            </Nav>
+            <Nav className="mx-1">
+            <Nav.Link href='/usuario-compras'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Tus compras</p></Nav.Link>
             </Nav>
             <IconButton aria-label="cart" href="/carrito">
               <StyledBadge badgeContent={productosCarrito.length} color="secondary">
