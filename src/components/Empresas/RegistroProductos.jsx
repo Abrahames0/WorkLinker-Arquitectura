@@ -133,7 +133,7 @@ const handleChange = (event) => {
       const productos = new Producto({
         nombreProducto: infProducto.nombreProducto,
         descripcion: infProducto.descripcion,
-        precio: infProducto.precio,
+        precio: parseInt(infProducto.precio),
         imagenURL: imagenURL,
         stock: parseInt(infProducto.stock, 10),
         categoria: infProducto.categoria,

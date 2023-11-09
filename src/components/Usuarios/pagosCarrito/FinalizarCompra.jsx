@@ -6,6 +6,7 @@ import { Auth, DataStore } from 'aws-amplify';
 import Loader from '../../componentesRecicables/Loader';
 import CreditCardForm from './FormTarjetas';
 import { notificacionCompra } from '../../../hook/senEmail';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutComponent = () => {
 const [userData, setUserData] = useState(null);
@@ -13,6 +14,8 @@ const [productosCarrito, setProductosCarrito] = useState([]);
 const [isLoading, setIsLoading] = useState(false); // Estado para controlar el loader
 const [isFormValid, setIsFormValid] = useState(false);
 const [timeoutId, setTimeoutId] = useState(null); // Guardamos el ID del timeout para limpiarlo después
+const history = useNavigate(); 
+
 
 useEffect(() => {
   return () => {
@@ -85,8 +88,9 @@ const handlePayClick = async () => {
     const nombresProductosSeparadosPorComas = nombresProductos.join(', ');
     
     const newTimeoutId = setTimeout(() => {
-      notificacionCompra(userData, productosCarrito, totalPrecio, nombresProductosSeparadosPorComas)
+      notificacionCompra(userData, productosCarrito, totalPrecio, nombresProductosSeparadosPorComas);
       vaciarCarrito();
+      history('/inicio-usuarios');
     }, 4000);
 
     setTimeoutId(newTimeoutId);
@@ -130,58 +134,58 @@ async function saveDeliveryInfo(delivererId, products) {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Datos de envios
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        Nombre y dirección:
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+    {isLoading && <Loader />}
+    <Typography variant="h4" gutterBottom>
+      Datos de envios
+    </Typography>
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={6}>
+        <Typography variant="h6" gutterBottom>
+          Nombre y dirección:
+        </Typography>
         <Card variant="outlined">
-            <CardContent>
-                <Typography variant="h6">Direcion de envio</Typography>
-                {userData ? (
-                <>
-                    <h5>{userData.nombreUsuario} {userData.apellidoUsuario}</h5>
-                    <div>{userData.calleUsuario} {userData.numeroUsuario}, {userData.colonia}</div>
-                    <div>{userData.correo} {userData.telefono}</div>
-                </>
-                ) : (
-                <div><Loader/></div>
-                )}
-            </CardContent>
-            </Card>
-        </Grid>
+          <CardContent>
+            <Typography variant="h6">Direcion de envio</Typography>
+            {userData ? (
+              <>
+                <Typography variant="body1">{`${userData.nombreUsuario} ${userData.apellidoUsuario}`}</Typography>
+                <Typography variant="body2">{`${userData.calleUsuario} ${userData.numeroUsuario}, ${userData.colonia}`}</Typography>
+                <Typography variant="body2">{userData.correo} {userData.telefono}</Typography>
+              </>
+            ) : (
+              <Loader />
+            )}
+          </CardContent>
+        </Card>
       </Grid>
-      <Grid container spacing={3} sx={{mt: 2}}>
-        <Grid item xs={12} md={4}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography variant="h6">Resumen del pedido</Typography>
-              {productosCarrito.map((producto) => (
-              <CardContent key={producto.id}>
-                <Typography variant="h5">{producto.nombreProducto}</Typography>
+
+      <Grid item xs={12} md={6}>
+        <CreditCardForm onCardDetailsChange={onCardDetailsChange} isFormValid={isFormValid} />
+      </Grid>
+
+      <Grid item xs={12} md={12}>
+        <Typography variant="h6" gutterBottom>
+          Resumen del pedido
+        </Typography>
+        <Card variant="outlined">
+          <CardContent>
+            {productosCarrito.map((producto) => (
+              <Box key={producto.id} mb={2}>
+                <Typography variant="h6">{producto.nombreProducto}</Typography>
                 <Box display="flex" alignItems="center">
                   <img src={producto.imagenURL} alt={producto.nombreProducto} style={{ width: 66, height: 66 }} />
-                  <Typography variant="body3">
-                    Cantidad: {producto.cantidad}, Precio: {producto.precio}
-                  </Typography>
+                  <Typography variant="body1">{`Cantidad: ${producto.cantidad}, Precio:$ ${producto.precio}.00`}</Typography>
                 </Box>
-              </CardContent>
-          ))}
-            </CardContent>
-          </Card>
-      <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, borderRadius: '50px', }} onClick={handlePayClick} >
-        Pagar
-      </Button>
-        </Grid>
-        {isLoading && <Loader />}
-          <Grid item xs={10} md={7} >
-            <CreditCardForm onCardDetailsChange={onCardDetailsChange} isFormValid={isFormValid} />
-          </Grid>
+              </Box>
+            ))}
+          </CardContent>
+        </Card>
+        <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, borderRadius: '50px' }} onClick={handlePayClick}>
+          Pagar
+        </Button>
       </Grid>
-    </Container>
+    </Grid>
+  </Container>
   );
 };
 

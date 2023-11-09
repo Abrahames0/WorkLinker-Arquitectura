@@ -5,8 +5,7 @@ import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductoCarrito, Usuarios } from "../../models";
-import { BsSearch } from 'react-icons/bs'
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
@@ -107,40 +106,6 @@ function NavegacionUsuarios({ setSession }) {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-          <Nav>
-          <NavDropdown title="Categorías" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Electrodomésticos</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Hogar y Muebles</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Moda</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Deportes Y finess</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Herraminetas</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Construcción</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Industria y oficinas</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Accesorios para Vehículos</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Juegos y jugetes</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Bebés</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Salud Y Equipamineto Médico</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Belleza y Cuidado Personal</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Inmuebles</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Compra Internacional</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Productos Sustentables</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Más vendidos</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Ver más categorias</NavDropdown.Item>
-              <NavDropdown.Divider />
-            </NavDropdown>
-            <Nav.Link href="/Mapa">Ofertas</Nav.Link>
-            <Nav.Link href="/Mapa">Moda</Nav.Link>
-            <Nav.Link href="/Mapa">Ayuda</Nav.Link>
-            <Form className="d-flex search-form">
-                <Form.Control
-                    type="search"
-                    placeholder="Buscar"
-                    className="me-2 search-input"
-                    aria-label="Search"
-                />
-                <Button variant="contained"> <BsSearch size={15}/> </Button>
-            </Form>
-          </Nav>
             <Nav className="mx-1">
               <NavDropdown
                   title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
@@ -151,8 +116,8 @@ function NavegacionUsuarios({ setSession }) {
                 </NavDropdown>
             </Nav>
             <Nav className="mx-1">
-            <Nav.Link href='/usuario-compras'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Tus compras</p></Nav.Link>
-            </Nav>
+{/*             <Nav.Link href='/usuario-compras'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Tus compras</p></Nav.Link>
+ */}            </Nav>
             <IconButton aria-label="cart" href="/carrito">
               <StyledBadge badgeContent={productosCarrito.length} color="secondary">
                 <ShoppingCartIcon />

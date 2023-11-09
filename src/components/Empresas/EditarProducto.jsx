@@ -127,7 +127,7 @@ function EditarProducto({ open, handleClose, productoId, producto }) {
             Producto.copyOf(originalProducto, updated => {
               updated.nombreProducto = infProducto.nombreProducto;
               updated.descripcion = infProducto.descripcion;
-              updated.precio = infProducto.precio;
+              updated.precio = parseInt(infProducto.precio);
               updated.imagenURL = imagenURL;
               updated.stock = parseInt(infProducto.stock, 10);
               updated.categoria = infProducto.categoria;
@@ -142,22 +142,23 @@ function EditarProducto({ open, handleClose, productoId, producto }) {
     }
 
     const handleSwitchChange = async (event) => {
-        try {
-            const newValue = event.target.checked;
-            setStatusVisible(newValue);
-    
-            const originalProducto = await DataStore.query(Producto, producto.id);
-            if (originalProducto) {
-                await DataStore.save(
-                    Producto.copyOf(originalProducto, updated => {
-                        updated.statusVisible = newValue;
-                    })
-                );
-            }
-        } catch (error) {
-            console.error(error);
-        } 
-    };   
+      try {
+          const newValue = event.target.checked; // Esta es la nueva valor del interruptor, ya sea true o false.
+          setStatusVisible(newValue); // Actualizas el estado local con el nuevo valor.
+  
+          // Obtienes el producto original de la base de datos.
+          const originalProducto = await DataStore.query(Producto, producto.id);
+          if (originalProducto) {
+              await DataStore.save(
+                  Producto.copyOf(originalProducto, updated => {
+                      updated.statusVisible = newValue; // Aquí es donde necesitas pasar el nuevo valor.
+                  })
+              );
+          }
+      } catch (error) {
+          console.error(error);
+      } 
+  };   
   
     const validateField = (field, message) => {
       if (!field || typeof field !== 'string' || field.trim() === '') {
@@ -176,7 +177,7 @@ function EditarProducto({ open, handleClose, productoId, producto }) {
     
       if (!validateField(nombreProducto, 'El campo Nombre del producto es requerido')) return false;
       if (!validateField(descripcion, 'El campo descripcion es requerido')) return false;
-      if (!validateField(precio, 'El campo precio es requerido')) return false;
+      /* if (!validateField(precio, 'El campo precio es requerido')) return false; */
       if (!validateField(categoria, 'El campo categoria es requerido')) return false;
       if (!validateField(stock, 'El campo stock es requerido')) return false;
   
@@ -283,7 +284,7 @@ function EditarProducto({ open, handleClose, productoId, producto }) {
                         setinfProducto({
                             nombreProducto: producto.nombreProducto,
                             descripcion: producto.descripcion,
-                            precio: producto.precio,
+                            precio: parseInt(producto.precio),
                             stock: producto.stock.toString(),
                             imagenURL: producto.imagenURL,
                             categoria: producto.categoria,
