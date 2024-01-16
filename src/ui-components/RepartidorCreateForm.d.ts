@@ -22,21 +22,18 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type RepartidorCreateFormInputValues = {
-    correo?: string;
-    descripcionRepartidor?: string;
-    nombreRepartidor?: string;
+    NombreRepartidor?: string;
+    DescripcionRepartidor?: string;
 };
 export declare type RepartidorCreateFormValidationValues = {
-    correo?: ValidationFunction<string>;
-    descripcionRepartidor?: ValidationFunction<string>;
-    nombreRepartidor?: ValidationFunction<string>;
+    NombreRepartidor?: ValidationFunction<string>;
+    DescripcionRepartidor?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type RepartidorCreateFormOverridesProps = {
     RepartidorCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    correo?: PrimitiveOverrideProps<TextFieldProps>;
-    descripcionRepartidor?: PrimitiveOverrideProps<TextFieldProps>;
-    nombreRepartidor?: PrimitiveOverrideProps<TextFieldProps>;
+    NombreRepartidor?: PrimitiveOverrideProps<TextFieldProps>;
+    DescripcionRepartidor?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type RepartidorCreateFormProps = React.PropsWithChildren<{
     overrides?: RepartidorCreateFormOverridesProps | undefined | null;

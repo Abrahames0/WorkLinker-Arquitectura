@@ -1,0 +1,66 @@
+type Producto @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombreProducto: String
+  descripcion: String
+  precio: String
+  stock: Int
+  imagenURL: AWSURL
+  categoria: String
+  proveedorID: ID! @index(name: "byProveedor")
+}
+
+type RepartirProducto @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  repartidorID: ID! @index(name: "byRepartidor")
+}
+
+type Carrito @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  TotalCarrito: Float
+  ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byCarrito", fields: ["id"])
+}
+
+type ProductoCarrito @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  carritoID: ID! @index(name: "byCarrito")
+  precio: Float
+  cantidad: Int
+  subTotal: String
+  nombreProducto: String
+}
+
+type Repartidor @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  NombreRepartidor: String
+  DescripcionRepartidor: String
+  RepartirProductos: [RepartirProducto] @hasMany(indexName: "byRepartidor", fields: ["id"])
+}
+
+type Proveedor @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  correo: String
+  apellidosProveedor: String
+  calleProveedor: String
+  numeroProveedor: String
+  codigoPostalProveedor: Int
+  estadoProveedor: String
+  paisProveedor: String
+  Productos: [Producto] @hasMany(indexName: "byProveedor", fields: ["id"])
+  nombreProveedor: String
+}
+
+type Usuarios @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombreUsuario: String
+  apellidoUsuario: String
+  correo: String
+  telefono: String
+  calleUsuario: String
+  numeroUsuario: String
+  colonia: String
+  codigoPostalUsuario: Int
+  municipioUsuario: String
+  Carrito: Carrito @hasOne
+  estadoUsuario: String
+  paisUsuario: String
+} 

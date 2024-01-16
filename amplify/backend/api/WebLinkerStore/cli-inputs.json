@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "WorkLinker",
+    "apiName": "WebLinkerStore",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",
@@ -11,10 +11,6 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
-      },
-      {
-        "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authWorkLinker"
       }
     ],
     "conflictResolution": {

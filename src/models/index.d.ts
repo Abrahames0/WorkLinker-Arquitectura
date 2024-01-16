@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
 
 
@@ -14,11 +14,10 @@ type EagerProducto = {
   readonly id: string;
   readonly nombreProducto?: string | null;
   readonly descripcion?: string | null;
-  readonly precio?: number | null;
+  readonly precio?: string | null;
   readonly stock?: number | null;
   readonly imagenURL?: string | null;
   readonly categoria?: string | null;
-  readonly statusVisible?: boolean | null;
   readonly proveedorID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -32,11 +31,10 @@ type LazyProducto = {
   readonly id: string;
   readonly nombreProducto?: string | null;
   readonly descripcion?: string | null;
-  readonly precio?: number | null;
+  readonly precio?: string | null;
   readonly stock?: number | null;
   readonly imagenURL?: string | null;
   readonly categoria?: string | null;
-  readonly statusVisible?: boolean | null;
   readonly proveedorID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -55,10 +53,6 @@ type EagerRepartirProducto = {
   };
   readonly id: string;
   readonly repartidorID: string;
-  readonly productosParaEntregar?: string | null;
-  readonly direccionDeEntrega?: string | null;
-  readonly informacionDeCliente?: string | null;
-  readonly correoCliente?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -70,10 +64,6 @@ type LazyRepartirProducto = {
   };
   readonly id: string;
   readonly repartidorID: string;
-  readonly productosParaEntregar?: string | null;
-  readonly direccionDeEntrega?: string | null;
-  readonly informacionDeCliente?: string | null;
-  readonly correoCliente?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -91,6 +81,7 @@ type EagerCarrito = {
   };
   readonly id: string;
   readonly TotalCarrito?: number | null;
+  readonly ProductoCarritos?: (ProductoCarrito | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -102,6 +93,7 @@ type LazyCarrito = {
   };
   readonly id: string;
   readonly TotalCarrito?: number | null;
+  readonly ProductoCarritos: AsyncCollection<ProductoCarrito>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -118,12 +110,11 @@ type EagerProductoCarrito = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly precio?: string | null;
+  readonly carritoID: string;
+  readonly precio?: number | null;
   readonly cantidad?: number | null;
-  readonly subTotal?: number | null;
+  readonly subTotal?: string | null;
   readonly nombreProducto?: string | null;
-  readonly usuariosID: string;
-  readonly imagenURL?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -134,12 +125,11 @@ type LazyProductoCarrito = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly precio?: string | null;
+  readonly carritoID: string;
+  readonly precio?: number | null;
   readonly cantidad?: number | null;
-  readonly subTotal?: number | null;
+  readonly subTotal?: string | null;
   readonly nombreProducto?: string | null;
-  readonly usuariosID: string;
-  readonly imagenURL?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -156,10 +146,9 @@ type EagerRepartidor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly correo?: string | null;
-  readonly descripcionRepartidor?: string | null;
+  readonly NombreRepartidor?: string | null;
+  readonly DescripcionRepartidor?: string | null;
   readonly RepartirProductos?: (RepartirProducto | null)[] | null;
-  readonly nombreRepartidor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -170,10 +159,9 @@ type LazyRepartidor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly correo?: string | null;
-  readonly descripcionRepartidor?: string | null;
+  readonly NombreRepartidor?: string | null;
+  readonly DescripcionRepartidor?: string | null;
   readonly RepartirProductos: AsyncCollection<RepartirProducto>;
-  readonly nombreRepartidor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -190,17 +178,15 @@ type EagerProveedor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombreComercial?: string | null;
   readonly correo?: string | null;
-  readonly telefono?: string | null;
-  readonly calle?: string | null;
-  readonly numero?: string | null;
-  readonly colonia?: string | null;
-  readonly codigoPostal?: number | null;
+  readonly apellidosProveedor?: string | null;
+  readonly calleProveedor?: string | null;
+  readonly numeroProveedor?: string | null;
+  readonly codigoPostalProveedor?: number | null;
+  readonly estadoProveedor?: string | null;
+  readonly paisProveedor?: string | null;
   readonly Productos?: (Producto | null)[] | null;
-  readonly municipio?: string | null;
-  readonly estado?: string | null;
-  readonly pais?: string | null;
+  readonly nombreProveedor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -211,17 +197,15 @@ type LazyProveedor = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly nombreComercial?: string | null;
   readonly correo?: string | null;
-  readonly telefono?: string | null;
-  readonly calle?: string | null;
-  readonly numero?: string | null;
-  readonly colonia?: string | null;
-  readonly codigoPostal?: number | null;
+  readonly apellidosProveedor?: string | null;
+  readonly calleProveedor?: string | null;
+  readonly numeroProveedor?: string | null;
+  readonly codigoPostalProveedor?: number | null;
+  readonly estadoProveedor?: string | null;
+  readonly paisProveedor?: string | null;
   readonly Productos: AsyncCollection<Producto>;
-  readonly municipio?: string | null;
-  readonly estado?: string | null;
-  readonly pais?: string | null;
+  readonly nombreProveedor?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -247,11 +231,12 @@ type EagerUsuarios = {
   readonly colonia?: string | null;
   readonly codigoPostalUsuario?: number | null;
   readonly municipioUsuario?: string | null;
+  readonly Carrito?: Carrito | null;
   readonly estadoUsuario?: string | null;
   readonly paisUsuario?: string | null;
-  readonly ProductoCarritos?: (ProductoCarrito | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
+  readonly usuariosCarritoId?: string | null;
 }
 
 type LazyUsuarios = {
@@ -269,11 +254,12 @@ type LazyUsuarios = {
   readonly colonia?: string | null;
   readonly codigoPostalUsuario?: number | null;
   readonly municipioUsuario?: string | null;
+  readonly Carrito: AsyncItem<Carrito | undefined>;
   readonly estadoUsuario?: string | null;
   readonly paisUsuario?: string | null;
-  readonly ProductoCarritos: AsyncCollection<ProductoCarrito>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
+  readonly usuariosCarritoId?: string | null;
 }
 
 export declare type Usuarios = LazyLoading extends LazyLoadingDisabled ? EagerUsuarios : LazyUsuarios

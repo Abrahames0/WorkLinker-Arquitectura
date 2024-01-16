@@ -1,28 +1,19 @@
 {
-  "prod": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-worklinker-prod-222139-authRole",
-      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-worklinker-prod-222139-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-worklinker-prod-222139-authRole",
+      "AuthRoleName": "amplify-weblinkerstore-dev-230911-authRole",
+      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-weblinkerstore-dev-230911-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-weblinkerstore-dev-230911-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-worklinker-prod-222139-deployment",
-      "UnauthRoleName": "amplify-worklinker-prod-222139-unauthRole",
-      "StackName": "amplify-worklinker-prod-222139",
-      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-worklinker-prod-222139/e1ab51b0-6a16-11ee-9f24-0a728f85cf8f",
-      "AmplifyAppId": "d3tj6l72ybfrjs"
+      "DeploymentBucketName": "amplify-weblinkerstore-dev-230911-deployment",
+      "UnauthRoleName": "amplify-weblinkerstore-dev-230911-unauthRole",
+      "StackName": "amplify-weblinkerstore-dev-230911",
+      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-weblinkerstore-dev-230911/edd1e7b0-b331-11ee-89d9-128b58662811",
+      "AmplifyAppId": "djy52821q31mn"
     },
     "categories": {
       "auth": {
-        "WorkLinker": {}
-      },
-      "function": {
-        "S3Triggerc263e2a9": {
-          "deploymentBucketName": "amplify-worklinker-prod-222139-deployment",
-          "s3Key": "amplify-builds/S3Triggerc263e2a9-776f50737a4949352f6f-build.zip"
-        }
-      },
-      "storage": {
-        "s397e01a0a": {}
+        "WebLinkerStore": {}
       }
     }
   }

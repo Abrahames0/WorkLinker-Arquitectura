@@ -2,9 +2,9 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "worklid2fb8543",
-    "userPoolName": "WorkLinker",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "weblin43792be1",
+    "userPoolName": "WebLinkerStore",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -14,28 +14,26 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Bienvenido a WorkLinker",
-    "emailVerificationMessage": "             Bienvenido usuario\nTu codigo de verificacion es: {####}",
+    "emailVerificationSubject": "Tu cÃ³digo de verificaciÃ³n para Web Linker Store: {####}",
+    "emailVerificationMessage": "Verification code: {####}\n\nTu CÃ³digo de VerificaciÃ³n:\n{####}\n\nPor favor, ingresa este cÃ³digo en la pÃ¡gina de verificaciÃ³n para continuar.\n\nSi no has solicitado este cÃ³digo, puedes ignorar este correo electrÃ³nico o ponerte en contacto con nosotros si necesitas ayuda.\n\nGracias,\nEl equipo de Web Linker Store",
     "defaultPasswordPolicy": false,
-    "passwordPolicyMinLength": 8,
+    "passwordPolicyMinLength": 6,
     "passwordPolicyCharacters": [
       "Requires Lowercase",
       "Requires Numbers",
       "Requires Symbols",
       "Requires Uppercase"
     ],
-    "requiredAttributes": [
-      "email"
-    ],
+    "requiredAttributes": [],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "WorkLid2fb8543_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "WebLin43792be1_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "d2fb8543",
-    "resourceName": "WorkLinker",
+    "sharedId": "43792be1",
+    "resourceName": "WebLinkerStore",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
     "usernameAttributes": [
@@ -48,21 +46,6 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": [],
-    "hostedUI": false
+    "useEnabledMfas": true
   }
 }

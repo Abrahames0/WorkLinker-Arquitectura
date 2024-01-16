@@ -1,26 +1,12 @@
 {
   "api": {
-    "WorkLinker": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "WorkLinker"
-        }
-      ],
+    "WebLinkerStore": {
+      "dependsOn": [],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authWorkLinker"
-              }
             }
           ],
           "defaultAuthentication": {
@@ -37,7 +23,7 @@
     }
   },
   "auth": {
-    "WorkLinker": {
+    "WebLinkerStore": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -52,11 +38,9 @@
             "REQUIRES_SYMBOLS",
             "REQUIRES_UPPERCASE"
           ],
-          "passwordPolicyMinLength": 8
+          "passwordPolicyMinLength": 6
         },
-        "signupAttributes": [
-          "EMAIL"
-        ],
+        "signupAttributes": [],
         "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"
@@ -67,38 +51,6 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    }
-  },
-  "function": {
-    "S3Triggerc263e2a9": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_S3Triggerc263e2a9_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "S3Triggerc263e2a9"
-        }
-      ]
-    },
-    "AMPLIFY_function_S3Triggerc263e2a9_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "S3Triggerc263e2a9"
-        }
-      ]
-    }
-  },
-  "storage": {
-    "s397e01a0a": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
     }
   }
 }
