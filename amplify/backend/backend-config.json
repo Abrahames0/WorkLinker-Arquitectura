@@ -1,12 +1,26 @@
 {
   "api": {
     "WebLinkerStore": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "WebLinkerStore"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authWebLinkerStore"
+              }
             }
           ],
           "defaultAuthentication": {
@@ -38,9 +52,11 @@
             "REQUIRES_SYMBOLS",
             "REQUIRES_UPPERCASE"
           ],
-          "passwordPolicyMinLength": 6
+          "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
         "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"

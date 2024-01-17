@@ -1,4 +1,4 @@
-type Producto @model @auth(rules: [{allow: public}]) {
+type Producto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, update, delete, create]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}]) {
   id: ID!
   nombreProducto: String
   descripcion: String
@@ -9,18 +9,18 @@ type Producto @model @auth(rules: [{allow: public}]) {
   proveedorID: ID! @index(name: "byProveedor")
 }
 
-type RepartirProducto @model @auth(rules: [{allow: public}]) {
+type RepartirProducto @model @auth(rules: [{allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
   repartidorID: ID! @index(name: "byRepartidor")
 }
 
-type Carrito @model @auth(rules: [{allow: public}]) {
+type Carrito @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
   TotalCarrito: Float
   ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byCarrito", fields: ["id"])
 }
 
-type ProductoCarrito @model @auth(rules: [{allow: public}]) {
+type ProductoCarrito @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
   carritoID: ID! @index(name: "byCarrito")
   precio: Float
@@ -29,14 +29,14 @@ type ProductoCarrito @model @auth(rules: [{allow: public}]) {
   nombreProducto: String
 }
 
-type Repartidor @model @auth(rules: [{allow: public}]) {
+type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
   NombreRepartidor: String
   DescripcionRepartidor: String
   RepartirProductos: [RepartirProducto] @hasMany(indexName: "byRepartidor", fields: ["id"])
 }
 
-type Proveedor @model @auth(rules: [{allow: public}]) {
+type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
   correo: String
   apellidosProveedor: String
@@ -49,7 +49,7 @@ type Proveedor @model @auth(rules: [{allow: public}]) {
   nombreProveedor: String
 }
 
-type Usuarios @model @auth(rules: [{allow: public}]) {
+type Usuarios @model @auth(rules: [{allow: public}, {allow: private}, {allow: owner}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}]) {
   id: ID!
   nombreUsuario: String
   apellidoUsuario: String
@@ -63,4 +63,5 @@ type Usuarios @model @auth(rules: [{allow: public}]) {
   Carrito: Carrito @hasOne
   estadoUsuario: String
   paisUsuario: String
-} 
+}
+ 

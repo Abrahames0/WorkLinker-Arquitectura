@@ -1,18 +1,21 @@
 {
-  "dev": {
+  "prod": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-weblinkerstore-dev-230911-authRole",
-      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-weblinkerstore-dev-230911-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-weblinkerstore-dev-230911-authRole",
+      "AuthRoleName": "amplify-weblinkerstore-prod-71639-authRole",
+      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-weblinkerstore-prod-71639-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-weblinkerstore-prod-71639-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-weblinkerstore-dev-230911-deployment",
-      "UnauthRoleName": "amplify-weblinkerstore-dev-230911-unauthRole",
-      "StackName": "amplify-weblinkerstore-dev-230911",
-      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-weblinkerstore-dev-230911/edd1e7b0-b331-11ee-89d9-128b58662811",
-      "AmplifyAppId": "djy52821q31mn"
+      "DeploymentBucketName": "amplify-weblinkerstore-prod-71639-deployment",
+      "UnauthRoleName": "amplify-weblinkerstore-prod-71639-unauthRole",
+      "StackName": "amplify-weblinkerstore-prod-71639",
+      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-weblinkerstore-prod-71639/5be2cc60-b508-11ee-bcba-12b200dad28f",
+      "AmplifyAppId": "d1ca6a4nulg06b"
     },
     "categories": {
       "auth": {
+        "WebLinkerStore": {}
+      },
+      "api": {
         "WebLinkerStore": {}
       }
     }
