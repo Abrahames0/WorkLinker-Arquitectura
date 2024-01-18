@@ -1,55 +1,63 @@
-type Producto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, update, delete, create]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}]) {
+type Producto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: public, provider: iam}]) {
   id: ID!
   nombreProducto: String
   descripcion: String
-  precio: String
+  precio: Int
   stock: Int
-  imagenURL: AWSURL
+  imagenURL: String
   categoria: String
+  statusVisible: Boolean
   proveedorID: ID! @index(name: "byProveedor")
 }
 
-type RepartirProducto @model @auth(rules: [{allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
+type RepartirProducto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {
   id: ID!
   repartidorID: ID! @index(name: "byRepartidor")
+  productosParaEntregar: String
+  direccionDeEntrega: String
+  informacionDeCliente: String
+  correoCliente: String
 }
 
-type Carrito @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
+type Carrito @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   TotalCarrito: Float
-  ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byCarrito", fields: ["id"])
 }
 
-type ProductoCarrito @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
+type ProductoCarrito @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
-  carritoID: ID! @index(name: "byCarrito")
-  precio: Float
+  precio: String
   cantidad: Int
-  subTotal: String
+  subTotal: Int
   nombreProducto: String
+  usuariosID: ID! @index(name: "byUsuarios")
+  imagenURL: String
 }
 
-type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
-  id: ID!
-  NombreRepartidor: String
-  DescripcionRepartidor: String
-  RepartirProductos: [RepartirProducto] @hasMany(indexName: "byRepartidor", fields: ["id"])
-}
-
-type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
+type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {
   id: ID!
   correo: String
-  apellidosProveedor: String
-  calleProveedor: String
-  numeroProveedor: String
-  codigoPostalProveedor: Int
-  estadoProveedor: String
-  paisProveedor: String
-  Productos: [Producto] @hasMany(indexName: "byProveedor", fields: ["id"])
-  nombreProveedor: String
+  descripcionRepartidor: String
+  RepartirProductos: [RepartirProducto] @hasMany(indexName: "byRepartidor", fields: ["id"])
+  nombreRepartidor: String
 }
 
-type Usuarios @model @auth(rules: [{allow: public}, {allow: private}, {allow: owner}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: groups, groups: ["repartidores"], operations: [read, create, update, delete]}]) {
+type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+  id: ID!
+  nombreComercial: String
+  correo: String
+  telefono: String
+  calle: String
+  numero: String
+  colonia: String
+  codigoPostal: Int
+  Productos: [Producto] @hasMany(indexName: "byProveedor", fields: ["id"])
+  municipio: String
+  estado: String
+  pais: String
+}
+
+type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
   id: ID!
   nombreUsuario: String
   apellidoUsuario: String
@@ -60,8 +68,7 @@ type Usuarios @model @auth(rules: [{allow: public}, {allow: private}, {allow: ow
   colonia: String
   codigoPostalUsuario: Int
   municipioUsuario: String
-  Carrito: Carrito @hasOne
   estadoUsuario: String
   paisUsuario: String
+  ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byUsuarios", fields: ["id"])
 }
- 
