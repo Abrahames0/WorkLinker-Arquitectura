@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "WLStore",
+    "apiName": "StoreWL",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",

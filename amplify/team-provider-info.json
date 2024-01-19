@@ -1,25 +1,19 @@
 {
   "prod": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-wlstore-prod-223247-authRole",
-      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-wlstore-prod-223247-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-wlstore-prod-223247-authRole",
+      "AuthRoleName": "amplify-storewl-prod-231259-authRole",
+      "UnauthRoleArn": "arn:aws:iam::388211918476:role/amplify-storewl-prod-231259-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::388211918476:role/amplify-storewl-prod-231259-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-wlstore-prod-223247-deployment",
-      "UnauthRoleName": "amplify-wlstore-prod-223247-unauthRole",
-      "StackName": "amplify-wlstore-prod-223247",
-      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-wlstore-prod-223247/ac40baa0-b71a-11ee-8316-0a2809670df3",
-      "AmplifyAppId": "dhhb1m2ckqew"
+      "DeploymentBucketName": "amplify-storewl-prod-231259-deployment",
+      "UnauthRoleName": "amplify-storewl-prod-231259-unauthRole",
+      "StackName": "amplify-storewl-prod-231259",
+      "StackId": "arn:aws:cloudformation:us-east-1:388211918476:stack/amplify-storewl-prod-231259/49f87440-b720-11ee-a67f-0e2c4e8725db",
+      "AmplifyAppId": "d6q5zl83tyaa2"
     },
     "categories": {
-      "storage": {
-        "weblinkerstore9499cfca": {
-          "bucketName": "worklinkerd500aa700a28476bb7438a0dbef726b3222139-prod",
-          "region": "us-east-1"
-        }
-      },
       "auth": {
-        "WebLinkerStore": {}
+        "StoreWL": {}
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "WLStore",
+  "AppSyncApiName": "StoreWL",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false
 }

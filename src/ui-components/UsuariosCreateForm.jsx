@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { Usuarios } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
@@ -21,12 +21,18 @@ export default function UsuariosCreateForm(props) {
     overrides,
     ...rest
   } = props;
-  const initialValues = {};
+  const initialValues = {
+    usuario: "",
+  };
+  const [usuario, setUsuario] = React.useState(initialValues.usuario);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
+    setUsuario(initialValues.usuario);
     setErrors({});
   };
-  const validations = {};
+  const validations = {
+    usuario: [],
+  };
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -52,7 +58,9 @@ export default function UsuariosCreateForm(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {};
+        let modelFields = {
+          usuario,
+        };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -97,6 +105,30 @@ export default function UsuariosCreateForm(props) {
       {...getOverrideProps(overrides, "UsuariosCreateForm")}
       {...rest}
     >
+      <TextField
+        label="Usuario"
+        isRequired={false}
+        isReadOnly={false}
+        value={usuario}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              usuario: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.usuario ?? value;
+          }
+          if (errors.usuario?.hasError) {
+            runValidationTasks("usuario", value);
+          }
+          setUsuario(value);
+        }}
+        onBlur={() => runValidationTasks("usuario", usuario)}
+        errorMessage={errors.usuario?.errorMessage}
+        hasError={errors.usuario?.hasError}
+        {...getOverrideProps(overrides, "usuario")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

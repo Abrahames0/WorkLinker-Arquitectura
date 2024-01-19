@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { Usuarios } from "../models";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
@@ -22,11 +22,16 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type UsuariosUpdateFormInputValues = {};
-export declare type UsuariosUpdateFormValidationValues = {};
+export declare type UsuariosUpdateFormInputValues = {
+    usuario?: string;
+};
+export declare type UsuariosUpdateFormValidationValues = {
+    usuario?: ValidationFunction<string>;
+};
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UsuariosUpdateFormOverridesProps = {
     UsuariosUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    usuario?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UsuariosUpdateFormProps = React.PropsWithChildren<{
     overrides?: UsuariosUpdateFormOverridesProps | undefined | null;
