@@ -68,5 +68,31 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "parameters": {
+    "AMPLIFY_storage_weblinkerstore9499cfca_bucketName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "weblinkerstore9499cfca"
+        }
+      ]
+    },
+    "AMPLIFY_storage_weblinkerstore9499cfca_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "weblinkerstore9499cfca"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "weblinkerstore9499cfca": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "serviceType": "imported"
+    }
   }
 }
