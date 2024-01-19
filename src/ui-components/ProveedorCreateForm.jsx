@@ -7,10 +7,10 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { Usuarios } from "../models";
+import { Proveedor } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function UsuariosCreateForm(props) {
+export default function ProveedorCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -22,72 +22,56 @@ export default function UsuariosCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    nombreUsuario: "",
-    apellidoUsuario: "",
+    nombreComercial: "",
     correo: "",
     telefono: "",
-    calleUsuario: "",
-    numeroUsuario: "",
+    calle: "",
+    numero: "",
     colonia: "",
-    codigoPostalUsuario: "",
-    municipioUsuario: "",
-    estadoUsuario: "",
-    paisUsuario: "",
+    codigoPostal: "",
+    municipio: "",
+    estado: "",
+    pais: "",
   };
-  const [nombreUsuario, setNombreUsuario] = React.useState(
-    initialValues.nombreUsuario
-  );
-  const [apellidoUsuario, setApellidoUsuario] = React.useState(
-    initialValues.apellidoUsuario
+  const [nombreComercial, setNombreComercial] = React.useState(
+    initialValues.nombreComercial
   );
   const [correo, setCorreo] = React.useState(initialValues.correo);
   const [telefono, setTelefono] = React.useState(initialValues.telefono);
-  const [calleUsuario, setCalleUsuario] = React.useState(
-    initialValues.calleUsuario
-  );
-  const [numeroUsuario, setNumeroUsuario] = React.useState(
-    initialValues.numeroUsuario
-  );
+  const [calle, setCalle] = React.useState(initialValues.calle);
+  const [numero, setNumero] = React.useState(initialValues.numero);
   const [colonia, setColonia] = React.useState(initialValues.colonia);
-  const [codigoPostalUsuario, setCodigoPostalUsuario] = React.useState(
-    initialValues.codigoPostalUsuario
+  const [codigoPostal, setCodigoPostal] = React.useState(
+    initialValues.codigoPostal
   );
-  const [municipioUsuario, setMunicipioUsuario] = React.useState(
-    initialValues.municipioUsuario
-  );
-  const [estadoUsuario, setEstadoUsuario] = React.useState(
-    initialValues.estadoUsuario
-  );
-  const [paisUsuario, setPaisUsuario] = React.useState(
-    initialValues.paisUsuario
-  );
+  const [municipio, setMunicipio] = React.useState(initialValues.municipio);
+  const [estado, setEstado] = React.useState(initialValues.estado);
+  const [pais, setPais] = React.useState(initialValues.pais);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setNombreUsuario(initialValues.nombreUsuario);
-    setApellidoUsuario(initialValues.apellidoUsuario);
+    setNombreComercial(initialValues.nombreComercial);
     setCorreo(initialValues.correo);
     setTelefono(initialValues.telefono);
-    setCalleUsuario(initialValues.calleUsuario);
-    setNumeroUsuario(initialValues.numeroUsuario);
+    setCalle(initialValues.calle);
+    setNumero(initialValues.numero);
     setColonia(initialValues.colonia);
-    setCodigoPostalUsuario(initialValues.codigoPostalUsuario);
-    setMunicipioUsuario(initialValues.municipioUsuario);
-    setEstadoUsuario(initialValues.estadoUsuario);
-    setPaisUsuario(initialValues.paisUsuario);
+    setCodigoPostal(initialValues.codigoPostal);
+    setMunicipio(initialValues.municipio);
+    setEstado(initialValues.estado);
+    setPais(initialValues.pais);
     setErrors({});
   };
   const validations = {
-    nombreUsuario: [],
-    apellidoUsuario: [],
+    nombreComercial: [],
     correo: [],
     telefono: [],
-    calleUsuario: [],
-    numeroUsuario: [],
+    calle: [],
+    numero: [],
     colonia: [],
-    codigoPostalUsuario: [],
-    municipioUsuario: [],
-    estadoUsuario: [],
-    paisUsuario: [],
+    codigoPostal: [],
+    municipio: [],
+    estado: [],
+    pais: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -115,17 +99,16 @@ export default function UsuariosCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          nombreUsuario,
-          apellidoUsuario,
+          nombreComercial,
           correo,
           telefono,
-          calleUsuario,
-          numeroUsuario,
+          calle,
+          numero,
           colonia,
-          codigoPostalUsuario,
-          municipioUsuario,
-          estadoUsuario,
-          paisUsuario,
+          codigoPostal,
+          municipio,
+          estado,
+          pais,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -155,7 +138,7 @@ export default function UsuariosCreateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(new Usuarios(modelFields));
+          await DataStore.save(new Proveedor(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -168,76 +151,41 @@ export default function UsuariosCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UsuariosCreateForm")}
+      {...getOverrideProps(overrides, "ProveedorCreateForm")}
       {...rest}
     >
       <TextField
-        label="Nombre usuario"
+        label="Nombre comercial"
         isRequired={false}
         isReadOnly={false}
-        value={nombreUsuario}
+        value={nombreComercial}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario: value,
-              apellidoUsuario,
+              nombreComercial: value,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
-            value = result?.nombreUsuario ?? value;
+            value = result?.nombreComercial ?? value;
           }
-          if (errors.nombreUsuario?.hasError) {
-            runValidationTasks("nombreUsuario", value);
+          if (errors.nombreComercial?.hasError) {
+            runValidationTasks("nombreComercial", value);
           }
-          setNombreUsuario(value);
+          setNombreComercial(value);
         }}
-        onBlur={() => runValidationTasks("nombreUsuario", nombreUsuario)}
-        errorMessage={errors.nombreUsuario?.errorMessage}
-        hasError={errors.nombreUsuario?.hasError}
-        {...getOverrideProps(overrides, "nombreUsuario")}
-      ></TextField>
-      <TextField
-        label="Apellido usuario"
-        isRequired={false}
-        isReadOnly={false}
-        value={apellidoUsuario}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              nombreUsuario,
-              apellidoUsuario: value,
-              correo,
-              telefono,
-              calleUsuario,
-              numeroUsuario,
-              colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
-            };
-            const result = onChange(modelFields);
-            value = result?.apellidoUsuario ?? value;
-          }
-          if (errors.apellidoUsuario?.hasError) {
-            runValidationTasks("apellidoUsuario", value);
-          }
-          setApellidoUsuario(value);
-        }}
-        onBlur={() => runValidationTasks("apellidoUsuario", apellidoUsuario)}
-        errorMessage={errors.apellidoUsuario?.errorMessage}
-        hasError={errors.apellidoUsuario?.hasError}
-        {...getOverrideProps(overrides, "apellidoUsuario")}
+        onBlur={() => runValidationTasks("nombreComercial", nombreComercial)}
+        errorMessage={errors.nombreComercial?.errorMessage}
+        hasError={errors.nombreComercial?.hasError}
+        {...getOverrideProps(overrides, "nombreComercial")}
       ></TextField>
       <TextField
         label="Correo"
@@ -248,17 +196,16 @@ export default function UsuariosCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo: value,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
             value = result?.correo ?? value;
@@ -282,17 +229,16 @@ export default function UsuariosCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono: value,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
             value = result?.telefono ?? value;
@@ -308,72 +254,70 @@ export default function UsuariosCreateForm(props) {
         {...getOverrideProps(overrides, "telefono")}
       ></TextField>
       <TextField
-        label="Calle usuario"
+        label="Calle"
         isRequired={false}
         isReadOnly={false}
-        value={calleUsuario}
+        value={calle}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario: value,
-              numeroUsuario,
+              calle: value,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
-            value = result?.calleUsuario ?? value;
+            value = result?.calle ?? value;
           }
-          if (errors.calleUsuario?.hasError) {
-            runValidationTasks("calleUsuario", value);
+          if (errors.calle?.hasError) {
+            runValidationTasks("calle", value);
           }
-          setCalleUsuario(value);
+          setCalle(value);
         }}
-        onBlur={() => runValidationTasks("calleUsuario", calleUsuario)}
-        errorMessage={errors.calleUsuario?.errorMessage}
-        hasError={errors.calleUsuario?.hasError}
-        {...getOverrideProps(overrides, "calleUsuario")}
+        onBlur={() => runValidationTasks("calle", calle)}
+        errorMessage={errors.calle?.errorMessage}
+        hasError={errors.calle?.hasError}
+        {...getOverrideProps(overrides, "calle")}
       ></TextField>
       <TextField
-        label="Numero usuario"
+        label="Numero"
         isRequired={false}
         isReadOnly={false}
-        value={numeroUsuario}
+        value={numero}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario: value,
+              calle,
+              numero: value,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
-            value = result?.numeroUsuario ?? value;
+            value = result?.numero ?? value;
           }
-          if (errors.numeroUsuario?.hasError) {
-            runValidationTasks("numeroUsuario", value);
+          if (errors.numero?.hasError) {
+            runValidationTasks("numero", value);
           }
-          setNumeroUsuario(value);
+          setNumero(value);
         }}
-        onBlur={() => runValidationTasks("numeroUsuario", numeroUsuario)}
-        errorMessage={errors.numeroUsuario?.errorMessage}
-        hasError={errors.numeroUsuario?.hasError}
-        {...getOverrideProps(overrides, "numeroUsuario")}
+        onBlur={() => runValidationTasks("numero", numero)}
+        errorMessage={errors.numero?.errorMessage}
+        hasError={errors.numero?.hasError}
+        {...getOverrideProps(overrides, "numero")}
       ></TextField>
       <TextField
         label="Colonia"
@@ -384,17 +328,16 @@ export default function UsuariosCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia: value,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
             value = result?.colonia ?? value;
@@ -410,146 +353,140 @@ export default function UsuariosCreateForm(props) {
         {...getOverrideProps(overrides, "colonia")}
       ></TextField>
       <TextField
-        label="Codigo postal usuario"
+        label="Codigo postal"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={codigoPostalUsuario}
+        value={codigoPostal}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario: value,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal: value,
+              municipio,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
-            value = result?.codigoPostalUsuario ?? value;
+            value = result?.codigoPostal ?? value;
           }
-          if (errors.codigoPostalUsuario?.hasError) {
-            runValidationTasks("codigoPostalUsuario", value);
+          if (errors.codigoPostal?.hasError) {
+            runValidationTasks("codigoPostal", value);
           }
-          setCodigoPostalUsuario(value);
+          setCodigoPostal(value);
         }}
-        onBlur={() =>
-          runValidationTasks("codigoPostalUsuario", codigoPostalUsuario)
-        }
-        errorMessage={errors.codigoPostalUsuario?.errorMessage}
-        hasError={errors.codigoPostalUsuario?.hasError}
-        {...getOverrideProps(overrides, "codigoPostalUsuario")}
+        onBlur={() => runValidationTasks("codigoPostal", codigoPostal)}
+        errorMessage={errors.codigoPostal?.errorMessage}
+        hasError={errors.codigoPostal?.hasError}
+        {...getOverrideProps(overrides, "codigoPostal")}
       ></TextField>
       <TextField
-        label="Municipio usuario"
+        label="Municipio"
         isRequired={false}
         isReadOnly={false}
-        value={municipioUsuario}
+        value={municipio}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario: value,
-              estadoUsuario,
-              paisUsuario,
+              codigoPostal,
+              municipio: value,
+              estado,
+              pais,
             };
             const result = onChange(modelFields);
-            value = result?.municipioUsuario ?? value;
+            value = result?.municipio ?? value;
           }
-          if (errors.municipioUsuario?.hasError) {
-            runValidationTasks("municipioUsuario", value);
+          if (errors.municipio?.hasError) {
+            runValidationTasks("municipio", value);
           }
-          setMunicipioUsuario(value);
+          setMunicipio(value);
         }}
-        onBlur={() => runValidationTasks("municipioUsuario", municipioUsuario)}
-        errorMessage={errors.municipioUsuario?.errorMessage}
-        hasError={errors.municipioUsuario?.hasError}
-        {...getOverrideProps(overrides, "municipioUsuario")}
+        onBlur={() => runValidationTasks("municipio", municipio)}
+        errorMessage={errors.municipio?.errorMessage}
+        hasError={errors.municipio?.hasError}
+        {...getOverrideProps(overrides, "municipio")}
       ></TextField>
       <TextField
-        label="Estado usuario"
+        label="Estado"
         isRequired={false}
         isReadOnly={false}
-        value={estadoUsuario}
+        value={estado}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario: value,
-              paisUsuario,
+              codigoPostal,
+              municipio,
+              estado: value,
+              pais,
             };
             const result = onChange(modelFields);
-            value = result?.estadoUsuario ?? value;
+            value = result?.estado ?? value;
           }
-          if (errors.estadoUsuario?.hasError) {
-            runValidationTasks("estadoUsuario", value);
+          if (errors.estado?.hasError) {
+            runValidationTasks("estado", value);
           }
-          setEstadoUsuario(value);
+          setEstado(value);
         }}
-        onBlur={() => runValidationTasks("estadoUsuario", estadoUsuario)}
-        errorMessage={errors.estadoUsuario?.errorMessage}
-        hasError={errors.estadoUsuario?.hasError}
-        {...getOverrideProps(overrides, "estadoUsuario")}
+        onBlur={() => runValidationTasks("estado", estado)}
+        errorMessage={errors.estado?.errorMessage}
+        hasError={errors.estado?.hasError}
+        {...getOverrideProps(overrides, "estado")}
       ></TextField>
       <TextField
-        label="Pais usuario"
+        label="Pais"
         isRequired={false}
         isReadOnly={false}
-        value={paisUsuario}
+        value={pais}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nombreUsuario,
-              apellidoUsuario,
+              nombreComercial,
               correo,
               telefono,
-              calleUsuario,
-              numeroUsuario,
+              calle,
+              numero,
               colonia,
-              codigoPostalUsuario,
-              municipioUsuario,
-              estadoUsuario,
-              paisUsuario: value,
+              codigoPostal,
+              municipio,
+              estado,
+              pais: value,
             };
             const result = onChange(modelFields);
-            value = result?.paisUsuario ?? value;
+            value = result?.pais ?? value;
           }
-          if (errors.paisUsuario?.hasError) {
-            runValidationTasks("paisUsuario", value);
+          if (errors.pais?.hasError) {
+            runValidationTasks("pais", value);
           }
-          setPaisUsuario(value);
+          setPais(value);
         }}
-        onBlur={() => runValidationTasks("paisUsuario", paisUsuario)}
-        errorMessage={errors.paisUsuario?.errorMessage}
-        hasError={errors.paisUsuario?.hasError}
-        {...getOverrideProps(overrides, "paisUsuario")}
+        onBlur={() => runValidationTasks("pais", pais)}
+        errorMessage={errors.pais?.errorMessage}
+        hasError={errors.pais?.hasError}
+        {...getOverrideProps(overrides, "pais")}
       ></TextField>
       <Flex
         justifyContent="space-between"

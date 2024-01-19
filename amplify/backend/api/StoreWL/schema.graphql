@@ -1,4 +1,74 @@
-type Usuarios @model @auth(rules: [{allow: public}]) {
+type Producto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}, {allow: public, provider: iam}]) {
   id: ID!
-  usuario: String
+  nombreProducto: String
+  descripcion: String
+  precio: Int
+  stock: Int
+  imagenURL: String
+  categoria: String
+  statusVisible: Boolean
+  proveedorID: ID! @index(name: "byProveedor")
+}
+
+type RepartirProducto @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  repartidorID: ID! @index(name: "byRepartidor")
+  productosParaEntregar: String
+  direccionDeEntrega: String
+  informacionDeCliente: String
+  correoCliente: String
+}
+
+type Carrito @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  TotalCarrito: Float
+}
+
+type ProductoCarrito @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  precio: String
+  cantidad: Int
+  subTotal: Int
+  nombreProducto: String
+  usuariosID: ID! @index(name: "byUsuarios")
+  imagenURL: String
+}
+
+type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  correo: String
+  descripcionRepartidor: String
+  RepartirProductos: [RepartirProducto] @hasMany(indexName: "byRepartidor", fields: ["id"])
+  nombreRepartidor: String
+}
+
+type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+  id: ID!
+  nombreComercial: String
+  correo: String
+  telefono: String
+  calle: String
+  numero: String
+  colonia: String
+  codigoPostal: Int
+  Productos: [Producto] @hasMany(indexName: "byProveedor", fields: ["id"])
+  municipio: String
+  estado: String
+  pais: String
+}
+
+type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+  id: ID!
+  nombreUsuario: String
+  apellidoUsuario: String
+  correo: String
+  telefono: String
+  calleUsuario: String
+  numeroUsuario: String
+  colonia: String
+  codigoPostalUsuario: Int
+  municipioUsuario: String
+  estadoUsuario: String
+  paisUsuario: String
+  ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byUsuarios", fields: ["id"])
 }
