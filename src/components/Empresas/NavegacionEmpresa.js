@@ -64,8 +64,8 @@ function NavegacionEmpresas({ setSession }) {
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
             <Nav.Link href="/agregar-producto">Agregar</Nav.Link>
-            <Nav.Link href="/Mapa">Catalogar</Nav.Link>
-            <Nav.Link href="/productos-pausados">Productos pausados</Nav.Link>
+            {/* <Nav.Link href="/Mapa">Catalogar</Nav.Link> */}
+   {         <Nav.Link href="/productos-pausados">Productos pausados</Nav.Link>}
           </Nav>
               <Nav className="pb-">
                   <NavDropdown title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >

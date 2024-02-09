@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Auth, DataStore } from "aws-amplify";
 import { IoPerson } from "react-icons/io5";
-import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown, Form,  ListGroup,Dropdown } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductoCarrito, Usuarios } from "../../models";
@@ -33,7 +33,42 @@ function NavegacionUsuarios({ setSession }) {
   const navDarkStyle = { backgroundColor: '#343a40' };
 
   const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredRoutes, setFilteredRoutes] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false); // Nuevo estado para controlar la visibilidad del Dropdown
 
+  const availableRoutes = [
+    { path: "/pago-tarjeta", name: "Pago con Tarjeta" },
+    { path: "/carrito", name: "Carrito" },
+    { path: "/perfil-usuario", name: "Perfil de Usuario" },
+    { path: "/inicio-usuarios", name: "Inicio" },
+  ];
+
+  const filterRoutes = (term) => {
+    const filtered = availableRoutes.filter(route =>
+      route.name.toLowerCase().includes(term.toLowerCase())
+    );
+    setFilteredRoutes(filtered);
+    setShowDropdown(filtered.length > 0); // Muestra el Dropdown si hay rutas filtradas
+  };
+
+  const handleSearchChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+    if (term.length > 1) { // Para empezar a filtrar después de 1 caracter
+      filterRoutes(term);
+    } else {
+      setFilteredRoutes([]);
+      setShowDropdown(false); // Oculta el Dropdown si no hay término de búsqueda
+    }
+  };
+
+  const handleRouteSelection = (path) => {
+    navigate(path);
+    setSearchTerm("");
+    setFilteredRoutes([]);
+    setShowDropdown(false); // Oculta el Dropdown después de seleccionar una ruta
+  };
   useEffect(() => {
     async function cargar() {
       const auth = await Auth.currentAuthenticatedUser();
@@ -106,7 +141,30 @@ function NavegacionUsuarios({ setSession }) {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-            <Nav className="mx-1">
+       
+            <Nav className="mx-1 align-items-center">
+            <Form>
+              <Form.Control
+                type="search"
+                placeholder="Buscar..."
+                className="me-2"
+                aria-label="Buscar"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onFocus={() => setShowDropdown(filteredRoutes.length > 0)}
+                onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Retraso para permitir la selección de elementos
+              />
+              <Dropdown show={showDropdown} onToggle={() => {}}>
+                <Dropdown.Menu>
+                  {filteredRoutes.map((route) => (
+                    <Dropdown.Item key={route.path} onClick={() => handleRouteSelection(route.path)}>
+                      {route.name}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Form>
+
               <NavDropdown
                   title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
                   <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>

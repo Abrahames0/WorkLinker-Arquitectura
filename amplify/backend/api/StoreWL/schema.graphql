@@ -42,7 +42,7 @@ type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: pr
   nombreRepartidor: String
 }
 
-type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {
   id: ID!
   nombreComercial: String
   correo: String
@@ -57,7 +57,7 @@ type Proveedor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: pri
   pais: String
 }
 
-type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["usuarios"], operations: [read, create, update, delete]}]) {
   id: ID!
   nombreUsuario: String
   apellidoUsuario: String
@@ -72,3 +72,4 @@ type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: priv
   paisUsuario: String
   ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byUsuarios", fields: ["id"])
 }
+ 
