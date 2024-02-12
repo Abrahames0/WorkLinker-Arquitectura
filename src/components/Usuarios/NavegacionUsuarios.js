@@ -1,19 +1,26 @@
-import { useState, useEffect } from "react";
-import { Auth, DataStore } from "aws-amplify";
-import { IoPerson } from "react-icons/io5";
-import { Navbar, Container, Nav, NavDropdown, Form,  ListGroup,Dropdown } from "react-bootstrap";
-import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
-import { Link, useNavigate } from "react-router-dom";
-import { ProductoCarrito, Usuarios } from "../../models";
-import { IconButton } from "@mui/material";
-
-import { useColorModeValue } from '@chakra-ui/react';
-import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
+// React
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+// AWS
+import { Auth, DataStore } from 'aws-amplify';
+// Chakra UI
+import { useColorMode, useColorModeValue } from '@chakra-ui/react';
+// React Bootstrap
+import { Navbar, Container, Nav, NavDropdown, Form, Dropdown } from 'react-bootstrap';
+// MUI
 import Badge from '@mui/material/Badge';
-
-
+import { IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+// Iconos
+import { IoPerson } from 'react-icons/io5';
+import { BsCart2, BsCartFill } from 'react-icons/bs';
+// Imágenes
+import WorkLinkerRecortada from '../../landing/assets/img/WorkLinkerRecortada.png';
+// Modelos de DataStore
+import { ProductoCarrito, Usuarios } from '../../models';
+// Componentes locales
+import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -25,50 +32,57 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function NavegacionUsuarios({ setSession }) {
-  const navigate = useNavigate();
-  const [ user, setUser ] = useState("Usuario");
-  const [productosCarrito, setProductosCarrito] = useState([]);
+  
+// Estados y funciones relacionadas con el routing y la navegación
+const navigate = useNavigate();
+const [searchTerm, setSearchTerm] = useState("");
+const [filteredRoutes, setFilteredRoutes] = useState([]);
+const [showDropdown, setShowDropdown] = useState(false);
 
-  const navLightStyle = { backgroundColor: '#f8f9fa' };
-  const navDarkStyle = { backgroundColor: '#343a40' };
+// Estados y funciones relacionadas con el usuario y el carrito
+const [user, setUser] = useState("Usuario");
+const [productosCarrito, setProductosCarrito] = useState([]);
 
-  const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredRoutes, setFilteredRoutes] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false); // Nuevo estado para controlar la visibilidad del Dropdown
+// Estados y funciones relacionadas con el estilo y el modo de color
+const { colorMode } = useColorMode();
+const navLightStyle = { backgroundColor: '#f8f9fa' };
+const navDarkStyle = { backgroundColor: '#343a40' };
+const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
 
-  const availableRoutes = [
-    { path: "/pago-tarjeta", name: "Pago con Tarjeta" },
-    { path: "/carrito", name: "Carrito" },
-    { path: "/perfil-usuario", name: "Perfil de Usuario" },
-    { path: "/inicio-usuarios", name: "Inicio" },
-  ];
+// Datos y funciones relacionadas con las rutas disponibles y su filtrado
+const availableRoutes = [
+  { path: "/pago-tarjeta", name: "Pago con Tarjeta" },
+  { path: "/carrito", name: "Carrito" },
+  { path: "/perfil-usuario", name: "Perfil de Usuario" },
+  { path: "/inicio-usuarios", name: "Inicio" },
+];
 
-  const filterRoutes = (term) => {
-    const filtered = availableRoutes.filter(route =>
-      route.name.toLowerCase().includes(term.toLowerCase())
-    );
-    setFilteredRoutes(filtered);
-    setShowDropdown(filtered.length > 0); // Muestra el Dropdown si hay rutas filtradas
-  };
+const filterRoutes = (term) => {
+  const filtered = availableRoutes.filter(route =>
+    route.name.toLowerCase().includes(term.toLowerCase())
+  );
+  setFilteredRoutes(filtered);
+  setShowDropdown(filtered.length > 0);
+};
 
-  const handleSearchChange = (e) => {
-    const term = e.target.value;
-    setSearchTerm(term);
-    if (term.length > 1) { // Para empezar a filtrar después de 1 caracter
-      filterRoutes(term);
-    } else {
-      setFilteredRoutes([]);
-      setShowDropdown(false); // Oculta el Dropdown si no hay término de búsqueda
-    }
-  };
-
-  const handleRouteSelection = (path) => {
-    navigate(path);
-    setSearchTerm("");
+const handleSearchChange = (e) => {
+  const term = e.target.value;
+  setSearchTerm(term);
+  if (term.length > 1) {
+    filterRoutes(term);
+  } else {
     setFilteredRoutes([]);
-    setShowDropdown(false); // Oculta el Dropdown después de seleccionar una ruta
-  };
+    setShowDropdown(false);
+  }
+};
+
+const handleRouteSelection = (path) => {
+  navigate(path);
+  setSearchTerm("");
+  setFilteredRoutes([]);
+  setShowDropdown(false);
+};
+
   useEffect(() => {
     async function cargar() {
       const auth = await Auth.currentAuthenticatedUser();
@@ -88,7 +102,6 @@ function NavegacionUsuarios({ setSession }) {
 
   useEffect(() => {
     let subscription;
-  
     // Función para obtener los productos del carrito del usuario actual
     const cargarProductosCarrito = async () => {
       try {
@@ -173,15 +186,15 @@ function NavegacionUsuarios({ setSession }) {
                   </div>
                 </NavDropdown>
             </Nav>
-            <Nav className="mx-1">
-{/*             <Nav.Link href='/usuario-compras'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Tus compras</p></Nav.Link>
- */}            </Nav>
+            {/* Carrito */}
             <IconButton aria-label="cart" href="/carrito">
               <StyledBadge badgeContent={productosCarrito.length} color="secondary">
-                <ShoppingCartIcon />
+              {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
               </StyledBadge>
             </IconButton>
+
           </Navbar.Collapse>
+          {/* Boton modo obscuro */}
           <Nav className="mx-3">
            <ToggleDarkMode/>
           </Nav>

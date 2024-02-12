@@ -1,18 +1,20 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import WorkLinkerRecortada from "../../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link } from "react-router-dom";
-import {BsCart2 } from 'react-icons/bs'
+import { BsCart2, BsCartFill } from 'react-icons/bs';
 import { ToggleDarkMode } from "./ColorPagina";
 import { useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 function NavegacionInicio() {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode } = useColorMode();
 
   const navLightStyle = { backgroundColor: '#f8f9fa' };
   const navDarkStyle = { backgroundColor: '#343a40' };
+  const buttonLightStyle = { color: '#000', borderColor: '#000' }; // Estilos para el modo claro
+  const buttonDarkStyle = { color: '#fff', borderColor: '#fff' }; // Estilos para el modo oscuro
 
   const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
-  const textColor = colorMode === 'dark' ? 'grey.300' : 'text.secondary';
+  const buttonStyle = colorMode === 'dark' ? buttonDarkStyle : buttonLightStyle; // Estilo condicional basado en el modo
 
   return (
     <div>
@@ -25,11 +27,13 @@ function NavegacionInicio() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-          <Nav>
-          </Nav>
             <Nav>
-            <Button variant="outlined" href="/login-users" colorScheme='teal' onClick={toggleColorMode} >Inicio de sesion</Button>
-              <Nav.Link href="/login-users"> <BsCart2 size={20}/> </Nav.Link>
+            </Nav>
+            <Nav>
+              <Button variant="outline-secondary" href="/login-users" style={buttonStyle}>Inicio de sesión</Button>
+              <Nav.Link href="/carrito">
+                {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
+              </Nav.Link>
             </Nav>
             <ToggleDarkMode />
           </Navbar.Collapse>
