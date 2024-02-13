@@ -51,7 +51,6 @@ const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
 
 // Datos y funciones relacionadas con las rutas disponibles y su filtrado
 const availableRoutes = [
-  { path: "/pago-tarjeta", name: "Pago con Tarjeta" },
   { path: "/carrito", name: "Carrito" },
   { path: "/perfil-usuario", name: "Perfil de Usuario" },
   { path: "/inicio-usuarios", name: "Inicio" },
@@ -156,11 +155,11 @@ const handleRouteSelection = (path) => {
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
        
             <Nav className="mx-1 align-items-center">
-            <Form>
+            <Form className="me-4">
               <Form.Control
                 type="search"
                 placeholder="Buscar..."
-                className="me-2"
+                className="me-5"
                 aria-label="Buscar"
                 value={searchTerm}
                 onChange={handleSearchChange}
@@ -178,18 +177,17 @@ const handleRouteSelection = (path) => {
               </Dropdown>
             </Form>
 
-              <NavDropdown
-                  title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
-                  <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
-                    <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
-                    <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
-                  </div>
-                </NavDropdown>
+            <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> <IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
+              <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
+                <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
+                <Nav.Link onClick={() => logOut()}><p className="p-7" >Cerrar Sesión</p></Nav.Link>
+              </div>
+            </NavDropdown>
             </Nav>
             {/* Carrito */}
-            <IconButton aria-label="cart" href="/carrito">
+            <IconButton aria-label="cart" href="/carrito" className="me-1">
               <StyledBadge badgeContent={productosCarrito.length} color="secondary">
-              {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
+              {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }}/> : <BsCart2 size={23} style={{ color: 'white' }}/>}
               </StyledBadge>
             </IconButton>
 

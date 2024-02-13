@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ThemeProvider, createTheme } from "@mui/material";
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 //Importaciones AWS
 import awsconfig from './aws-exports';
 import { translations } from '@aws-amplify/ui-react';
@@ -24,12 +25,10 @@ import RegistroProducto from "./pages/pages-empresa/AgregarProducto";
 import ProductosPausados from "./pages/pages-empresa/ProductosPausados";
 import DetallesdeProducto from "./pages/pages-users/DetallesProducto";
 import InicioEmpresaProvee from "./pages/pages-empresa/InicioProvee";
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import PagoTarjetaCredito from "./pages/pages-users/carrito/PagoTarjetaCredito";
 import LoginRepartidor from "./pages/pages-repartidor/LoginRepartidor";
 import InicioRepartidor from "./pages/pages-repartidor/InicioRepartidor";
 import PerfilRepartidor from "./pages/pages-repartidor/PerfilRepartidor";
-import RegistroRepartidorInformacion from "./components/Repartidores/RegistroRepartidorInformacion";
 import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
 

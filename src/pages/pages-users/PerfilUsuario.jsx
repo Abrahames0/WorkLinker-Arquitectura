@@ -8,13 +8,14 @@ import { Typography, Button } from "@mui/material";
 //import Footer from '../../components/Footer';
 import NavegacionUsuarios from "../../components/Usuarios/NavegacionUsuarios";
 import Footer from "../../components/Footer";
+import InformacionPerfilUsuarios from "./InformacionPerfilUsuario";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
   const [nombreGrupo, setNombreGrupo] = useState("");
   const [session, setSession] = useState("");
   const [userData, setUserData] = useState("");
-  const [user, setUser] = useState("")
+  const [, setUser] = useState("")
 
   //Usuario
   useEffect(() => {
@@ -69,7 +70,7 @@ function PerfilUsuario() {
               {userData !== "" && userData !== undefined ? (
                 <>
                   <NavegacionUsuarios setSession={setSession} />
-                  {/* <ComponentePerfilBdE userID={user} usuario={userData} setUsuario={setUserData}  /> */}
+                  <InformacionPerfilUsuarios userData={userData}/>
                 </>
               ) : (
                 <>

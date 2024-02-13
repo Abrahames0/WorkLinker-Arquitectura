@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Auth, DataStore } from "aws-amplify";
 import { IoPerson } from "react-icons/io5";
-import { Navbar, Container, Nav, NavDropdown, Form } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Repartidor } from "../../models";
@@ -9,19 +9,6 @@ import { Repartidor } from "../../models";
 
 import { useColorModeValue } from '@chakra-ui/react';
 import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
-import Badge from '@mui/material/Badge';
-
-
-import { styled } from '@mui/material/styles';
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}));
 
 function NavegacionRepartidores({ setSession }) {
   const navigate = useNavigate();
