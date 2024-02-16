@@ -4,8 +4,14 @@ import { schema } from './schema';
 
 
 
-const { Producto } = initSchema(schema);
+const { Producto, RepartirProducto, Carrito, ProductoCarrito, Repartidor, Proveedor, Usuarios } = initSchema(schema);
 
 export {
-  Producto
+  Producto,
+  RepartirProducto,
+  Carrito,
+  ProductoCarrito,
+  Repartidor,
+  Proveedor,
+  Usuarios
 };

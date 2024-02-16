@@ -5,9 +5,10 @@ import { Navigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { DataStore } from '@aws-amplify/datastore';
 
+import {Usuarios} from '../../../models';
+
 import Footer from '../../../components/Footer';
 import NavegacionUsuarios from '../../../components/Usuarios/NavegacionUsuarios';
-import { Usuarios } from '../../../models';
 import { NombreGrupo } from '../../../hook/NombreGrupo';
 import CheckoutComponent from '../../../components/Usuarios/pagosCarrito/FinalizarCompra';
 

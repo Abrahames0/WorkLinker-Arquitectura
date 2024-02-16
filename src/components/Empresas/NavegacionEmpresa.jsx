@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Auth, DataStore } from "aws-amplify";
-import { IoPerson } from "react-icons/io5";
 import { Navbar, Container, Nav, NavDropdown, } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,9 +8,15 @@ import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
 import { FiLogOut } from 'react-icons/fi';
 import { CgProfile } from 'react-icons/cg';
 
-import { useColorModeValue } from '@chakra-ui/react';
+import { useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 function NavegacionEmpresas({ setSession }) {
+
+  const { colorMode } = useColorMode();
+
+  const buttonLightStyle = { color: '#000', borderColor: '#000' }; // Estilos para el modo claro
+  const buttonDarkStyle = { color: '#fff', borderColor: '#fff' }; // Estilos para el modo oscuro
+
   const navigate = useNavigate();
   const [ user, setUser ] = useState("Proveedor");
 
@@ -19,6 +24,8 @@ function NavegacionEmpresas({ setSession }) {
   const navDarkStyle = { backgroundColor: '#343a40' };
 
   const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
+
+  const buttonStyle = colorMode === 'dark' ? buttonDarkStyle : buttonLightStyle; // Estilo condicional basado en el modo
 
 
   useEffect(() => {
@@ -63,12 +70,11 @@ function NavegacionEmpresas({ setSession }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
-            <Nav.Link href="/agregar-producto">Agregar</Nav.Link>
-            {/* <Nav.Link href="/Mapa">Catalogar</Nav.Link> */}
-   {         <Nav.Link href="/productos-pausados">Productos pausados</Nav.Link>}
+            <Nav.Link href="/agregar-producto" style={buttonStyle} >Agregar</Nav.Link>
+   {         <Nav.Link href="/productos-pausados" style={buttonStyle} >Productos pausados</Nav.Link>}
           </Nav>
               <Nav className="pb-">
-                  <NavDropdown title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
+                  <NavDropdown title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
                       <div className="p-1" style={{ maxHeight: '4rem' }}>
                           <Nav.Link href='/perfil-proveedor' className="dropdown-item">
                               <span className="me-2"><CgProfile /></span> Perfil
