@@ -6,10 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Proveedor } from "../../models";
 import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
 import { FiLogOut } from 'react-icons/fi';
-import { CgProfile } from 'react-icons/cg';
 
 import { useColorMode, useColorModeValue } from '@chakra-ui/react';
-
+ 
 function NavegacionEmpresas({ setSession }) {
 
   const { colorMode } = useColorMode();
@@ -70,15 +69,15 @@ function NavegacionEmpresas({ setSession }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
-            <Nav.Link href="/agregar-producto" style={buttonStyle} >Agregar</Nav.Link>
+            <Nav.Link href="/agregar-producto" style={buttonStyle} > Agregar</Nav.Link>
    {         <Nav.Link href="/productos-pausados" style={buttonStyle} >Productos pausados</Nav.Link>}
           </Nav>
               <Nav className="pb-">
                   <NavDropdown title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
                       <div className="p-1" style={{ maxHeight: '4rem' }}>
-                          <Nav.Link href='/perfil-proveedor' className="dropdown-item">
+                          {/* <Nav.Link href='/perfil-proveedor' className="dropdown-item">
                               <span className="me-2"><CgProfile /></span> Perfil
-                          </Nav.Link>
+                          </Nav.Link> */}
                           <Nav.Link onClick={() => logOut()} className="dropdown-item">
                               <span className="me-2"><FiLogOut /></span> Cerrar Sesión
                           </Nav.Link>

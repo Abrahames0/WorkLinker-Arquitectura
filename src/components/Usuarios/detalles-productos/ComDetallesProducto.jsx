@@ -175,7 +175,7 @@ const agregarAlCarrito = async () => {
 
 return (
   <div style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh' }}>
-  <Paper className="p-2 row d-flex align-items-center justify-content-center" >
+  <Paper className="p-2 row d-flex align-items-center justify-content-center">
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <div style={{ maxWidth: '100%', maxHeight: '450px' }}>

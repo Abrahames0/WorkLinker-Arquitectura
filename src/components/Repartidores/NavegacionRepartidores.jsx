@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { Auth, DataStore } from "aws-amplify";
-import { IoPerson } from "react-icons/io5";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import WorkLinkerRecortada from "../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Repartidor } from "../../models";
 
 
-import { useColorModeValue } from '@chakra-ui/react';
+import { useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { ToggleDarkMode } from "../Inicio/inicio-bienvenida/ColorPagina";
 
 function NavegacionRepartidores({ setSession }) {
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
+
   const [ user, setUser ] = useState("repartidores");
 
   const navLightStyle = { backgroundColor: '#f8f9fa' };
@@ -64,7 +65,7 @@ function NavegacionRepartidores({ setSession }) {
           </Nav>
             <Nav className="mx-1">
               <NavDropdown
-                  title={<span><IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
+                  title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav} </span>} >
                   <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
                     <Nav.Link href='/perfil-repartidor'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
                     <Nav.Link onClick={() => logOut()}><p className="p-7">Cerrar Sesión</p></Nav.Link>
