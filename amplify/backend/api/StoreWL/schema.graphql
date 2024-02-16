@@ -72,4 +72,3 @@ type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: priv
   paisUsuario: String
   ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byUsuarios", fields: ["id"])
 }
- 
