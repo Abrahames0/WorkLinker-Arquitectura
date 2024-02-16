@@ -31,6 +31,8 @@ import InicioRepartidor from "./pages/pages-repartidor/InicioRepartidor";
 import PerfilRepartidor from "./pages/pages-repartidor/PerfilRepartidor";
 import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -169,5 +171,8 @@ function App() {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <App />
+  <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}>
+    <MyReCaptchaComponent />
+    <App />
+  </GoogleReCaptchaProvider>
 );

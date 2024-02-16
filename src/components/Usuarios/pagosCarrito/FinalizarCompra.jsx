@@ -7,14 +7,30 @@ import Loader from '../../componentesRecicables/Loader';
 import CreditCardForm from './FormTarjetas';
 import { notificacionCompra } from '../../../hook/senEmail';
 import { useNavigate } from 'react-router-dom';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+
 
 const CheckoutComponent = () => {
+
+const { executeRecaptcha } = useGoogleReCaptcha();
+
 const [userData, setUserData] = useState(null);
 const [productosCarrito, setProductosCarrito] = useState([]);
 const [isLoading, setIsLoading] = useState(false); // Estado para controlar el loader
 const [isFormValid, setIsFormValid] = useState(false);
 const [timeoutId, setTimeoutId] = useState(null); // Guardamos el ID del timeout para limpiarlo después
 const history = useNavigate(); 
+
+const handleReCaptchaVerify = async () => {
+  if (!executeRecaptcha) {
+    console.log('Execute reCAPTCHA not yet available.');
+    return;
+  }
+
+  const token = await executeRecaptcha('checkout'); // 'checkout' es la acción que estás verificando
+    console.log('reCAPTCHA token:', token);
+    // Aquí puedes enviar el token a tu backend para su verificación
+  };
 
 
 useEffect(() => {
@@ -72,6 +88,8 @@ useEffect(() => {
 const handlePayClick = async () => {
   try {
     setIsLoading(true);
+
+    await handleReCaptchaVerify(); // Verificar reCAPTCHA antes de continuar con el proceso de pago
     
     if (!isFormValid) {
       alert('Introduce tu método de pago.');

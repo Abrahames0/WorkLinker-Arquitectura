@@ -12,7 +12,6 @@ import Badge from '@mui/material/Badge';
 import { IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // Iconos
-import { IoPerson } from 'react-icons/io5';
 import { BsCart2, BsCartFill } from 'react-icons/bs';
 // Imágenes
 import WorkLinkerRecortada from '../../landing/assets/img/WorkLinkerRecortada.png';
@@ -177,7 +176,7 @@ const handleRouteSelection = (path) => {
               </Dropdown>
             </Form>
 
-            <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> <IoPerson /> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
+            <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
               <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
                 <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
                 <Nav.Link onClick={() => logOut()}><p className="p-7" >Cerrar Sesión</p></Nav.Link>
