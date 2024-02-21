@@ -33,6 +33,9 @@ import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
+import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
+import { PaginaError } from "./pages/Error/PagiError";
+import PaginaError22 from "./pages/Error/PaginaError";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -148,8 +151,20 @@ const router = createBrowserRouter([
     element: <PerfilRepartidor />,
   },
   {
+    path: "/mapa-del-sitio",
+    element: <MapaDelSitio />,
+  },
+  {
     path: "/",
     element: <Bienvenida />,
+  },
+  {
+    path: "/Purebitas",
+    element: <PaginaError />,
+  },
+  {
+    path: "*",
+    element: <PaginaError22 />,
   },
 ]);
 

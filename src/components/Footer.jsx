@@ -29,7 +29,7 @@ export default function Footer() {
             <Typography variant="h6" color={textColor} gutterBottom>
               Recursos
             </Typography>
-            <Link href="/login-empresa" color={textColor}>Mapa del Sitio</Link><br/>
+            <Link href="/mapa-del-sitio" color={textColor}>Mapa del Sitio</Link><br/> 
             <Link href="/login-repartidores" color={textColor}>Repartidor</Link><br/>
             <Link href="/login-empresa" color={textColor}>Vender</Link>
           </Grid>
