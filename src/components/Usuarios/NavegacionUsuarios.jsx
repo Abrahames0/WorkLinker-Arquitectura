@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // AWS
 import { Auth, DataStore } from 'aws-amplify';
 // Chakra UI
-import { useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { useColorMode, useColorModeValue, Select } from '@chakra-ui/react';
 // React Bootstrap
 import { Navbar, Container, Nav, NavDropdown, Form, Dropdown } from 'react-bootstrap';
 // MUI
@@ -19,6 +19,10 @@ import WorkLinkerRecortada from '../../landing/assets/img/WorkLinkerRecortada.pn
 import { ProductoCarrito, Usuarios } from '../../models';
 // Componentes locales
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
+import { Categorias } from '../../files/Catalogos';
+import { BiSearch } from 'react-icons/bi';
+
+
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -31,55 +35,20 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function NavegacionUsuarios({ setSession }) {
-  
-// Estados y funciones relacionadas con el routing y la navegación
-const navigate = useNavigate();
-const [searchTerm, setSearchTerm] = useState("");
-const [filteredRoutes, setFilteredRoutes] = useState([]);
-const [showDropdown, setShowDropdown] = useState(false);
 
-// Estados y funciones relacionadas con el usuario y el carrito
-const [user, setUser] = useState("Usuario");
-const [productosCarrito, setProductosCarrito] = useState([]);
+  // Estados y funciones relacionadas con el routing y la navegación
+  const navigate = useNavigate();
+  const [tipoCategoria, setTipoCategoria] = useState("null");
 
-// Estados y funciones relacionadas con el estilo y el modo de color
-const { colorMode } = useColorMode();
-const navLightStyle = { backgroundColor: '#f8f9fa' };
-const navDarkStyle = { backgroundColor: '#343a40' };
-const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
+  // Estados y funciones relacionadas con el usuario y el carrito
+  const [user, setUser] = useState("Usuario");
+  const [productosCarrito, setProductosCarrito] = useState([]);
 
-// Datos y funciones relacionadas con las rutas disponibles y su filtrado
-const availableRoutes = [
-  { path: "/carrito", name: "Carrito" },
-  { path: "/perfil-usuario", name: "Perfil de Usuario" },
-  { path: "/inicio-usuarios", name: "Inicio" },
-];
-
-const filterRoutes = (term) => {
-  const filtered = availableRoutes.filter(route =>
-    route.name.toLowerCase().includes(term.toLowerCase())
-  );
-  setFilteredRoutes(filtered);
-  setShowDropdown(filtered.length > 0);
-};
-
-const handleSearchChange = (e) => {
-  const term = e.target.value;
-  setSearchTerm(term);
-  if (term.length > 1) {
-    filterRoutes(term);
-  } else {
-    setFilteredRoutes([]);
-    setShowDropdown(false);
-  }
-};
-
-const handleRouteSelection = (path) => {
-  navigate(path);
-  setSearchTerm("");
-  setFilteredRoutes([]);
-  setShowDropdown(false);
-};
+  // Estados y funciones relacionadas con el estilo y el modo de color
+  const { colorMode } = useColorMode();
+  const navLightStyle = { backgroundColor: '#f8f9fa' };
+  const navDarkStyle = { backgroundColor: '#343a40' };
+  const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
 
   useEffect(() => {
     async function cargar() {
@@ -114,16 +83,16 @@ const handleRouteSelection = (path) => {
         console.error('Error al cargar los productos del carrito:', error);
       }
     };
-  
+
     cargarProductosCarrito();
-  
+
     // Suscribirse a cambios en ProductoCarrito
     subscription = DataStore.observe(ProductoCarrito).subscribe(msg => {
       if (msg.model === ProductoCarrito) {
         cargarProductosCarrito();
       }
     });
-  
+
     // Limpieza de la suscripción al desmontar el componente
     return () => subscription && subscription.unsubscribe();
   }, []);
@@ -141,6 +110,13 @@ const handleRouteSelection = (path) => {
     }
   }
 
+  const handleTipoCategoriaChange = (e) => {
+    const categoria = e.target.value;
+    setTipoCategoria(categoria);
+    navigate(`/lista-productos/${categoria}`);
+  };
+
+
   return (
     <div>
       <Navbar style={navStyle} expand="lg">
@@ -152,51 +128,70 @@ const handleRouteSelection = (path) => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-       
-            <Nav className="mx-1 align-items-center">
-            <Form className="me-4">
-              <Form.Control
-                type="search"
-                placeholder="Buscar..."
-                className="me-5"
-                aria-label="Buscar"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onFocus={() => setShowDropdown(filteredRoutes.length > 0)}
-                onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Retraso para permitir la selección de elementos
-              />
-              <Dropdown show={showDropdown} onToggle={() => {}}>
-                <Dropdown.Menu>
-                  {filteredRoutes.map((route) => (
-                    <Dropdown.Item key={route.path} onClick={() => handleRouteSelection(route.path)}>
-                      {route.name}
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Form>
 
-            <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
-              <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
-                <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
-                <Nav.Link onClick={() => logOut()}><p className="p-7" >Cerrar Sesión</p></Nav.Link>
-              </div>
-            </NavDropdown>
+            <div className="mx-3" style={{ position: 'relative' }}>
+              <input
+                type="text"
+                placeholder="Buscar..."
+                style={{
+                  color: colorMode === 'dark' ? 'white' : 'black',
+                  backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+                  border: '1px solid #e0e0e0',
+                  padding: '0.5rem',
+                  borderRadius: '4px',
+                  width: '200px',
+                }}
+              />
+              <button
+                style={{
+                  position: 'absolute',right: '8px',top: '50%',transform: 'translateY(-50%)',backgroundColor: 'transparent', borderLeft: '1px solid #ccc',  cursor: 'pointer',padding: '4px', 
+                }}
+              >
+                <BiSearch />
+              </button>
+            </div>
+            <select
+              className={`mx-3`}
+              style={{
+                color: colorMode === 'dark' ? 'white' : 'black',
+                backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+              }}
+              value={tipoCategoria}
+              onChange={handleTipoCategoriaChange}
+            >
+              <option value="null">Selecciona una categoría</option>
+              {Categorias.map((categoria) => (
+                <option key={categoria} value={categoria}>
+                  {categoria}
+                </option>
+              ))}
+            </select>
+            <Nav className="mx-1 align-items-center">
+              <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
+                <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
+                  <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
+                  <Nav.Link onClick={() => logOut()}><p className="p-7" >Cerrar Sesión</p></Nav.Link>
+                </div>
+              </NavDropdown>
             </Nav>
             {/* Carrito */}
             <IconButton aria-label="cart" href="/carrito" className="me-1">
               <StyledBadge badgeContent={productosCarrito.length} color="secondary">
-              {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }}/> : <BsCart2 size={23} style={{ color: 'white' }}/>}
+                {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
               </StyledBadge>
             </IconButton>
+
 
           </Navbar.Collapse>
           {/* Boton modo obscuro */}
           <Nav className="mx-3">
-           <ToggleDarkMode/>
+
+            <ToggleDarkMode />
           </Nav>
+
         </Container>
       </Navbar>
+
     </div>
   );
 }

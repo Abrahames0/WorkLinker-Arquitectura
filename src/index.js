@@ -33,6 +33,8 @@ import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
+import ListaProductosPorCategoria from "./components/Usuarios/ListarProductosPorCategoria";
+import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -151,6 +153,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Bienvenida />,
   },
+  {
+    path: "/lista-productos/:categoria",
+    element: <ProductoCategoria />,
+  }
 ]);
 
 const config = {
