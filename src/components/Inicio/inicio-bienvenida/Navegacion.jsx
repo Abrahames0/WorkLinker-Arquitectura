@@ -1,4 +1,4 @@
-import { Navbar, Container, Nav, Button,LinkContainer } from "react-bootstrap";
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import WorkLinkerRecortada from "../../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link } from "react-router-dom";
 import { BsCart2, BsCartFill } from 'react-icons/bs';
@@ -18,7 +18,6 @@ function NavegacionInicio() {
 
   return (
     <div>
-         <div>
       <Navbar style={navStyle} expand="lg">
         <Container>
           <Navbar.Brand>
@@ -29,22 +28,20 @@ function NavegacionInicio() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav>
-              {/* Modifica esto */}
-              <LinkContainer to="/login-users">
-                <Nav.Link style={buttonStyle}>Inicio de sesión hola</Nav.Link>
-              </LinkContainer>
-              {/* Hasta aquí */}
-              <LinkContainer to="/carrito">
-                <Nav.Link className="me-3">
-                  {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
-                </Nav.Link>
-              </LinkContainer>
+            </Nav>
+            <Nav>
+              {/* Utiliza el componente Link directamente */}
+              <Link to="/login-users" style={buttonStyle} className="nav-link">
+                Inicio de sesión hola
+              </Link>
+              <Link to="/carrito" className="nav-link me-3">
+                {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
+              </Link>
             </Nav>
             <ToggleDarkMode />
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </div>
     </div>
   );
 }
