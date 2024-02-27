@@ -3,8 +3,10 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+
 import logo from '../landing/assets/img/WorkLinkerRecortada.png';
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { useColorMode } from '@chakra-ui/react';
 
@@ -29,9 +31,9 @@ export default function Footer() {
             <Typography variant="h6" color={textColor} gutterBottom>
               Recursos
             </Typography>
-            <Link href="/mapa-del-sitio" color={textColor}>Mapa del Sitio</Link><br/> 
-            <Link href="/login-repartidores" color={textColor}>Repartidor</Link><br/>
-            <Link href="/login-empresa" color={textColor}>Vender</Link>
+            <Nav.Link href="/mapa-del-sitio" color={textColor}>Mapa del Sitio</Nav.Link><br/> 
+            <Nav.Link href="/login-repartidores" color={textColor}>Repartidor</Nav.Link><br/>
+            <Nav.Link href="/login-empresa" color={textColor}>Vender</Nav.Link>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Typography variant="h6" color={textColor} gutterBottom>
