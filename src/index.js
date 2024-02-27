@@ -33,8 +33,7 @@ import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
-import ListaProductosPorCategoria from "./components/Usuarios/ListarProductosPorCategoria";
-import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
+
 import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
 import { PaginaError } from "./pages/Error/PagiError";
 import PaginaError22 from "./pages/Error/PaginaError";
@@ -160,10 +159,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Bienvenida />,
   },
-  {
-    path: "/lista-productos/:categoria",
-    element: <ProductoCategoria />,
-  },{
+{
     path: "/Purebitas",
     element: <PaginaError />,
   },
