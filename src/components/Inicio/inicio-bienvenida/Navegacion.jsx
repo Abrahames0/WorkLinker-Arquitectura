@@ -27,16 +27,20 @@ function NavegacionInicio() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-            <Nav>
-            </Nav>
-            <Nav>
+          <Nav>
               {/* Utiliza el componente Link directamente */}
-              <Link to="/login-users" style={buttonStyle} className="nav-link">
-                Inicio de sesión hola
+              <Link to="/login-users" style={buttonStyle} className="nav-link me-3">
+                Inicio de sesión
               </Link>
               <Link to="/carrito" className="nav-link me-3">
                 {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
               </Link>
+            </Nav>
+            <Nav>
+              <Nav.Link variant="outline-secondary" href="/login-users" className="me-3" style={buttonStyle}>Inicio de sesión</Nav.Link>
+              <Nav.Link href="/carrito" className="me-3">
+                {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
+              </Nav.Link>
             </Nav>
             <ToggleDarkMode />
           </Navbar.Collapse>
