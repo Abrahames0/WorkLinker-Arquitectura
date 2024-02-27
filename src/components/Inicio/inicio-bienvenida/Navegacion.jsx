@@ -31,7 +31,7 @@ function NavegacionInicio() {
             <Nav>
               {/* Modifica esto */}
               <LinkContainer to="/login-users">
-                <Nav.Link style={buttonStyle}>Inicio de sesión</Nav.Link>
+                <Nav.Link style={buttonStyle}>Inicio de sesión hola</Nav.Link>
               </LinkContainer>
               {/* Hasta aquí */}
               <LinkContainer to="/carrito">
