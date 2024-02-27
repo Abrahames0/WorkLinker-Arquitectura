@@ -30,9 +30,12 @@ function NavegacionInicio() {
             <Nav>
             </Nav>
             <Nav>
-              <Nav.Link variant="outline-secondary" href="/login-users" className="me-3" style={buttonStyle}>Inicio de sesión</Nav.Link>
+              <Button variant="outline-secondary" className="me-3" style={buttonStyle}>
+                <Link to="/login-users" style={{ color: buttonStyle.color }}>Inicio de sesión</Link>
+              </Button>
+
               <Nav.Link href="/carrito" className="me-3">
-                {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
+                {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }} /> : <BsCart2 size={20} style={{ color: 'white' }} />}
               </Nav.Link>
             </Nav>
             <ToggleDarkMode />
