@@ -22,7 +22,7 @@ function NavegacionInicio() {
       <Navbar style={navStyle} expand="lg">
         <Container>
           <Navbar.Brand>
-            <Link to="/Bienvenida">
+            <Link to="/">
               <img src={WorkLinkerRecortada} alt="logo" style={{ width: "10rem" }} />
             </Link>
           </Navbar.Brand>
