@@ -30,7 +30,7 @@ function NavegacionInicio() {
             <Nav>
             </Nav>
             <Nav>
-              <Button variant="outline-secondary" href="/login-users" className="me-3" style={buttonStyle}>Inicio de sesión</Button>
+              <Nav.Link  variant="outline-secondary" href="/login-users" className="me-3" style={buttonStyle}>Inicio de sesión</Nav.Link>
               <Nav.Link href="/carrito" className="me-3">
                 {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart2 size={20} style={{ color: 'white' }}/>}
               </Nav.Link>

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // AWS
 import { Auth, DataStore } from 'aws-amplify';
 // Chakra UI
-import { useColorMode, useColorModeValue, Select } from '@chakra-ui/react';
+import { useColorMode, useColorModeValue, Select,Input } from '@chakra-ui/react';
 // React Bootstrap
 import { Navbar, Container, Nav, NavDropdown, Form, Dropdown } from 'react-bootstrap';
 // MUI
@@ -16,11 +16,13 @@ import { BsCart2, BsCartFill } from 'react-icons/bs';
 // Imágenes
 import WorkLinkerRecortada from '../../landing/assets/img/WorkLinkerRecortada.png';
 // Modelos de DataStore
-import { ProductoCarrito, Usuarios } from '../../models';
+import { ProductoCarrito, Usuarios, Producto } from '../../models';
 // Componentes locales
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
 import { Categorias } from '../../files/Catalogos';
 import { BiSearch } from 'react-icons/bi';
+import { useHistory } from 'react-router-dom'; // Ajusta esto según tu enrutador
+
 
 
 
@@ -49,6 +51,11 @@ function NavegacionUsuarios({ setSession }) {
   const navLightStyle = { backgroundColor: '#f8f9fa' };
   const navDarkStyle = { backgroundColor: '#343a40' };
   const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
+  const [productos, setProductos] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+
 
   useEffect(() => {
     async function cargar() {
@@ -66,6 +73,28 @@ function NavegacionUsuarios({ setSession }) {
     }
     cargar()
   }, []);
+
+
+  useEffect(() => {
+    async function cargarProductos() {
+      try {
+        const productosQueryResult = await DataStore.query(Producto);
+        // Extraer solo la información necesaria (nombre e ID) de los productos
+        const productos = productosQueryResult.map(producto => ({ id: producto.id, nombreProducto: producto.nombreProducto, categoria: producto.categoria }));
+        // Establecer el estado con la información extraída
+        setProductos(productos);
+        console.log(productos);
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
+      }
+    }
+  
+    cargarProductos();
+  }, []);
+  
+
+  console.table(productos);
+  
 
   useEffect(() => {
     let subscription;
@@ -116,7 +145,22 @@ function NavegacionUsuarios({ setSession }) {
     navigate(`/lista-productos/${categoria}`);
   };
 
+ 
+ 
+  const [suggestions, setSuggestions] = useState([]);
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+    setSuggestions(
+      productos.filter((producto) =>
+        producto.nombreProducto.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    );
+  };
 
+
+  const redirectToProduct = (productId) => {
+    navigate(`/producto/${productId}`); // Utiliza la función navigate para redirigir
+  };
   return (
     <div>
       <Navbar style={navStyle} expand="lg">
@@ -129,26 +173,61 @@ function NavegacionUsuarios({ setSession }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
 
-            <div className="mx-3" style={{ position: 'relative' }}>
-              <input
-                type="text"
-                placeholder="Buscar..."
-                style={{
-                  color: colorMode === 'dark' ? 'white' : 'black',
-                  backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
-                  border: '1px solid #e0e0e0',
-                  padding: '0.5rem',
-                  borderRadius: '4px',
-                  width: '200px',
-                }}
-              />
-              <button
-                style={{
-                  position: 'absolute',right: '8px',top: '50%',transform: 'translateY(-50%)',backgroundColor: 'transparent', borderLeft: '1px solid #ccc',  cursor: 'pointer',padding: '4px', 
-                }}
-              >
-                <BiSearch />
-              </button>
+          <div className="mx-3" style={{ position: 'relative' }}>
+            <Input
+            
+              type="text"
+              placeholder="Buscar producto..."
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+              
+              style={{
+                color: colorMode === 'dark' ? 'white' : 'black',
+                backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+                border: '1px solid #e0e0e0',
+                padding: '0.5rem',
+                borderRadius: '4px',
+                width: '200px',
+              }}
+            
+            />
+            {searchTerm && suggestions.length > 0 && (
+              <ul style={{  color: colorMode === 'dark' ? 'white' : 'black',  
+              backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+              border: '1px solid #e0e0e0',
+              padding: '0.5rem',
+              borderRadius: '4px',
+              width: '200px'
+              ,position: 'absolute', top: '100%', left: 0, zIndex: 1 }}>
+                {suggestions.map((producto) => (
+                  <li
+                    key={producto.id}
+                    onClick={() => redirectToProduct(producto.id)}
+                    style={{
+                      color: colorMode === 'dark' ? 'white' : 'black',
+                      backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+                      padding: '0.5rem',
+                      listStyleType: 'none', padding: 0, margin: 0,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {producto.nombreProducto}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button
+              onClick={() => {
+                if (suggestions.length === 1) {
+                  redirectToProduct(suggestions[0].id);
+                }
+              }}
+              style={{
+                position: 'absolute',right: '8px',top: '50%',transform: 'translateY(-50%)',backgroundColor: 'transparent', borderLeft: '1px solid #ccc',  cursor: 'pointer',padding: '4px', 
+              }}
+            >
+             <BiSearch/>
+            </button>
             </div>
             <select
               className={`mx-3`}
@@ -197,3 +276,8 @@ function NavegacionUsuarios({ setSession }) {
 }
 
 export default NavegacionUsuarios;
+
+
+
+
+
