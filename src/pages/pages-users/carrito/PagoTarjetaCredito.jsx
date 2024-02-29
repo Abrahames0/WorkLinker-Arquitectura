@@ -11,7 +11,7 @@ import Footer from '../../../components/Footer';
 import NavegacionUsuarios from '../../../components/Usuarios/NavegacionUsuarios';
 import { NombreGrupo } from '../../../hook/NombreGrupo';
 import CheckoutComponent from '../../../components/Usuarios/pagosCarrito/FinalizarCompra';
-
+import Loader from "../../../components/componentesRecicables/Loader";
 function PagoTarjetaCredito() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
@@ -46,6 +46,11 @@ function PagoTarjetaCredito() {
     getData();
   }, []);
 
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
   return (
     <div>
       {session ? (
