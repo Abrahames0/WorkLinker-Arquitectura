@@ -4,9 +4,9 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 // AWS
 import { Auth, DataStore } from 'aws-amplify';
 // Chakra UI
-import { useColorMode, useColorModeValue, Select, Input } from '@chakra-ui/react';
+import { useColorMode, useColorModeValue, Input } from '@chakra-ui/react';
 // React Bootstrap
-import { Navbar, Container, Nav, NavDropdown, Form, Dropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 // MUI
 import Badge from '@mui/material/Badge';
 import { IconButton } from '@mui/material';
@@ -21,9 +21,6 @@ import { ProductoCarrito, Usuarios, Producto } from '../../models';
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
 import { Categorias, Rutas } from '../../files/Catalogos';
 import { BiSearch } from 'react-icons/bi';
-import Loader from "../componentesRecicables/Loader";
-
-
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -51,7 +48,7 @@ function NavegacionUsuarios({ setSession }) {
   const navStyle = useColorModeValue(navLightStyle, navDarkStyle);
   const [productos, setProductos] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [, setSelectedProduct] = useState(null);
   const location = useLocation();
   const [suggestions, setSuggestions] = useState([]);
   
@@ -234,7 +231,7 @@ function NavegacionUsuarios({ setSession }) {
             {searchTerm && suggestions.length > 0 && (
               <ul style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', border: '1px solid #e0e0e0', padding: '0.5rem', borderRadius: '4px', width: '200px', position: 'absolute', top: '100%', left: 0, zIndex: 1 }}>
                 {suggestions.map((producto) => (
-                  <li key={producto.id} onClick={() => handleSelectProduct(producto)} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', padding: '0.5rem', listStyleType: 'none', padding: 0, margin: 0, cursor: 'pointer' }}>
+                  <li key={producto.id} onClick={() => handleSelectProduct(producto)} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', padding: '0.5rem', listStyleType: 'none', margin: 0, cursor: 'pointer' }}>
                     {producto.nombreProducto}
                   </li>
                 ))}

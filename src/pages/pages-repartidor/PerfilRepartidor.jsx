@@ -17,7 +17,7 @@ function PerfilRepartidor() {
   const [nombreGrupo, setNombreGrupo] = useState("");
   const [session, setSession] = useState("");
   const [userData, setUserData] = useState("");
-  const [user, setUser] = useState("")
+  const [, setUser] = useState("")
 
   //Repartidores
   useEffect(() => {

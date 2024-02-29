@@ -162,6 +162,14 @@ const router = createBrowserRouter([
     element: <MapaDelSitio />,
   },
   {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/terms-conditions",
+    element: <TermsConditions />,
+  },
+  {
     path: "/",
     element: <Bienvenida />,
   },

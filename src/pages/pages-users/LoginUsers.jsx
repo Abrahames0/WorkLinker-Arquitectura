@@ -9,7 +9,7 @@ import Loader from "../../components/componentesRecicables/Loader";
 function LoginUsuarios() {
   const [session, setSession] = useState(false);
   const [nombreGrupo, setNombreGrupo] = useState("usuarios");
-  const [userData, setUserData] = useState({});
+  const [, setUserData] = useState({});
 
   useEffect(() => {
     async function getData() {

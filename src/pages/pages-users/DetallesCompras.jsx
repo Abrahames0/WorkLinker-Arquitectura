@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { Auth } from "aws-amplify";
 import { Usuarios } from "../../models";
@@ -11,13 +11,12 @@ import Footer from "../../components/Footer";
 import { NombreGrupo } from "../../hook/NombreGrupo";
 import NavegacionUsuarios from "../../components/Usuarios/NavegacionUsuarios";
 import PedidoStepper from "../../components/Usuarios/pagosCarrito/EstadoPaquete";
-import Loader from "../../components/componentesRecicables/Loader";
 
 function DetallesCompras() {
   const [nombreGrupo, setNombreGrupo] = useState("");
   const [session, setSession] = useState("");
   const [userData, setUserData] = useState("");
-  const [user, setUser] = useState("");
+  const [, setUser] = useState("");
 
   const currentStep = 1;
 

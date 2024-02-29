@@ -31,8 +31,6 @@ export async function notificacionEnvio(pkg, repartidorCorreo) {
         throw new Error(`Error al enviar la notificación de compra: ${response.status} - ${response.statusText}`);
       }
   
-      const data = await response.json();
-      // Puedes hacer algo con 'data' si es necesario
   
     } catch (error) {
       console.error("Error al enviar la notificación de compra:", error);

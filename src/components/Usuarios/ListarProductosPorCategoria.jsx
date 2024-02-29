@@ -1,6 +1,6 @@
 // En ListaProductosPorCategoria
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Producto } from "../../models";
 import { DataStore, SortDirection } from "aws-amplify";
 import { Pagination, Stack } from "@mui/material";
@@ -20,7 +20,7 @@ function ListaProductosPorCategoria({email}) {
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
   const currentResults = producto.slice(indexOfFirstResult, indexOfLastResult);
-  const [statusVisible, setStatusVisible] = useState(true);  // Add this line
+  const [, setStatusVisible] = useState(true);  // Add this line
   const [loading, setLoading] = useState(true);
 
 

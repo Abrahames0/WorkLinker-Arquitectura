@@ -177,7 +177,7 @@ function EditarProducto({ open, handleClose, productoId, producto }) {
     
       if (!validateField(nombreProducto, 'El campo Nombre del producto es requerido')) return false;
       if (!validateField(descripcion, 'El campo descripcion es requerido')) return false;
-      /* if (!validateField(precio, 'El campo precio es requerido')) return false; */
+      if (!validateField(precio, 'El campo precio es requerido')) return false;
       if (!validateField(categoria, 'El campo categoria es requerido')) return false;
       if (!validateField(stock, 'El campo stock es requerido')) return false;
   

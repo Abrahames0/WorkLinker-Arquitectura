@@ -1,4 +1,4 @@
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, } from "react-bootstrap";
 import WorkLinkerRecortada from "../../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link } from "react-router-dom";
 import { BsCart2, BsCartFill } from 'react-icons/bs';

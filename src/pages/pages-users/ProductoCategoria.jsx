@@ -9,7 +9,6 @@ import { DataStore } from '@aws-amplify/datastore';
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import Footer from '../../components/Footer';
-import ComDetallesProducto from '../../components/Usuarios/detalles-productos/ComDetallesProducto';
 import ListaProductosPorCategoria from '../../components/Usuarios/ListarProductosPorCategoria';
 import Loader from "../../components/componentesRecicables/Loader";
 function ProductoCategoria() {
