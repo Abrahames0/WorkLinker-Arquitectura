@@ -10,15 +10,6 @@ export default function Footer() {
   const bgColor = colorMode === 'dark' ? 'grey.900' : 'background.paper';
   const textColor = colorMode === 'dark' ? 'grey.300' : 'text.secondary';
 
-  // Estilos específicos para los iconos de redes sociales
-  const iconStyle = {
-    color: textColor,
-    cursor: 'pointer',
-    '&:hover': {
-      color: colorMode === 'dark' ? 'grey.100' : 'grey.600',
-    },
-  };
-
   return (
     <Box component="footer" sx={{ bgcolor: bgColor, py: 6 }}>
       <Container maxWidth="lg">
@@ -54,7 +45,7 @@ export default function Footer() {
               noreplyworklinker@gmail.com
             </Link>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Link href="https://www.facebook.com" >
+              <Link href="https://www.facebook.com/profile.php?id=61557008636040&mibextid=LQQJ4d" >
                 <FaFacebook size={25} />
               </Link>
               <Link href="https://www.instagram.com/xonixtechnology?igshid=NWR4ZnZuaTl1bnVv" >
