@@ -17,10 +17,6 @@ function CarouselInicio() {
           alt="Vista panorámica de la ciudad con iluminación nocturna"
           style={roundedCornerStyle} 
         />
-        {/* <Carousel.Caption>
-          <h3>Explora la Ciudad</h3>
-          <p>Descubre los secretos de la ciudad bajo las estrellas.</p>
-        </Carousel.Caption> */}
       </Carousel.Item>
       <Carousel.Item>
         <img
@@ -29,10 +25,6 @@ function CarouselInicio() {
           alt="Paisaje montañoso con lago al atardecer"
           style={roundedCornerStyle} 
         />
-        {/* <Carousel.Caption>
-          <h3>Escapada Natural</h3>
-          <p>Encuentra la paz en los paisajes más impresionantes.</p>
-        </Carousel.Caption> */}
       </Carousel.Item>
       <Carousel.Item>
         <img
