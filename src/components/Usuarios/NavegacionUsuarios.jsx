@@ -87,7 +87,6 @@ function NavegacionUsuarios({ setSession }) {
         const productosQueryResult = await DataStore.query(Producto);
         const productosData = productosQueryResult.map(producto => ({ id: producto.id, nombreProducto: producto.nombreProducto, categoria: producto.categoria }));
         setProductos(productosData);
-        console.log(productosData);
       } catch (error) {
         console.error('Error al cargar productos:', error);
       }
@@ -178,7 +177,6 @@ function NavegacionUsuarios({ setSession }) {
   };
 
   const redirectToPath = (path) => {
-    console.log(typeof path);
     navigate(path);
   };
 

@@ -34,7 +34,6 @@ function ListaProductosEditarEliminar() {
     saves();
   }, []);
 
-  console.log(provedorData.id);
   useEffect(() => {
       try {
         const sub = DataStore.observeQuery(Producto, (c) => c.proveedorID.eq(provedorData.id)).subscribe(({ items }) => {
@@ -47,9 +46,6 @@ function ListaProductosEditarEliminar() {
         console.log(error);
       }
   }, [provedorData]);
-
-
-  console.log('producto',Productos);
 
   return (
     <div className="col-12 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>

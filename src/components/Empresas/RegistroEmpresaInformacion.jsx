@@ -97,7 +97,6 @@ function RegistroEmpresaInformacion() {
     },
   ];
 
-  console.log(empContacto.email);
   const guardarEmpresa = async () => {
     try {
       const proveedores = new Proveedor({
