@@ -212,115 +212,67 @@ function NavegacionUsuarios({ setSession }) {
 
   return (
     <div>
-      <Navbar style={navStyle} expand="lg">
-        <Container>
-          <Navbar.Brand>
-            <Link to="/inicio-usuarios">
-              <img src={WorkLinkerRecortada} alt="logo" style={{ width: "10rem" }} />
-            </Link>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+    <Navbar style={navStyle} expand="lg">
+      <Container>
+        <Navbar.Brand>
+          <Link to="/inicio-usuarios">
+            <img src={WorkLinkerRecortada} alt="logo" style={{ width: "10rem" }} />
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
 
-            <div className="mx-3" style={{ position: 'relative' }}>
-              <Input
-                type="text"
-                placeholder="Buscar producto..."
-                value={searchTerm}
-                onChange={handleSearchTermChange}
-                style={{
-                  color: colorMode === 'dark' ? 'white' : 'black',
-                  backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
-                  border: '1px solid #e0e0e0',
-                  padding: '0.5rem',
-                  borderRadius: '4px',
-                  width: '200px',
-                }}
-              />
-              {searchTerm && suggestions.length > 0 && (
-                <ul style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', border: '1px solid #e0e0e0', padding: '0.5rem', borderRadius: '4px', width: '200px', position: 'absolute', top: '100%', left: 0, zIndex: 1 }}>
-                  {suggestions.map((producto) => (
-                    <li
-                      key={producto.id}
-                      onClick={() => handleSelectProduct(producto)}
-                      style={{
-                        color: colorMode === 'dark' ? 'white' : 'black',
-                        backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
-                        padding: '0.5rem',
-                        listStyleType: 'none',
-                        padding: 0,
-                        margin: 0,
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {producto.nombreProducto}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <button
-                onClick={() => {
-                  if (suggestions.length === 1) {
-                    handleSelectProduct(suggestions[0]);
-                  }
-                }}
-                style={{
-                  position: 'absolute',
-                  right: '8px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  backgroundColor: 'transparent',
-                  borderLeft: '1px solid #ccc',
-                  cursor: 'pointer',
-                  padding: '4px',
-                }}
-              >
-                <BiSearch />
-              </button>
-            </div>
-            <select
-              className={`mx-3`}
-              style={{
-                color: colorMode === 'dark' ? 'white' : 'black',
-                backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
-              }}
-              value={tipoCategoria}
-              onChange={handleTipoCategoriaChange}
-            >
-              <option value="null">Selecciona una categoría</option>
-              {Categorias.map((categoria) => (
-                <option key={categoria} value={categoria}>
-                  {categoria}
-                </option>
-              ))}
-            </select>
-            <Nav className="mx-1 align-items-center">
-              <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
-                <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
-                  <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
-                  <Nav.Link onClick={() => logOut()}><p className="p-7" >Cerrar Sesión</p></Nav.Link>
-                </div>
-              </NavDropdown>
-            </Nav>
-            {/* Carrito */}
-            <IconButton aria-label="cart" href="/carrito" className="me-1">
-              <StyledBadge badgeContent={productosCarrito.length} color="secondary">
-                {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
-              </StyledBadge>
-            </IconButton>
-
-
-          </Navbar.Collapse>
-          {/* Boton modo obscuro */}
-          <Nav className="mx-3">
-
-            <ToggleDarkMode />
+          <div className="mx-3" style={{ position: 'relative' }}>
+            <Input
+              type="text"
+              placeholder="Buscar producto..."
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+              style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', border: '1px solid #e0e0e0', padding: '0.5rem', borderRadius: '4px', width: '200px' }}
+            />
+            {searchTerm && suggestions.length > 0 && (
+              <ul style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', border: '1px solid #e0e0e0', padding: '0.5rem', borderRadius: '4px', width: '200px', position: 'absolute', top: '100%', left: 0, zIndex: 1 }}>
+                {suggestions.map((producto) => (
+                  <li key={producto.id} onClick={() => handleSelectProduct(producto)} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', padding: '0.5rem', listStyleType: 'none', padding: 0, margin: 0, cursor: 'pointer' }}>
+                    {producto.nombreProducto}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button onClick={() => { if (suggestions.length === 1) { handleSelectProduct(suggestions[0]); } }} style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'transparent', borderLeft: '1px solid #ccc', cursor: 'pointer', padding: '4px' }}>
+              <BiSearch />
+            </button>
+          </div>
+          <select className={`mx-3`} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa' }} value={tipoCategoria} onChange={handleTipoCategoriaChange}>
+            <option value="null">Selecciona una categoría</option>
+            {Categorias.map((categoria) => (
+              <option key={categoria} value={categoria}>
+                {categoria}
+              </option>
+            ))}
+          </select>
+          <Nav className="mx-1 align-items-center">
+            <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
+              <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
+                <Nav.Link href='/perfil-usuario'><p className="p-7 " style={{ marginBottom: '-1rem', marginTop: '-1rem' }}>Perfil</p></Nav.Link>
+                <Nav.Link onClick={() => logOut()}><p className="p-7" >Cerrar Sesión</p></Nav.Link>
+              </div>
+            </NavDropdown>
           </Nav>
-
-        </Container>
-      </Navbar>
-
-    </div>
+          {/* Carrito */}
+          <IconButton aria-label="cart" href="/carrito" className="me-1">
+            <StyledBadge badgeContent={productosCarrito.length} color="secondary">
+              {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
+            </StyledBadge>
+          </IconButton>
+        </Navbar.Collapse>
+        {/* Boton modo obscuro */}
+        <Nav className="mx-3">
+          <ToggleDarkMode />
+        </Nav>
+      </Container>
+    </Navbar>
+  </div>
   );
 }
 
