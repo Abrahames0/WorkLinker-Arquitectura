@@ -35,8 +35,9 @@ import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
 
 import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
-import { PaginaError } from "./pages/Error/PagiError";
 import PaginaError22 from "./pages/Error/PaginaError";
+import PrivacyPolicy from "./components/Inicio/privacy-policy";
+import TermsConditions from "./components/Inicio/terms-conditions";
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -159,9 +160,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <Bienvenida />,
   },
-{
-    path: "/Purebitas",
-    element: <PaginaError />,
+  {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/terms-conditions",
+    element: <TermsConditions />,
   },
   {
     path: "*",
