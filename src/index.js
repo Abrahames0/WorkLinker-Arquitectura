@@ -37,6 +37,8 @@ import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
 import PaginaError22 from "./pages/Error/PaginaError";
 import PrivacyPolicy from "./components/Inicio/privacy-policy";
 import TermsConditions from "./components/Inicio/terms-conditions";
+import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
+
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -146,6 +148,10 @@ const router = createBrowserRouter([
   {
     path: "/producto/:id",
     element: <DetallesdeProducto />,
+  },
+  {
+    path: "/lista-productos/:categoria",
+    element: <ProductoCategoria/>
   },
   {
     path: "/perfil-repartidor",

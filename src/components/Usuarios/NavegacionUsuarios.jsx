@@ -1,6 +1,6 @@
 // React
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 // AWS
 import { Auth, DataStore } from 'aws-amplify';
 // Chakra UI
@@ -19,10 +19,10 @@ import WorkLinkerRecortada from '../../landing/assets/img/WorkLinkerRecortada.pn
 import { ProductoCarrito, Usuarios, Producto } from '../../models';
 // Componentes locales
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
-import { Categorias,Rutas } from '../../files/Catalogos';
+import { Categorias, Rutas } from '../../files/Catalogos';
 import { BiSearch } from 'react-icons/bi';
-import { useHistory } from 'react-router-dom'; // Ajusta esto según tu enrutador
-import { useLocation } from 'react-router-dom';
+
+
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -54,9 +54,8 @@ function NavegacionUsuarios({ setSession }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const location = useLocation();
   const [suggestions, setSuggestions] = useState([]);
-
   useEffect(() => {
-    // Clear selected product when navigating to the homepage
+    // Limpiar selección de producto al ir a la página de inicio
     if (location.pathname === '/inicio-usuarios') {
       localStorage.removeItem('selectedProduct');
       setSelectedProduct(null);
@@ -65,51 +64,48 @@ function NavegacionUsuarios({ setSession }) {
   }, [location.pathname]);
 
   useEffect(() => {
-    async function cargar() {
-      const auth = await Auth.currentAuthenticatedUser();
-      setTimeout(() => {
-        DataStore.query(Usuarios, c => c.correo.eq(auth.attributes.email)).then((e) => {
-          if (e[0]?.nombreUsuario) {
-            setUser(e[0].nombreUsuario);
-            localStorage.setItem("nombreNav", e[0].nombreUsuario);
-            return
-          }
+    const cargarUsuario = async () => {
+      try {
+        const auth = await Auth.currentAuthenticatedUser();
+        const userData = await DataStore.query(Usuarios, c => c.correo.eq(auth.attributes.email));
+        
+        if (userData[0]?.nombreUsuario) {
+          setUser(userData[0].nombreUsuario);
+          localStorage.setItem("nombreNav", userData[0].nombreUsuario);
+        } else {
           localStorage.setItem("nombreNav", "Usuario");
-        })
-      }, 950);
-    }
-    cargar()
+        }
+      } catch (error) {
+        console.error('Error al cargar usuario:', error);
+      }
+    };
+
+    cargarUsuario();
   }, []);
 
-
   useEffect(() => {
-    async function cargarProductos() {
+    const cargarProductos = async () => {
       try {
         const productosQueryResult = await DataStore.query(Producto);
-        // Extraer solo la información necesaria (nombre e ID) de los productos
-        const productos = productosQueryResult.map(producto => ({ id: producto.id, nombreProducto: producto.nombreProducto, categoria: producto.categoria }));
-        // Establecer el estado con la información extraída
-        setProductos(productos);
-        console.log(productos);
+        const productosData = productosQueryResult.map(producto => ({ id: producto.id, nombreProducto: producto.nombreProducto, categoria: producto.categoria }));
+        setProductos(productosData);
+        console.log(productosData);
       } catch (error) {
         console.error('Error al cargar productos:', error);
       }
-    }
+    };
 
     cargarProductos();
   }, []);
 
-
-  console.table(productos);
-
-
   useEffect(() => {
     let subscription;
-    // Función para obtener los productos del carrito del usuario actual
+
     const cargarProductosCarrito = async () => {
       try {
         const authUser = await Auth.currentAuthenticatedUser();
         const usuarios = await DataStore.query(Usuarios, c => c.correo.eq(authUser.attributes.email));
+        
         if (usuarios.length > 0) {
           const usuario = usuarios[0];
           const productosDelCarrito = await DataStore.query(ProductoCarrito, pc => pc.usuariosID.eq(usuario.id));
@@ -122,18 +118,16 @@ function NavegacionUsuarios({ setSession }) {
 
     cargarProductosCarrito();
 
-    // Suscribirse a cambios en ProductoCarrito
     subscription = DataStore.observe(ProductoCarrito).subscribe(msg => {
       if (msg.model === ProductoCarrito) {
         cargarProductosCarrito();
       }
     });
 
-    // Limpieza de la suscripción al desmontar el componente
     return () => subscription && subscription.unsubscribe();
   }, []);
 
-  async function logOut() {
+  const logOut = async () => {
     try {
       await Auth.signOut({ global: true });
       await DataStore.clear();
@@ -142,9 +136,9 @@ function NavegacionUsuarios({ setSession }) {
       setSession(false);
       navigate("/");
     } catch (error) {
-      console.log("error signing out: ", error);
+      console.log("error al cerrar sesión: ", error);
     }
-  }
+  };
 
   const handleTipoCategoriaChange = (e) => {
     const categoria = e.target.value;
@@ -152,36 +146,62 @@ function NavegacionUsuarios({ setSession }) {
     navigate(`/lista-productos/${categoria}`);
   };
 
-
   const handleSearchTermChange = (e) => {
     const valorEntrada = e.target.value;
     setSearchTerm(valorEntrada);
 
-    // Filter products based on user input
     const filteredProducts = productos.filter((producto) =>
       producto.nombreProducto.toLowerCase().includes(valorEntrada.toLowerCase())
     );
 
-    // Update suggestions based on filtered products
-    setSuggestions(filteredProducts);
+    const filteredCategories = Categorias.filter((categoria) =>
+      categoria.toLowerCase().includes(valorEntrada.toLowerCase())
+    );
+
+    const filteredRoutes = Rutas.filter((ruta) =>
+      ruta.name.toLowerCase().includes(valorEntrada.toLowerCase())
+    );
+
+    const combinedResults = [
+      ...filteredProducts,
+      ...filteredCategories.map((categoria) => ({ id: categoria, nombreProducto: categoria, categoria: "Categorias" })),
+      ...filteredRoutes.map((ruta) => ({ id: ruta.path, nombreProducto: ruta.name, categoria: "Rutas" })),
+    ];
+
+    setSuggestions(combinedResults);
   };
 
   const redirectToProduct = (productId) => {
     navigate(`/producto/${productId}`);
   };
 
+  const redirectToCategory = (categoria) => {
+    navigate(`/lista-productos/${categoria}`);
+  };
+
+  const redirectToPath = (path) => {
+    console.log(typeof path);
+    navigate(path);
+  };
+
   const handleSelectProduct = (producto) => {
     setSelectedProduct(producto);
-    setSearchTerm(producto.nombreProducto); // Autocompletar el buscador con el nombre del producto seleccionado
-    setSuggestions([]); // Limpiar las sugerencias después de la selección
-    redirectToProduct(producto.id); // Redirigir al producto seleccionado
-
-
-    localStorage.setItem('selectedProduct', JSON.stringify(producto));
+    setSearchTerm(producto.nombreProducto);
+    setSuggestions([]);
+  
+    if (producto.categoria === 'Categorias') {
+      redirectToCategory(producto.id);
+      localStorage.setItem('selectedProduct', JSON.stringify(producto));
+    } else if (producto.categoria === 'Rutas') {
+      redirectToPath(producto.id);
+      localStorage.setItem('selectedProduct', JSON.stringify(producto));
+    } else {
+      redirectToProduct(producto.id);
+      localStorage.setItem('selectedProduct', JSON.stringify(producto));
+    }
   };
 
   useEffect(() => {
-
     const storedProduct = localStorage.getItem('selectedProduct');
     if (storedProduct) {
       const parsedProduct = JSON.parse(storedProduct);
@@ -189,6 +209,7 @@ function NavegacionUsuarios({ setSession }) {
       setSearchTerm(parsedProduct.nombreProducto);
     }
   }, []);
+
   return (
     <div>
       <Navbar style={navStyle} expand="lg">
