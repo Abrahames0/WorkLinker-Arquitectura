@@ -8,14 +8,14 @@ import { DataStore } from '@aws-amplify/datastore';
 
 import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
-import RegistroUsuarioInformacion from '../../components/Usuarios/registro-Usuario/RegistroUsuarioInformacion';
 import Footer from '../../components/Footer';
+import ComDetallesProducto from '../../components/Usuarios/detalles-productos/ComDetallesProducto';
+import ListaProductosPorCategoria from '../../components/Usuarios/ListarProductosPorCategoria';
 import Loader from "../../components/componentesRecicables/Loader";
-
-function RegistroUsuario() {
+function ProductoCategoria() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
-  const [, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [existeBde, setExisteBde] = useState('');
   const [registroCompleto, setregistroCompleto] = useState(false);
@@ -45,12 +45,12 @@ function RegistroUsuario() {
     }
     getData();
   }, []);
-
   if (!nombreGrupo) {
     if (session) {
       return <Loader />
     }
   }
+  
 
   return (
     <div>
@@ -60,7 +60,7 @@ function RegistroUsuario() {
             (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
               <>
                 <NavegacionUsuarios setSession={setSession} />
-                 <RegistroUsuarioInformacion /* idUser={idOwner} email={email} bdeData={bdeData} *//>
+                 <ListaProductosPorCategoria email={email}/>
                  <Footer/>
               </>
             )
@@ -75,4 +75,5 @@ function RegistroUsuario() {
   );
 }
 
-export default RegistroUsuario;
+export default ProductoCategoria;
+

@@ -33,11 +33,12 @@ import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
-
 import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
 import PaginaError22 from "./pages/Error/PaginaError";
 import PrivacyPolicy from "./components/Inicio/privacy-policy";
 import TermsConditions from "./components/Inicio/terms-conditions";
+import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
+
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
@@ -149,6 +150,10 @@ const router = createBrowserRouter([
     element: <DetallesdeProducto />,
   },
   {
+    path: "/lista-productos/:categoria",
+    element: <ProductoCategoria/>
+  },
+  {
     path: "/perfil-repartidor",
     element: <PerfilRepartidor />,
   },
@@ -159,14 +164,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Bienvenida />,
-  },
-  {
-    path: "/privacy-policy",
-    element: <PrivacyPolicy />,
-  },
-  {
-    path: "/terms-conditions",
-    element: <TermsConditions />,
   },
   {
     path: "*",

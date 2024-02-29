@@ -32,6 +32,7 @@ type ProductoCarrito @model @auth(rules: [{allow: public}, {allow: owner}, {allo
   nombreProducto: String
   usuariosID: ID! @index(name: "byUsuarios")
   imagenURL: String
+  categoria: String
 }
 
 type Repartidor @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}, {allow: groups, groups: ["proveedores"], operations: [read, create, update, delete]}]) {
@@ -71,4 +72,5 @@ type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: priv
   estadoUsuario: String
   paisUsuario: String
   ProductoCarritos: [ProductoCarrito] @hasMany(indexName: "byUsuarios", fields: ["id"])
-} 
+}
+ 

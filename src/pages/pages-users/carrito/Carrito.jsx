@@ -10,7 +10,7 @@ import Footer from '../../../components/Footer';
 import NavegacionUsuarios from '../../../components/Usuarios/NavegacionUsuarios';
 import { Usuarios } from '../../../models';
 import { NombreGrupo } from '../../../hook/NombreGrupo';
-
+import Loader from "../../../components/componentesRecicables/Loader";
 function Carrito() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
@@ -44,6 +44,12 @@ function Carrito() {
     }
     getData();
   }, []);
+
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
 
   return (
     <div>

@@ -9,6 +9,7 @@ import { Typography, Button } from "@mui/material";
 import NavegacionUsuarios from "../../components/Usuarios/NavegacionUsuarios";
 import Footer from "../../components/Footer";
 import InformacionPerfilUsuarios from "./InformacionPerfilUsuario";
+import Loader from "../../components/componentesRecicables/Loader";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
@@ -39,6 +40,11 @@ function PerfilUsuario() {
     saves()
   }, []);
 
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
 
   const SinRegistro = () => {
     return (

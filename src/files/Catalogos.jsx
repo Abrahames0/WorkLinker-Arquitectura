@@ -32,3 +32,12 @@ export const Categorias = [
   "Salud y Equipamiento Médico",
   "Tecnología",
 ];
+
+export const Rutas = [
+  { path: "/carrito", name: "Carrito" },
+  { path: "/perfil-usuario", name: "Perfil de Usuario" },
+  { path: "/inicio-usuarios", name: "Inicio" },
+];
+
+
+

@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 import { NombreGrupo } from "../../hook/NombreGrupo";
 import NavegacionUsuarios from "../../components/Usuarios/NavegacionUsuarios";
 import PedidoStepper from "../../components/Usuarios/pagosCarrito/EstadoPaquete";
-
+import Loader from "../../components/componentesRecicables/Loader";
 
 function DetallesCompras() {
   const [nombreGrupo, setNombreGrupo] = useState("");

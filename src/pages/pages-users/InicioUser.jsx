@@ -11,7 +11,7 @@ import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import CarouselInicio from '../../components/Inicio/inicio-bienvenida/Carrusel';
 import ListaProductosVender from '../../components/Usuarios/ListaProductosVender';
 import Footer from '../../components/Footer';
-
+import Loader from "../../components/componentesRecicables/Loader";
 function RegistroUsuario() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
@@ -45,6 +45,12 @@ function RegistroUsuario() {
     }
     getData();
   }, []);
+
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
 
   return (
     <div>

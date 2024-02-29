@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { DataStore } from "@aws-amplify/datastore";
 import { Usuarios } from "../../models";
-
+import Loader from "../../components/componentesRecicables/Loader";
 function LoginUsuarios() {
   const [session, setSession] = useState(false);
   const [nombreGrupo, setNombreGrupo] = useState("usuarios");
@@ -57,6 +57,14 @@ function LoginUsuarios() {
         });
     });
   }
+
+
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
+
 
   return (
     <div>
