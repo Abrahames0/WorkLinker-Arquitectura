@@ -35,7 +35,7 @@ export default function Footer() {
             <Typography variant="h6" color={textColor} gutterBottom>
               Recursos
             </Typography>
-            <Link href="/mapa-sitio" color={textColor} sx={{ display: 'block' }}>Mapa del Sitio</Link>
+            <Link href="/mapa-del-sitio" color={textColor} sx={{ display: 'block' }}>Mapa del Sitio</Link>
             <Link href="/repartidor" color={textColor} sx={{ display: 'block' }}>Repartidor</Link>
             <Link href="/vender" color={textColor} sx={{ display: 'block' }}>Vender</Link>
           </Grid>
