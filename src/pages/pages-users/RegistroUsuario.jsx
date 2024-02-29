@@ -10,6 +10,7 @@ import { NombreGrupo } from '../../hook/NombreGrupo';
 import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import RegistroUsuarioInformacion from '../../components/Usuarios/registro-Usuario/RegistroUsuarioInformacion';
 import Footer from '../../components/Footer';
+import Loader from "../../components/componentesRecicables/Loader";
 
 function RegistroUsuario() {
   const [session, setSession] = useState('');
@@ -44,6 +45,12 @@ function RegistroUsuario() {
     }
     getData();
   }, []);
+
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
 
   return (
     <div>

@@ -21,7 +21,7 @@ import { ProductoCarrito, Usuarios, Producto } from '../../models';
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
 import { Categorias, Rutas } from '../../files/Catalogos';
 import { BiSearch } from 'react-icons/bi';
-
+import Loader from "../componentesRecicables/Loader";
 
 
 
@@ -54,6 +54,7 @@ function NavegacionUsuarios({ setSession }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const location = useLocation();
   const [suggestions, setSuggestions] = useState([]);
+  
   useEffect(() => {
     // Limpiar selección de producto al ir a la página de inicio
     if (location.pathname === '/inicio-usuarios') {

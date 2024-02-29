@@ -11,7 +11,7 @@ import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import Footer from '../../components/Footer';
 import ComDetallesProducto from '../../components/Usuarios/detalles-productos/ComDetallesProducto';
 import ListaProductosPorCategoria from '../../components/Usuarios/ListarProductosPorCategoria';
-
+import Loader from "../../components/componentesRecicables/Loader";
 function ProductoCategoria() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
@@ -45,6 +45,12 @@ function ProductoCategoria() {
     }
     getData();
   }, []);
+  if (!nombreGrupo) {
+    if (session) {
+      return <Loader />
+    }
+  }
+  
 
   return (
     <div>
