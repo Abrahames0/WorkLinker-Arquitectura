@@ -160,10 +160,6 @@ const router = createBrowserRouter([
     element: <Bienvenida />,
   },
   {
-    path: "/Purebitas",
-    element: <PaginaError />,
-  },
-  {
     path: "*",
     element: <PaginaError22 />,
   },
