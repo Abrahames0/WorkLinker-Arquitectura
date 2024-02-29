@@ -17,6 +17,7 @@ const theme = createTheme({
   },
 });
 
+
 // Componente para cada categoría y sus subcategorías
 const Category = ({ category }) => {
   return (
