@@ -29,6 +29,7 @@ function RegistroUsuario() {
         await setEmail(data.attributes.email);
         await NombreGrupo(data.username, 'usuario', setNombreGrupo);
         const sub = DataStore.observeQuery(Usuarios, (c) => c.correo.eq(data.attributes.email), { limit: 1 }).subscribe(({ items }) => {
+         
           setExisteBde(items.length);
           setregistroCompleto(items[0]?.registroCompleto === true ? items[0]?.registroCompleto : false);
           if (items.length > 0) {
@@ -46,11 +47,13 @@ function RegistroUsuario() {
     getData();
   }, []);
 
+  console.log(setbdeData);
   if (!nombreGrupo) {
     if (session) {
       return <Loader />
     }
   }
+
 
   return (
     <div>

@@ -169,8 +169,8 @@ function NavegacionUsuarios({ setSession }) {
     setSuggestions(combinedResults);
   };
 
-  const redirectToProduct = (productId) => {
-    navigate(`/producto/${productId}`);
+  const redirectToProduct = (producto) => {
+    navigate(`/producto/${producto.categoria}/${producto.id}`);
   };
 
   const redirectToCategory = (categoria) => {
@@ -193,7 +193,7 @@ function NavegacionUsuarios({ setSession }) {
       redirectToPath(producto.id);
       localStorage.setItem('selectedProduct', JSON.stringify(producto));
     } else {
-      redirectToProduct(producto.id);
+      redirectToProduct(producto);
       localStorage.setItem('selectedProduct', JSON.stringify(producto));
     }
   };
