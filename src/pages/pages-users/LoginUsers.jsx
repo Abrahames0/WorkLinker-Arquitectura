@@ -71,7 +71,7 @@ function LoginUsuarios() {
       Loading...
       {session ? (
         nombreGrupo === "usuarios" ? (
-          <Navigate to="/inicio-usuarios" />
+          <Navigate to="/registro-usuario" />
         ) : (
           <Navigate to="/login-empresa" />
         )

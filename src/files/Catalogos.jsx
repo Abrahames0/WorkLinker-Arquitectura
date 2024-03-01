@@ -37,6 +37,9 @@ export const Rutas = [
   { path: "/carrito", name: "Carrito" },
   { path: "/perfil-usuario", name: "Perfil de Usuario" },
   { path: "/inicio-usuarios", name: "Inicio" },
+  { path: "/mapa-del-sitio", name: "Mapa del sitio"},
+  { path: "/privacy-policy",name: "Politicas de privacidad"},
+  { path: "/terms-conditions", name: "Terminos y condiciones"}
 ];
 
 
