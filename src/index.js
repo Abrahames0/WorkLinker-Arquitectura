@@ -34,10 +34,10 @@ import DetallesCompras from "./pages/pages-users/DetallesCompras";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
 import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
-import PaginaError22 from "./pages/Error/PaginaError";
 import PrivacyPolicy from "./components/Inicio/privacy-policy";
 import TermsConditions from "./components/Inicio/terms-conditions";
 import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
+import PaginaError from "./pages/Error/PaginaError";
 
 
 I18n.putVocabularies(translations);
@@ -175,7 +175,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <PaginaError22 />,
+    element: <PaginaError />,
   },
 ]);
 

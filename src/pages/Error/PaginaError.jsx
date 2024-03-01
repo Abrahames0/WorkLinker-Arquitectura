@@ -11,7 +11,7 @@ import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import Footer from '../../components/Footer';
 import ErrorSVG from './PagiError2';
 
-function PaginaError22() {
+function PaginaError() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
   const [, setEmail] = useState('');
@@ -68,4 +68,4 @@ function PaginaError22() {
   );
 }
 
-export default  PaginaError22;
+export default  PaginaError;

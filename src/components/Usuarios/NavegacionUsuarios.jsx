@@ -5,7 +5,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Auth, DataStore } from 'aws-amplify';
 // Chakra UI
 import { useColorMode, useColorModeValue, Input } from '@chakra-ui/react';
-import { Box, List, ListItem, IconButton } from '@chakra-ui/react';
+import { Box, List, ListItem } from '@chakra-ui/react';
 // React Bootstrap
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 // MUI
@@ -21,6 +21,7 @@ import { ProductoCarrito, Usuarios, Producto } from '../../models';
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
 import { Categorias, Rutas } from '../../files/Catalogos';
 import { BiSearch } from 'react-icons/bi';
+import { IconButton } from '@mui/material';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -237,11 +238,21 @@ function NavegacionUsuarios({ setSession }) {
             </List>
           )}
           <IconButton
-            icon={<BiSearch />}
+            aria-label="Buscar"
             onClick={() => { if (suggestions.length === 1) { handleSelectProduct(suggestions[0]); } }}
-            aria-label="Buscar" position="absolute" right="8px" top="50%" transform="translateY(-50%)" backgroundColor="transparent"
-            borderLeft="1px" borderColor="gray.200" cursor="pointer" padding="4px" size="sm"
-          />
+            style={{
+              position: 'absolute',
+              right: '8px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              backgroundColor: 'transparent',
+              borderLeft: '1px solid',
+              cursor: 'pointer',
+              padding: '4px',
+            }}
+          >
+            {colorMode === 'light' ? <BiSearch  style={{ color: 'black' }} /> : <BiSearch style={{ color: 'white' }} />}
+          </IconButton>
         </Box>
         {/* Categorias */}
         <select 
