@@ -7,6 +7,8 @@ import { Pagination, Stack } from "@mui/material";
 
 import ListaProductosUsuarios from "./ListaProductosUsuarios";
 import { SinCoincidencias } from "../Empresas/SinCoincidencias";
+import MaterialBreadcrumbsWithIcons from "../componentesRecicables/MigasDePan";
+import DynamicBreadcrumbs from "../componentesRecicables/MigasDePan";
 
 function ListaProductosVender() {
   const [producto, setProducto] = useState([]);
@@ -31,7 +33,8 @@ function ListaProductosVender() {
   }, []);
 
   return (
-    <div className="col-12 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
+    <div className=" p-4 col-10 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
+      <DynamicBreadcrumbs/>
       {producto.length > 0 ? (
         <div className="row p-1">
             <div style={{ color: "#797D7F", fontSize: "14px", float: "left" }}>

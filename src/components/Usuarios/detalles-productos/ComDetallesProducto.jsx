@@ -10,9 +10,12 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import ListaProductosVender from '../ListaProductosVender';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ContinueShoppingIcon from '@mui/icons-material/AddShoppingCart'; // Un ícono que podría representar continuar comprando
+import ContinueShoppingIcon from '@mui/icons-material/AddShoppingCart'; 
+
+import { useColorMode } from '@chakra-ui/react';
 
 const ComDetallesProducto = ({ email }) => {
+  const { colorMode } = useColorMode();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -164,7 +167,7 @@ const agregarAlCarrito = async () => {
           "imagenURL": product.imagenURL,
         })
       );
-      console.log('Producto agregado al carrito:', nuevoProductoCarrito);
+      console.log('Producto agregado al carrito:');
     } else {
       console.error('No se pudo obtener el carrito del usuario.');
     }
@@ -175,7 +178,7 @@ const agregarAlCarrito = async () => {
 
 return (
   <div style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh' }}>
-  <Paper className="p-2 row d-flex align-items-center justify-content-center">
+  <Paper className="p-2 row d-flex align-items-center justify-content-center" style={{ backgroundColor: colorMode === 'dark' ? '#0000' : '#fff' }}>
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <div style={{ maxWidth: '100%', maxHeight: '450px' }}>
@@ -183,13 +186,13 @@ return (
         </div>
       </Grid>
       <Grid item xs={12} md={8}>
-        <Typography variant="h4" gutterBottom>
-          {product.nombreProducto}
-        </Typography>
-        <Typography variant="body1" paragraph color="textSecondary">
+      <Typography variant="h4" gutterBottom style={{ color: colorMode === 'dark' ? '#fff' : '#000' }}>
+        {product.nombreProducto}
+      </Typography>
+        <Typography variant="body1" paragraph color="textSecondary" style={{ color: colorMode === 'dark' ? '#fff' : '#000' }}>
           {product.descripcion}
         </Typography>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom style={{ color: colorMode === 'dark' ? '#fff' : '#000' }}>
           Precio: ${product.precio}
         </Typography>
         <Box display="flex" alignItems="center" marginTop="16px">
@@ -201,10 +204,20 @@ return (
             value={quantity}
             onChange={handleQuantityChange}
             type="number"
-            InputProps={{ inputProps: { min: 1 } }}
+            InputProps={{
+              inputProps: { min: 1 },
+              style: {
+                color: colorMode === 'dark' ? 'white' : 'black', // Cambia el color del texto
+                backgroundColor: colorMode === 'dark' ? '#333' : 'white', // Cambia el color de fondo
+              },
+            }}
             variant="outlined"
             size="small"
-            style={{ maxWidth: '80px', margin: '0 8px' }}
+            style={{
+              maxWidth: '80px',
+              margin: '0 8px',
+              borderColor: colorMode === 'dark' ? 'white' : '', // Puedes necesitar ajustar el color del borde
+            }}
           />
           <IconButton onClick={handleIncrease} color="primary">
             <AddCircleOutlineIcon />

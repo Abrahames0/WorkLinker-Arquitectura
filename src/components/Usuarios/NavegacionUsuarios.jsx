@@ -5,11 +5,11 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Auth, DataStore } from 'aws-amplify';
 // Chakra UI
 import { useColorMode, useColorModeValue, Input } from '@chakra-ui/react';
+import { Box, List, ListItem, IconButton } from '@chakra-ui/react';
 // React Bootstrap
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 // MUI
 import Badge from '@mui/material/Badge';
-import { IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // Iconos
 import { BsCart2, BsCartFill } from 'react-icons/bs';
@@ -217,36 +217,49 @@ function NavegacionUsuarios({ setSession }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-
-          <div className="mx-3" style={{ position: 'relative' }}>
-            <Input
-              type="text"
-              placeholder="Buscar producto..."
-              value={searchTerm}
-              onChange={handleSearchTermChange}
-              style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', border: '1px solid #e0e0e0', padding: '0.5rem', borderRadius: '4px', width: '200px' }}
-            />
-            {searchTerm && suggestions.length > 0 && (
-              <ul style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', border: '1px solid #e0e0e0', padding: '0.5rem', borderRadius: '4px', width: '200px', position: 'absolute', top: '100%', left: 0, zIndex: 1 }}>
-                {suggestions.map((producto) => (
-                  <li key={producto.id} onClick={() => handleSelectProduct(producto)} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa', padding: '0.5rem', listStyleType: 'none', margin: 0, cursor: 'pointer' }}>
-                    {producto.nombreProducto}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <button onClick={() => { if (suggestions.length === 1) { handleSelectProduct(suggestions[0]); } }} style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'transparent', borderLeft: '1px solid #ccc', cursor: 'pointer', padding: '4px' }}>
-              <BiSearch />
-            </button>
-          </div>
-          <select className={`mx-3`} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa' }} value={tipoCategoria} onChange={handleTipoCategoriaChange}>
-            <option value="null">Selecciona una categoría</option>
-            {Categorias.map((categoria) => (
-              <option key={categoria} value={categoria}>
-                {categoria}
-              </option>
-            ))}
-          </select>
+          {/* Buscador */}
+        <Box className="mx-3" position="relative">
+          <Input type="text" placeholder="Buscar producto..." value={searchTerm} onChange={handleSearchTermChange}
+            bg={colorMode === 'dark' ? 'gray.700' : 'white'} color={colorMode === 'dark' ? 'white' : 'black'}
+            border="1px" borderColor="gray.200" padding="0.5rem" borderRadius="md" width="370px"
+          />
+          {searchTerm && suggestions.length > 0 && (
+            <List
+              bg={colorMode === 'dark' ? 'gray.700' : 'white'} color={colorMode === 'dark' ? 'white' : 'black'} border="1px" 
+              borderColor="gray.200" padding="0.5rem" borderRadius="md" width="370px" position="absolute" top="100%" left={0}
+              zIndex="10" mt="2"
+            >
+              {suggestions.map((producto) => (
+                <ListItem key={producto.id} onClick={() => handleSelectProduct(producto)} padding="0.5rem" listStyleType="none" cursor="pointer" _hover={{ bg: colorMode === 'dark' ? 'gray.600' : 'gray.100' }}>
+                  {producto.nombreProducto}
+                </ListItem>
+              ))}
+            </List>
+          )}
+          <IconButton
+            icon={<BiSearch />}
+            onClick={() => { if (suggestions.length === 1) { handleSelectProduct(suggestions[0]); } }}
+            aria-label="Buscar" position="absolute" right="8px" top="50%" transform="translateY(-50%)" backgroundColor="transparent"
+            borderLeft="1px" borderColor="gray.200" cursor="pointer" padding="4px" size="sm"
+          />
+        </Box>
+        {/* Categorias */}
+        <select 
+          className={'mx-1 align-items-center'}
+          alignItems="center"
+          style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+            padding: '5px 10px', fontSize: '0.875rem', width: 'auto', height: 'auto' 
+          }} 
+          value={tipoCategoria} 
+          onChange={handleTipoCategoriaChange}
+        >
+          <option value="null">Categoría</option>
+          {Categorias.map((categoria) => (
+            <option key={categoria} value={categoria}>
+              {categoria}
+            </option>
+          ))}
+        </select>
           <Nav className="mx-1 align-items-center">
             <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
               <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
@@ -256,14 +269,14 @@ function NavegacionUsuarios({ setSession }) {
             </NavDropdown>
           </Nav>
           {/* Carrito */}
-          <IconButton aria-label="cart" href="/carrito" className="me-1">
+          <IconButton aria-label="cart" href="/carrito" className="me-1 mx-1 align-items-center">
             <StyledBadge badgeContent={productosCarrito.length} color="secondary">
               {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
             </StyledBadge>
           </IconButton>
         </Navbar.Collapse>
         {/* Boton modo obscuro */}
-        <Nav className="mx-3">
+        <Nav className="mx-3 mx-1 align-items-center">
           <ToggleDarkMode />
         </Nav>
       </Container>

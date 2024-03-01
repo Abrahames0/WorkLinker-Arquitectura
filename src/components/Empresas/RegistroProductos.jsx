@@ -128,7 +128,6 @@ const handleChange = (event) => {
   ];
 
   const guardarProducto = async () => {
-    console.log(infProducto.imagenURL,);
     try {
       const productos = new Producto({
         nombreProducto: infProducto.nombreProducto,
@@ -270,7 +269,7 @@ useLayoutEffect(() => {
       setImagenURL(imageUrl);
   
       // La carga del archivo se realizó con éxito
-      console.log('Archivo cargado exitosamente:', imageUrl);
+      console.log('Archivo cargado exitosamente:');
   
       // Muestra una alerta de éxito
       setSnackbarMessage('Imagen guardada exitosamente');

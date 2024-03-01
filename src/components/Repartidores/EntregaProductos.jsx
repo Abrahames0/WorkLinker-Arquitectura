@@ -19,7 +19,7 @@ function RepartidorView({ repartidorID, repartidorCorreo }) {
 
   const handleInDelivery = async (pkg) => {
     notificacionEnvio(pkg, repartidorCorreo)
-    console.log('Paquete en reparto:', pkg.id);
+    console.log('Paquete en reparto:');
     // Luego podrías actualizar el paquete para reflejar que está en reparto
   };
 
@@ -34,7 +34,7 @@ function RepartidorView({ repartidorID, repartidorCorreo }) {
         currentPackages.filter(p => p.id !== pkg.id)
       );
       
-      console.log('Paquete entregado y borrado:', pkg.id);
+      console.log('Paquete entregado y borrado:');
     } catch (error) {
       console.error('Error al borrar el paquete:', error);
     }
