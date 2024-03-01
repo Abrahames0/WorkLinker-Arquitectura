@@ -146,7 +146,7 @@ const router = createBrowserRouter([
     element: <ProductosPausados />,
   },
   {
-    path: "/producto/:id",
+    path: "/producto/:categoria/:id",
     element: <DetallesdeProducto />,
   },
   {

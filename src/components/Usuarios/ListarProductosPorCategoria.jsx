@@ -7,7 +7,7 @@ import { Pagination, Stack } from "@mui/material";
 import ListaProductosUsuarios from "./ListaProductosUsuarios";
 import { SinCoincidencias } from "../Empresas/SinCoincidencias";
 import Loader from "../componentesRecicables/Loader";
-
+import DynamicBreadcrumbs from "../componentesRecicables/MigasDePan";
 function ListaProductosPorCategoria({email}) {
   const { categoria } = useParams();
   console.log(categoria);
@@ -61,6 +61,7 @@ useEffect(() => {
 
   return (
     <div className="col-12 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
+     <DynamicBreadcrumbs/>
     {loading ? (
       <Loader />
     ) : (

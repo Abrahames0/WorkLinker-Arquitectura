@@ -82,7 +82,7 @@ function ListaProductosUsuarios({ producto, selectedproducto }) {
   return (
     <motion.div whileHover={{ scale: 1.05 }} >
         <div
-          onClick={() => navigate(`/producto/${producto.id}`)}
+          onClick={() => navigate(`/producto/${producto.categoria}/${producto.id}`)}
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
           {renderCardContent()}
