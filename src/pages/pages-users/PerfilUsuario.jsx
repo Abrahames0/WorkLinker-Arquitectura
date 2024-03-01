@@ -17,7 +17,6 @@ function PerfilUsuario() {
   const [session, setSession] = useState("");
   const [userData, setUserData] = useState("");
   const [, setUser] = useState("")
-  const [registroCompleto, setregistroCompleto] = useState(false);
 
   //Usuario
   useEffect(() => {
@@ -29,10 +28,7 @@ function PerfilUsuario() {
             await NombreGrupo(user.username, "usuarios", setNombreGrupo)
             await setUser(user.username);  // establecer user.username en el estado del usuario
             const sub = DataStore.observeQuery(Usuarios, c => c.correo.eq(user.attributes.email), { limit: 1 })
-              .subscribe(({ items }) => { setUserData(items[0]); 
-                setregistroCompleto(items[0]?.registroCompleto === true ? items[0]?.registroCompleto : false);
-              });
-              
+              .subscribe(({ items }) => { setUserData(items[0]); });
             return () => {
               sub.unsubscribe();
             };
@@ -48,11 +44,6 @@ function PerfilUsuario() {
     if (session) {
       return <Loader />
     }
-  }
-  console.log(registroCompleto);
-
-  if (registroCompleto === false) {
-    return <Navigate to='/registro-usuario' />;
   }
 
   const SinRegistro = () => {

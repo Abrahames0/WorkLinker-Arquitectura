@@ -11,6 +11,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 // MUI
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
+import { IconButton } from '@mui/material';
 // Iconos
 import { BsCart2, BsCartFill } from 'react-icons/bs';
 // Imágenes
@@ -21,7 +22,6 @@ import { ProductoCarrito, Usuarios, Producto } from '../../models';
 import { ToggleDarkMode } from '../Inicio/inicio-bienvenida/ColorPagina';
 import { Categorias, Rutas } from '../../files/Catalogos';
 import { BiSearch } from 'react-icons/bi';
-import { IconButton } from '@mui/material';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -255,6 +255,7 @@ function NavegacionUsuarios({ setSession }) {
           </IconButton>
         </Box>
         {/* Categorias */}
+         <div className=" d-flex justify-content-center my-2">
         <select 
           className={'mx-1 align-items-center'}
           alignItems="center"
@@ -271,6 +272,7 @@ function NavegacionUsuarios({ setSession }) {
             </option>
           ))}
         </select>
+        </div>
           <Nav className="mx-1 align-items-center">
             <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>
               <div className="p-1" style={{ maxHeight: '4rem', marginBottom: '-1rem' }}>
@@ -280,11 +282,13 @@ function NavegacionUsuarios({ setSession }) {
             </NavDropdown>
           </Nav>
           {/* Carrito */}
-          <IconButton aria-label="cart" href="/carrito" className="me-1 mx-1 align-items-center">
-            <StyledBadge badgeContent={productosCarrito.length} color="secondary">
-              {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
-            </StyledBadge>
-          </IconButton>
+          <div className=" d-flex justify-content-center my-2">
+            <IconButton aria-label="cart" href="/carrito" className="align-items-center">
+              <StyledBadge badgeContent={productosCarrito.length} color="secondary">
+                {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
+              </StyledBadge>
+            </IconButton>
+          </div>
         </Navbar.Collapse>
         {/* Boton modo obscuro */}
         <Nav className="mx-3 mx-1 align-items-center">

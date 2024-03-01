@@ -47,7 +47,6 @@ function RegistroUsuario() {
     getData();
   }, []);
 
-  console.log(setbdeData);
   if (!nombreGrupo) {
     if (session) {
       return <Loader />
