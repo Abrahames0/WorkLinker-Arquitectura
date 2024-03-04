@@ -150,7 +150,7 @@ const router = createBrowserRouter([
     element: <DetallesdeProducto />,
   },
   {
-    path: "/lista-productos/:categoria",
+    path: "/producto/:categoria",
     element: <ProductoCategoria/>
   },
   {

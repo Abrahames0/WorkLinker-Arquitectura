@@ -7,7 +7,7 @@ import { Pagination, Stack } from "@mui/material";
 
 import ListaProductosUsuarios from "./ListaProductosUsuarios";
 import { SinCoincidencias } from "../Empresas/SinCoincidencias";
-import MaterialBreadcrumbsWithIcons from "../componentesRecicables/MigasDePan";
+import CarruselProductos from "./CarriselProductos";
 import DynamicBreadcrumbs from "../componentesRecicables/MigasDePan";
 
 function ListaProductosVender() {
@@ -35,6 +35,7 @@ function ListaProductosVender() {
   return (
     <div className=" p-4 col-10 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
       <DynamicBreadcrumbs/>
+      <CarruselProductos producto={producto} key={producto.id} productoId={producto.id} selectedProducto={selectedProducto} setSelectedProducto={setSelectedProducto}/>
       {producto.length > 0 ? (
         <div className="row p-1">
             <div style={{ color: "#797D7F", fontSize: "14px", float: "left" }}>

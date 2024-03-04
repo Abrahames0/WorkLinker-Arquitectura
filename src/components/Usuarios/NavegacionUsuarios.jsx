@@ -174,7 +174,7 @@ function NavegacionUsuarios({ setSession }) {
   };
 
   const redirectToCategory = (categoria) => {
-    navigate(`/lista-productos/${categoria}`);
+    navigate(`/producto/${categoria}`);
   };
 
   const redirectToPath = (path) => {

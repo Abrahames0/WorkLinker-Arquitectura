@@ -41,6 +41,3 @@ export const Rutas = [
   { path: "/privacy-policy",name: "Politicas de privacidad"},
   { path: "/terms-conditions", name: "Terminos y condiciones"}
 ];
-
-
-

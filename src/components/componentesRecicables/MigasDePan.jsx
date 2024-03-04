@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import { useColorMode } from '@chakra-ui/react';
 import { Producto } from '../../models';
-import { Auth, DataStore } from 'aws-amplify';
+import { DataStore } from 'aws-amplify';
 
 const DynamicBreadcrumbs = () => {
   const { colorMode } = useColorMode();
@@ -48,7 +48,7 @@ const DynamicBreadcrumbs = () => {
 
   return (
     <Breadcrumbs aria-label="breadcrumb">
-      <Link component={RouterLink} to="/" underline="hover" style={colorMode === 'dark' ? darkModeStyle : {}} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Link component={RouterLink} to="/inicio-usuarios" underline="hover" style={colorMode === 'dark' ? darkModeStyle : {}} sx={{ display: 'flex', alignItems: 'center' }}>
         <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
         Inicio
       </Link>

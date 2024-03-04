@@ -16,7 +16,7 @@ export default function Footer() {
         <Grid container spacing={4} justifyContent="space-between" alignItems="center">
           <Grid item xs={12} md={4}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              <img src={logo} alt="Logo de WorkLinker" style={{ height: '70px' }} />
+              <img src={logo} alt="Logo de Web Linker Store" style={{ height: '70px' }} />
               <Typography variant="subtitle1" color={textColor}>
                 © {new Date().getFullYear()} Todos los derechos reservados.
               </Typography>
@@ -34,8 +34,8 @@ export default function Footer() {
             <Typography variant="h6" color={textColor} gutterBottom>
               Legal
             </Typography>
-            <Link href="/privacy-policy" color={textColor} sx={{ display: 'block' }}>Políticas de Privacidad</Link>
-            <Link href="/terms-conditions" color={textColor} sx={{ display: 'block' }}>Términos & Condiciones</Link>
+            <Link href="/privacy-policy" color={textColor} sx={{ display: 'block' }} target="_blank">Políticas de Privacidad</Link>
+            <Link href="/terms-conditions" color={textColor} sx={{ display: 'block' }} target="_blank">Términos & Condiciones</Link>
           </Grid>
           <Grid item xs={12} md={2}>
             <Typography variant="h6" color={textColor} gutterBottom>
@@ -45,10 +45,10 @@ export default function Footer() {
               noreplyworklinker@gmail.com
             </Link>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Link href="https://www.facebook.com/profile.php?id=61557008636040&mibextid=LQQJ4d" >
+              <Link href="https://www.facebook.com/" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
                 <FaFacebook size={25} />
               </Link>
-              <Link href="https://www.instagram.com/xonixtechnology?igshid=NWR4ZnZuaTl1bnVv" >
+              <Link href="https://www.instagram.com/" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
                 <FaInstagram size={25} />
               </Link>
             </Box>

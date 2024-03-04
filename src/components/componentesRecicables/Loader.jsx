@@ -12,7 +12,7 @@ function Loader() {
         height: "50rem",
       }}
     >
-      <img src={WorkLinker} alt="WorkLinker" style={{ width: "14rem" }} />
+      <img src={WorkLinker} alt="Web-Linker-Store" style={{ width: "14rem" }} />
       <Box
         sx={{
           display: "flex",
