@@ -2,11 +2,13 @@ import React from 'react';
 import { Container, Typography, Box, Paper, Link } from '@mui/material';
 import Footer from '../Footer';
 import NavegacionLegal from './inicio-bienvenida/NavegacionLegal';
+import DynamicBreadcrumbs from '../componentesRecicables/MigasDePan';
 
 const TermsConditions = () => {
     return (
         <div>
             <NavegacionLegal/>
+            <DynamicBreadcrumbs/>
             <Container component="main" maxWidth="lg">
           <Box my={4}>
             <Typography variant="h3" component="h1" gutterBottom>

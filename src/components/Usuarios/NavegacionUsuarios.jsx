@@ -141,7 +141,7 @@ function NavegacionUsuarios({ setSession }) {
   const handleTipoCategoriaChange = (e) => {
     const categoria = e.target.value;
     setTipoCategoria(categoria);
-    navigate(`/lista-productos/${categoria}`);
+    navigate(`/producto/${categoria}`);
   };
 
   const handleSearchTermChange = (e) => {
@@ -169,8 +169,8 @@ function NavegacionUsuarios({ setSession }) {
     setSuggestions(combinedResults);
   };
 
-  const redirectToProduct = (productId) => {
-    navigate(`/producto/${productId}`);
+  const redirectToProduct = (productId,categoria) => {
+    navigate(`/producto/${categoria}/${productId}`);
   };
 
   const redirectToCategory = (categoria) => {
@@ -193,7 +193,7 @@ function NavegacionUsuarios({ setSession }) {
       redirectToPath(producto.id);
       localStorage.setItem('selectedProduct', JSON.stringify(producto));
     } else {
-      redirectToProduct(producto.id);
+      redirectToProduct(producto.id,producto.categoria);
       localStorage.setItem('selectedProduct', JSON.stringify(producto));
     }
   };
