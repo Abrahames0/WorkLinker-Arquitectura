@@ -3,22 +3,14 @@ import { useEffect, useState } from "react";
 import { Producto } from "../../models";
 import { DataStore, SortDirection } from "aws-amplify";
 
-import { Pagination, Stack } from "@mui/material";
 
-import ListaProductosUsuarios from "./ListaProductosUsuarios";
 import { SinCoincidencias } from "../Empresas/SinCoincidencias";
 import CarruselProductos from "./CarriselProductos";
 import DynamicBreadcrumbs from "../componentesRecicables/MigasDePan";
 
 function ListaProductosVender() {
   const [producto, setProducto] = useState([]);
-  const [selectedProducto, setSelectedProducto] = useState(null);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 10;
-  const indexOfLastResult = currentPage * resultsPerPage;
-  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const currentResults = producto.slice(indexOfFirstResult, indexOfLastResult);
 
   useEffect(() => {
     async function getData() {
@@ -33,27 +25,17 @@ function ListaProductosVender() {
   }, []);
 
   return (
-    <div className=" p-4 col-10 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
+    <div alignItems="center" justifyContent="center" className=" p-4 col-10 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
       <DynamicBreadcrumbs/>
-      <CarruselProductos producto={producto} key={producto.id} productoId={producto.id} selectedProducto={selectedProducto} setSelectedProducto={setSelectedProducto}/>
       {producto.length > 0 ? (
-        <div className="row p-1">
-            <div style={{ color: "#797D7F", fontSize: "14px", float: "left" }}>
-              {producto.length} resultados
-            </div>
-          <div className="col-lg-11 d-flex flex-row flex-wrap">
-            {currentResults.map((producto) => (
-              <ListaProductosUsuarios producto={producto} key={producto.id} productoId={producto.id} selectedProducto={selectedProducto} setSelectedProducto={setSelectedProducto}/>
-            ))}
+        <div className="row p-1 justify-content-center" sx={{ width: '100%', position: 'relative' }}>
+          <div className=" mb-4 col-lg-11 d-flex flex-row flex-wrap align-items-center justify-content-center">
+            <CarruselProductos producto={producto} />
           </div>
-          <div className="row">
-            <div className="col-lg-12 d-flex justify-content-center align-items-center" style={{ paddingTop: "2rem" }}>
-                <Stack spacing={2} className="justify-content-center align-items-center">
-                    <Pagination count={Math.ceil(producto.length / resultsPerPage)} page={currentPage} onChange={(event, value) => setCurrentPage(value)}/>
-                </Stack>
-            </div>
+          <div className=" mb-3 col-lg-11 d-flex flex-row flex-wrap align-items-center justify-content-center">
+            <CarruselProductos producto={producto} />
           </div>
-        </div>
+        </div>      
       ) : (
         <SinCoincidencias />
       )}
