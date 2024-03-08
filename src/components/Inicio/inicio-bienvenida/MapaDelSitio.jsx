@@ -1,79 +1,92 @@
-import React from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, Typography, List, ListItem, Box } from '@mui/material';
+import Logo from "../../../landing/assets/img/WorkLinkerRecortada.png";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#5d4fc6',
-    },
-    secondary: {
-      main: '#0795f5',
-    }, 
-  },
-});
-
-
-// Componente para cada categoría y sus subcategorías
-const Category = ({ category }) => {
+function MapaDelSitio() {
   return (
-    <Grid item xs={12} md={6} lg={4}>
-      <Paper elevation={3} sx={{ padding: 2, backgroundColor: theme.palette.primary.main, color: '#fff' }}>
-        <Typography variant="h5" component="h3" gutterBottom>
-          {category.title}
+    <Box sx={{ textAlign: 'center', my: 4 }}>
+      <Box sx={{ display: 'inline-block' }}>
+         <img src={Logo} alt="Logo" style={{ maxWidth: '250px', marginBottom: '40px' }} />
+        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+          <Link to="/mapa-del-sitio" aria-label="Mapa del Sitio" style={{ textDecoration: 'none', color: 'white' }}>
+          Mapa del Sitio
+          </Link>
         </Typography>
-        <Box sx={{ marginTop: 1 }}>
-          {category.subcategories && category.subcategories.map((subcat, index) => (
-            <Paper key={index} elevation={0} sx={{ padding: 1, backgroundColor: theme.palette.secondary.main, color: '#fff', marginBottom: 1 }}>
-              <Typography variant="body1">{subcat}</Typography>
-            </Paper>
-          ))}
-        </Box>
-      </Paper>
-    </Grid>
-  );
-};
+      </Box>
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <section aria-labelledby="usuarios-heading" style={{ flexBasis: '30%', maxWidth: '400px', margin: '10px' }}>
+        <Card sx={{ backgroundColor: '#f5f5f5', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+          <CardContent>
+            <Typography id="usuarios-heading" variant="h5" component="h2">Usuarios</Typography>
+            <nav>
+              <List sx={{ padding: '0 20px' }}>
+                <ListItem>
+                  <Link to="/login-users" aria-label="Login de Usuarios" style={{ textDecoration: 'none', color: '#1976d2' }}>
+                    Login Usuarios
+                  </Link>
+                </ListItem>
+                <ListItem><Link to="/usuario-compras" aria-label="Detalles de Compras" style={{ textDecoration: 'none', color: '#1976d2' }}>Detalles de Compras</Link></ListItem>
+              	<ListItem><Link to="/pago-tarjeta" aria-label="Pago con Tarjeta de Crédito" style={{ textDecoration: 'none', color: '#1976d2' }}>Pago con Tarjeta de Crédito</Link></ListItem>
+                <ListItem><Link to="/carrito" aria-label="Carrito de Compras" style={{ textDecoration: 'none', color: '#1976d2' }}>Carrito de Compras</Link></ListItem>
+                <ListItem><Link to="/perfil-usuario" aria-label="Perfil de Usuario" style={{ textDecoration: 'none', color: '#1976d2' }}>Perfil de Usuario</Link></ListItem>
+                <ListItem><Link to="/registro-Usuario" aria-label="Registro de Usuario" style={{ textDecoration: 'none', color: '#1976d2' }}>Registro de Usuario</Link></ListItem>
+                <ListItem><Link to="/inicio-usuarios" aria-label="Inicio Usuarios" style={{ textDecoration: 'none', color: '#1976d2' }}>Inicio Usuarios</Link></ListItem>
+                {/* Repite para los demás enlaces, aplicando los mismos estilos */}
+              </List>
+            </nav>
+          </CardContent>
+        </Card>
+      </section>
 
-const SiteMap = ({ categories }) => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Container maxWidth="xl">
-        <Box sx={{ flexGrow: 1, padding: 3 }}>
-          <Grid container spacing={3}>
-            {categories.map((category, index) => (
-              <Category key={index} category={category} />
-            ))}
-          </Grid>
-        </Box>
-      </Container>
-    </ThemeProvider>
-  );
-};
+      <section aria-labelledby="empresa-heading" style={{ flexBasis: '30%', maxWidth: '400px', margin: '10px' }}>
+        <Card sx={{ backgroundColor: '#f5f5f5', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+          <CardContent>
+            <Typography id="empresa-heading" variant="h5" component="h2">Vender</Typography>
+            <nav>
+              <List sx={{ padding: '0 20px' }}>
+              <ListItem><Link to="/login-empresa" aria-label="Login Empresa" style={{ textDecoration: 'none', color: '#1976d2' }}>Login Empresa</Link></ListItem>
+                <ListItem><Link to="/registro-empresa" aria-label="Registro de Empresa" style={{ textDecoration: 'none', color: '#1976d2' }}>Registro de Empresa</Link></ListItem>
+                <ListItem><Link to="/agregar-producto" aria-label="Registro de Producto" style={{ textDecoration: 'none', color: '#1976d2' }}>Registro de Producto</Link></ListItem>
+                <ListItem><Link to="/perfil-proveedor" aria-label="Perfil de Proveedor" style={{ textDecoration: 'none', color: '#1976d2' }}>Perfil de Proveedor</Link></ListItem>
+                <ListItem><Link to="/inicio-empresa" aria-label="Inicio Empresa Proveedor" style={{ textDecoration: 'none', color: '#1976d2' }}>Inicio Empresa Proveedor</Link></ListItem>
+              </List>
+            </nav>
+          </CardContent>
+        </Card>
+      </section>
 
-// Datos
-const categoriesData = [
-    {
-        title: "Inicio",
-    },
-    {
-        title: "Categorias",
-        subcategories: ["Accesorios para Vehículos", "Bebés", "Belleza y Cuidado Personal",
-        "Compra Internacional", "Construcción", "Deportes y Fitness", "Electrodomésticos","Herramientas",
-        "Hogar y Muebles", "Industrial y Oficinas", "Inmuebles", "Juegos y Juguetes", "Moda",
-        "Productos Sustentables", "Salud y Equipamiento Médico", "Tecnología",]
-    }
-];
+      <section aria-labelledby="repartidores-heading" style={{ flexBasis: '30%', maxWidth: '400px', margin: '10px' }}>
+        <Card sx={{ backgroundColor: '#f5f5f5', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+          <CardContent>
+            <Typography id="repartidores-heading" variant="h5" component="h2">Repartidores</Typography>
+            <nav>
+              <List sx={{ padding: '0 20px' }}>
+                <ListItem><Link to="/login-repartidores" aria-label="Login Repartidores" style={{ textDecoration: 'none', color: '#1976d2' }}>Login Repartidores</Link></ListItem>
+                <ListItem><Link to="/inicio-repartidores" aria-label="Inicio Repartidores" style={{ textDecoration: 'none', color: '#1976d2' }}>Inicio Repartidores</Link></ListItem>
+                <ListItem><Link to="/registro-repartidor" aria-label="Registro Repartidor" style={{ textDecoration: 'none', color: '#1976d2' }}>Registro Repartidor</Link></ListItem>
+                <ListItem><Link to="/perfil-repartidor" aria-label="Perfil Repartidor" style={{ textDecoration: 'none', color: '#1976d2' }}>Perfil Repartidor</Link></ListItem>
+              </List>
+            </nav>
+          </CardContent>
+        </Card>
+      </section>
 
-const Mapaa = () => {
-  return (
-    <div className="App">
-      <SiteMap categories={categoriesData} />
+      <section aria-labelledby="general-heading" style={{ flexBasis: '30%', maxWidth: '400px', margin: '10px' }}>
+        <Card sx={{ backgroundColor: '#f5f5f5', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+          <CardContent>
+            <Typography id="general-heading" variant="h5" component="h2">General</Typography>
+            <nav>
+              <List sx={{ padding: '0 20px' }}>
+                <ListItem><Link to="/privacy-policy" aria-label="Política de Privacidad" style={{ textDecoration: 'none', color: '#1976d2' }}>Política de Privacidad</Link></ListItem>
+                 <ListItem><Link to="/terms-conditions" aria-label="Términos y Condiciones" style={{ textDecoration: 'none', color: '#1976d2' }}>Términos y Condiciones</Link></ListItem>
+              </List>
+            </nav>
+          </CardContent>
+        </Card>
+      </section>
     </div>
+    </Box>
   );
-};
+}
 
-export default Mapaa;
+export default MapaDelSitio;

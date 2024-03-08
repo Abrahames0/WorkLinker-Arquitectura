@@ -27,8 +27,8 @@ export default function Footer() {
               Recursos
             </Typography>
             <Link href="/mapa-del-sitio" color={textColor} sx={{ display: 'block' }}>Mapa del Sitio</Link>
-            <Link href="/repartidor" color={textColor} sx={{ display: 'block' }}>Repartidor</Link>
-            <Link href="/vender" color={textColor} sx={{ display: 'block' }}>Vender</Link>
+            <Link href="/login-repartidores" color={textColor} sx={{ display: 'block' }}>Repartidor</Link>
+            <Link href="/login-empresa" color={textColor} sx={{ display: 'block' }}>Vender</Link>
           </Grid>
           <Grid item xs={12} md={2}>
             <Typography variant="h6" color={textColor} gutterBottom>

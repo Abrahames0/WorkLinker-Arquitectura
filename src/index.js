@@ -33,11 +33,11 @@ import RegistroRepartidor from "./pages/pages-repartidor/ResgistroRepartidor";
 import DetallesCompras from "./pages/pages-users/DetallesCompras";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import MyReCaptchaComponent from "./components/componentesRecicables/reCaptchat";
-import MapaDelSitio from "./pages/Inicio/MapaDelSitio";
 import PrivacyPolicy from "./components/Inicio/privacy-policy";
 import TermsConditions from "./components/Inicio/terms-conditions";
 import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
 import PaginaError from "./pages/Error/PaginaError";
+import MapaDelSitio from "./components/Inicio/inicio-bienvenida/MapaDelSitio";
 
 
 I18n.putVocabularies(translations);
@@ -132,10 +132,6 @@ const router = createBrowserRouter([
   {
     path: "/inicio-usuarios",
     element: < InicioUsuario/>,
-  },
-  {
-    path: "/login-repartidor",
-    element: <LoginEmpresa />,
   },
   {
     path: "/registro-repartidor",
