@@ -144,37 +144,45 @@ function NavegacionUsuarios({ setSession }) {
     navigate(`/producto/${categoria}`);
   };
 
-  const handleSearchTermChange = (e) => {
-    const valorEntrada = e.target.value;
-    setSearchTerm(valorEntrada);
+ const handleSearchTermChange = (e) => {
+  const valorEntrada = e.target.value;
+  setSearchTerm(valorEntrada);
 
-    const filteredProducts = productos.filter((producto) =>
-      producto.nombreProducto.toLowerCase().includes(valorEntrada.toLowerCase())
-    );
 
-    const filteredCategories = Categorias.filter((categoria) =>
-      categoria.toLowerCase().includes(valorEntrada.toLowerCase())
-    );
 
-    const filteredRoutes = Rutas.filter((ruta) =>
-      ruta.name.toLowerCase().includes(valorEntrada.toLowerCase())
-    );
+  const filteredCategories = Categorias.filter((categoria) =>
+    categoria.toLowerCase().includes(valorEntrada.toLowerCase())
+  );
 
-    const combinedResults = [
-      ...filteredProducts,
-      ...filteredCategories.map((categoria) => ({ id: categoria, nombreProducto: categoria, categoria: "Categorias" })),
-      ...filteredRoutes.map((ruta) => ({ id: ruta.path, nombreProducto: ruta.name, categoria: "Rutas" })),
-    ];
+  const filteredRoutes = Rutas.filter((ruta) =>
+    ruta.name.toLowerCase().includes(valorEntrada.toLowerCase())
+  );
 
-    setSuggestions(combinedResults);
-  };
+  const combinedResults = [
+    ...filteredCategories.map((categoria) => ({
+      id: categoria,
+      nombreProducto: categoria,
+      categoria: "Categorias",
+    })),
+    ...filteredRoutes.map((ruta) => ({
+      id: ruta.path,
+      nombreProducto: ruta.name,
+      categoria: "Rutas",
+    })),
+  ];
 
-  const redirectToProduct = (productId,categoria) => {
-    navigate(`/producto/${categoria}/${productId}`);
-  };
+  setSuggestions(combinedResults);
+};
+
+
+
 
   const redirectToCategory = (categoria) => {
     navigate(`/producto/${categoria}`);
+  };
+
+  const redirectToCoincidencia = (coincidencias) => {
+    navigate(`/productos/${coincidencias}`);
   };
 
   const redirectToPath = (path) => {
@@ -192,11 +200,8 @@ function NavegacionUsuarios({ setSession }) {
     } else if (producto.categoria === 'Rutas') {
       redirectToPath(producto.id);
       localStorage.setItem('selectedProduct', JSON.stringify(producto));
-    } else {
-      redirectToProduct(producto.id,producto.categoria);
-      localStorage.setItem('selectedProduct', JSON.stringify(producto));
     }
-  };
+  }
 
   useEffect(() => {
     const storedProduct = localStorage.getItem('selectedProduct');
@@ -239,7 +244,7 @@ function NavegacionUsuarios({ setSession }) {
           )}
           <IconButton
             aria-label="Buscar"
-            onClick={() => { if (suggestions.length === 1) { handleSelectProduct(suggestions[0]); } }}
+            onClick={() => { if (suggestions.length === 1) { handleSelectProduct(suggestions[0]); }else{   redirectToCoincidencia(searchTerm);} }}
             style={{
               position: 'absolute',
               right: '8px',

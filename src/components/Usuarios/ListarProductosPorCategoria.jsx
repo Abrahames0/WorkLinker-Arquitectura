@@ -10,7 +10,6 @@ import Loader from "../componentesRecicables/Loader";
 import DynamicBreadcrumbs from "../componentesRecicables/MigasDePan";
 function ListaProductosPorCategoria({email}) {
   const { categoria } = useParams();
-  console.log(categoria);
 
   const [producto, setProducto] = useState([]);
   const [selectedProducto, setSelectedProducto] = useState(null);
