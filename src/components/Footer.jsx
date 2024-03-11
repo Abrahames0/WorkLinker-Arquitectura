@@ -45,10 +45,10 @@ export default function Footer() {
               noreplyworklinker@gmail.com
             </Link>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Link href="https://www.facebook.com/" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+              <Link href="https://www.facebook.com/profile.php?id=61557008636040&mibextid=LQQJ4d" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
                 <FaFacebook size={25} />
               </Link>
-              <Link href="https://www.instagram.com/" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+              <Link href="https://www.instagram.com/xonixtechnology?igsh=NWR4ZnZuaTl1bnVv&utm_source=qr" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
                 <FaInstagram size={25} />
               </Link>
             </Box>

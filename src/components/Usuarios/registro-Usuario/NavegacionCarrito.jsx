@@ -118,7 +118,7 @@ function NavegacionCarrito({ setSession, productosCarrito }) {
                   </div>
                 </NavDropdown>
             </Nav>
-            <IconButton aria-label="cart" href="/carrito">
+            <IconButton aria-label="cart" href="/inicio-usuarios/carrito">
                 <StyledBadge badgeContent={productosCarrito.length} color="secondary">
                     <ShoppingCartIcon />
                 </StyledBadge>

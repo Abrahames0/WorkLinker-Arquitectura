@@ -8,7 +8,10 @@ import ListaProductosUsuarios from "./ListaProductosUsuarios";
 import { SinCoincidencias } from "../Empresas/SinCoincidencias";
 import Loader from "../componentesRecicables/Loader";
 import DynamicBreadcrumbs from "../componentesRecicables/MigasDePan";
+import FiltroMenuLateral from "./FiltroMenuLateral";
+
 function ListaProductosPorCategoria({email}) {
+  
   const { categoria } = useParams();
   console.log(categoria);
 
@@ -16,11 +19,12 @@ function ListaProductosPorCategoria({email}) {
   const [selectedProducto, setSelectedProducto] = useState(null);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [precioFiltro, setPrecioFiltro] = useState([0, 1]); // Rango de precios para el filtro
   const resultsPerPage = 10;
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
   const currentResults = producto.slice(indexOfFirstResult, indexOfLastResult);
-  const [, setStatusVisible] = useState(true);  // Add this line
+  const [, setStatusVisible] = useState(true);
   const [loading, setLoading] = useState(true);
 
 
@@ -55,14 +59,15 @@ useEffect(() => {
   getData();
 }, [categoria]);
 
-
-
-
-
   return (
-    <div className="col-12 pb-5 w-100 mx-0" style={{ paddingLeft: "2rem", paddingRight: "-2rem" }}>
-     <DynamicBreadcrumbs/>
-    {loading ? (
+    <div className="container-fluid">
+      <div className="row">
+          <DynamicBreadcrumbs />
+        <div className="col-md-2">
+          <FiltroMenuLateral precioFiltro={precioFiltro} setPrecioFiltro={setPrecioFiltro} />
+        </div>
+        <div className="col-md-8">
+          {loading ? (
       <Loader />
     ) : (
       <>
@@ -73,13 +78,7 @@ useEffect(() => {
             </div>
             <div className="col-lg-11 d-flex flex-row flex-wrap">
               {currentResults.map((producto) => (
-                <ListaProductosUsuarios
-                  producto={producto}
-                  key={producto.id}
-                  productoId={producto.id}
-                  selectedProducto={selectedProducto}
-                  setSelectedProducto={setSelectedProducto}
-                />
+                <ListaProductosUsuarios precioFiltro={precioFiltro} setPrecioFiltro={setPrecioFiltro} producto={producto} selectedProducto={selectedProducto} setSelectedProducto={setSelectedProducto}/>
               ))}
             </div>
             <div className="row">
@@ -95,7 +94,10 @@ useEffect(() => {
         )}
       </>
     )}
-  </div>
+        </div>
+      </div>
+    </div>
+    
   );
 }
 

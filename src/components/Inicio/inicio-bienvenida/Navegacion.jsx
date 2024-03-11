@@ -25,7 +25,7 @@ function NavegacionInicio() {
             <Link to="/login-users" style={buttonStyle} className="nav-link me-3">
               Inicio de sesión
             </Link>
-            <Link to="/carrito" className="nav-link me-3">
+            <Link to="/inicio-usuarios/carrito" className="nav-link me-3">
               {colorMode === 'light' ? <BsCartFill size={20} style={{ color: 'black' }}/> : <BsCart size={20} style={{ color: 'white' }}/>}
             </Link>
           </Nav>

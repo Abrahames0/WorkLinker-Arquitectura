@@ -94,11 +94,11 @@ const router = createBrowserRouter([
     element: <DetallesCompras/>,
   },
   {
-    path: "/pago-tarjeta",
+    path: "/inicio-usuarios/carrito/pago-tarjeta",
     element: <PagoTarjetaCredito />,
   },
   {
-    path: "/carrito",
+    path: "/inicio-usuarios/carrito",
     element: <Carrito />,
   },
   {

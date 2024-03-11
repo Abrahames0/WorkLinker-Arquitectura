@@ -283,7 +283,7 @@ function NavegacionUsuarios({ setSession }) {
           </Nav>
           {/* Carrito */}
           <div className=" d-flex justify-content-center my-2">
-            <IconButton aria-label="cart" href="/carrito" className="align-items-center">
+            <IconButton aria-label="cart" href="/inicio-usuarios/carrito" className="align-items-center">
               <StyledBadge badgeContent={productosCarrito.length} color="secondary">
                 {colorMode === 'light' ? <BsCartFill size={23} style={{ color: 'black' }} /> : <BsCart2 size={23} style={{ color: 'white' }} />}
               </StyledBadge>

@@ -35,7 +35,7 @@ function MapaDelSitio() {
                 </ListItem>
                 <ListItem><Link to="/usuario-compras" aria-label="Detalles de Compras" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Detalles de Compras</Link></ListItem>
               	<ListItem><Link to="/pago-tarjeta" aria-label="Pago con Tarjeta de Crédito" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Pago con Tarjeta de Crédito</Link></ListItem>
-                <ListItem><Link to="/carrito" aria-label="Carrito de Compras" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Carrito de Compras</Link></ListItem>
+                <ListItem><Link to="/inicio-usuarios/carrito" aria-label="Carrito de Compras" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Carrito de Compras</Link></ListItem>
                 <ListItem><Link to="/perfil-usuario" aria-label="Perfil de Usuario" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Perfil de Usuario</Link></ListItem>
                 <ListItem><Link to="/registro-Usuario" aria-label="Registro de Usuario" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Registro de Usuario</Link></ListItem>
                 <ListItem> <Link to="/inicio-usuarios" aria-label="Inicio Usuarios" style={{ textDecoration: 'none', color: '#5d4fc6' }}>Inicio Usuarios</Link></ListItem>

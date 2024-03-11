@@ -1,37 +1,40 @@
 import React from 'react';
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, FUNDING } from '@paypal/react-paypal-js';
 
-function PayPalPayment() {
-  // Reemplaza "TU_ID_DE_CLIENTE_DE_PAYPAL" con tu ID de cliente de PayPal
-  const paypalOptions = {
-    "client-id": "AcQIZTabmw1Rn5oBW7RxZNG_rvlyYOD4IcDV26Lz3ExTxcy84iFUbsrwGml-Wmk4NhI-bMOavETCknlf",
-  };
-
+export const PayPalButton = ({ total }) => {
   return (
-    <PayPalScriptProvider options={paypalOptions}>
-      <h1>Realiza tu pago con PayPal</h1>
+    <div>
       <PayPalButtons
+      fundingSource={FUNDING.PAYPAL}
+        style={{
+          layout: 'vertical',
+          color: 'blue', // Cambia el color del botón ( 'gold', 'blue', 'silver', 'white', 'black')
+          shape: 'pill', // Cambia la forma del botón ('rect', 'pill')
+          label: 'paypal', // Cambia el tipo de etiqueta ('paypal', 'checkout', 'buynow', 'pay')
+          height: 40,
+        }}
         createOrder={(data, actions) => {
-          // Define la lógica para crear una orden de pago
           return actions.order.create({
             purchase_units: [
               {
                 amount: {
-                  value: "100.00", // El monto a cobrar
+                  currency_code: "MXN",
+                  value: total,
                 },
               },
             ],
           });
         }}
         onApprove={(data, actions) => {
-          // Define la lógica para cuando el pago se apruebe
-          return actions.order.capture().then(function (details) {
-            alert("Pago completado: " + details.payer.name.given_name);
+          return actions.order.capture().then(details => {
+            const paymentData = {
+              payerID: data.payerID,
+              orderID: data.orderID,
+            };
+            console.log('Payment Approved: ', paymentData);
           });
         }}
       />
-    </PayPalScriptProvider>
+    </div>
   );
-}
-
-export default PayPalPayment;
+};

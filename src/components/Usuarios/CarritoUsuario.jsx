@@ -7,12 +7,23 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { Button, IconButton, TextField, Box, Alert, Snackbar, Typography, Card, Grid, CardContent, Container,} from '@mui/material';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { PayPalButton } from './pagosCarrito/pagoPaypal';
 
 const Carrito = () => {
+
   const [productosCarrito, setProductosCarrito] = useState([]);
   const [userData, setUserData] = useState(null);
   const [alerta, setAlerta] = useState(false);
-  
+
+  const calcularTotal = () => {
+    return productosCarrito.reduce((acc, producto) => {
+      return acc + (producto.cantidad * producto.precio);
+    }, 0);
+  };
+
+  const total = calcularTotal();
+
   // Consigue el usuario autenticado y guarda su información
   useEffect(() => {
     let sub;
@@ -72,12 +83,6 @@ useEffect(() => {
   // Función para cerrar la alerta
   const handleCloseAlert = () => {
     setAlerta(false);
-  };
-
-  const calcularTotal = () => {
-    return productosCarrito.reduce((acc, producto) => {
-      return acc + (producto.cantidad * producto.precio);
-    }, 0);
   };
 
   const handleDecrease = (productoId) => {
@@ -162,12 +167,10 @@ useEffect(() => {
                     <DeleteIcon />
                   </IconButton>
                 </Box>
-
                 <Box display="flex" alignItems="center" marginTop="16px">
                   <IconButton onClick={() => handleDecrease(producto.id)} color="primary">
                     <RemoveCircleOutlineIcon />
                   </IconButton>
-
                   <TextField
                     id={`quantity_${producto.id}`}
                     value={producto.cantidad}
@@ -186,7 +189,7 @@ useEffect(() => {
             </Card>
           ))}
         </Grid>
-
+        {/* Resumen del pedido */}
         <Grid item xs={12} md={4} className='pb-3'>
           <Card variant="outlined">
             <CardContent>
@@ -194,29 +197,15 @@ useEffect(() => {
               <Typography sx={{mt:2}} variant="h6">Subtotal: ${calcularTotal()}</Typography>
             </CardContent>
           </Card>
-          <Button 
-            variant="contained" 
-            color="primary"
-            fullWidth
-            href='/pago-tarjeta'
-            sx={{
-              mt: 2,
-              borderRadius: '50px',
-            }}
-          >
+          {/* Formas de pago */}
+          <Button className='mb-3' variant="contained"  color="primary" fullWidth href='/inicio-usuarios/carrito/pago-tarjeta' sx={{ mt: 2, borderRadius: '50px'}}>
             Pago con tarjeta de Débito/Crédito
           </Button>
-          <Button 
-            variant="outlined" 
-            color="primary"
-            fullWidth
-            sx={{
-              mt: 2,
-              borderRadius: '50px',
-            }}
-          >
-            Paypal
-          </Button>
+          {total > 0 && (
+            <PayPalScriptProvider options={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID, "currency": "MXN" }}>
+            <PayPalButton total={total.toString()} />
+          </PayPalScriptProvider>          
+          )}
         </Grid>
         <Snackbar open={alerta} autoHideDuration={2000} onClose={handleCloseAlert} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleCloseAlert} severity="error" sx={{ width: '100%' }}>

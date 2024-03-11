@@ -34,7 +34,7 @@ export const Categorias = [
 ];
 
 export const Rutas = [
-  { path: "/carrito", name: "Carrito" },
+  { path: "/inicio-usuarios/carrito", name: "Carrito" },
   { path: "/perfil-usuario", name: "Perfil de Usuario" },
   { path: "/inicio-usuarios", name: "Inicio" },
   { path: "/mapa-del-sitio", name: "Mapa del sitio"},

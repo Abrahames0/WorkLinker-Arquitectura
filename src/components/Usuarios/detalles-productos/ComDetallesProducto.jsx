@@ -26,7 +26,7 @@ const ComDetallesProducto = ({ email }) => {
   const navigate = useNavigate();
 
   const irAlCarrito = () => {
-    navigate('/carrito'); 
+    navigate('/inicio-usuarios/carrito'); 
   };
 
   const seguirComprando = () => {
