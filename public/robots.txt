@@ -3,4 +3,4 @@ User-agent: *
 Disallow:
 Disallow: 
 Disallow: /cgi-bin/
-Sitemap: https://prod.d20njex5crjgev.amplifyapp.com/mapa-del-sitio
+Sitemap: https://prod.d20njex5crjgev.amplifyapp.com/sitemap.xml
