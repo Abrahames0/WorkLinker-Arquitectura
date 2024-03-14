@@ -38,8 +38,7 @@ import TermsConditions from "./components/Inicio/terms-conditions";
 import ProductoCategoria from "./pages/pages-users/ProductoCategoria";
 import PaginaError from "./pages/Error/PaginaError";
 import MapaDelSitio from "./components/Inicio/inicio-bienvenida/MapaDelSitio";
-
-
+import ProductsCoincidence from "./pages/pages-users/CoincidenceProducto";
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
 
@@ -150,6 +149,10 @@ const router = createBrowserRouter([
     element: <ProductoCategoria/>
   },
   {
+    path: "/productos/:coincidencias",
+    element :<ProductsCoincidence/>
+  },
+  {
     path: "/perfil-repartidor",
     element: <PerfilRepartidor />,
   },
@@ -173,6 +176,7 @@ const router = createBrowserRouter([
     path: "*",
     element: <PaginaError />,
   },
+  
 ]);
 
 const config = {

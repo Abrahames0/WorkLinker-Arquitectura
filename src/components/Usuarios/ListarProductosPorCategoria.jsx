@@ -13,7 +13,6 @@ import FiltroMenuLateral from "./FiltroMenuLateral";
 function ListaProductosPorCategoria({email}) {
   
   const { categoria } = useParams();
-  console.log(categoria);
 
   const [producto, setProducto] = useState([]);
   const [selectedProducto, setSelectedProducto] = useState(null);
