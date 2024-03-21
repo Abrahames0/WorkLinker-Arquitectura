@@ -265,12 +265,6 @@ function NavegacionUsuariosQuienes({ setSession }) {
             {colorMode === 'light' ? <BiSearch  style={{ color: 'black' }} /> : <BiSearch style={{ color: 'white' }} />}
           </IconButton>
         </Box>
-        {/* Agregar un Nav.Link para "Quiénes somos" */}
-        <Nav.Link onClick={scrollToQuienesSomos} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
-            padding: '5px 10px', fontSize: '0.875rem', width: 'auto', height: 'auto' 
-          }}>
-              Quiénes somos
-            </Nav.Link>
         {/* Categorias */}
          <div className=" d-flex justify-content-center my-2">
         <select 
@@ -289,6 +283,11 @@ function NavegacionUsuariosQuienes({ setSession }) {
             </option>
           ))}
         </select>
+        {/* Agregar un Nav.Link para "Quiénes somos" */}
+        <Nav.Link onClick={scrollToQuienesSomos} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+          padding: '5px 10px', fontSize: '0.875rem', width: 'auto', height: 'auto' }}>
+            Quiénes somos
+        </Nav.Link>
         </div>
           <Nav className="mx-1 align-items-center">
             <NavDropdown className="me-3" title={<span style={{ color: colorMode === 'dark' ? 'white' : 'black' }}> {localStorage.nombreNav === undefined ? user : localStorage.nombreNav}</span>}>

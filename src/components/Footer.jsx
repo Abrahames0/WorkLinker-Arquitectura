@@ -18,7 +18,7 @@ export default function Footer() {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               <img src={logo} alt="Logo de Web Linker Store" style={{ height: '70px' }} />
               <Typography variant="subtitle1" color={textColor}>
-                © {new Date().getFullYear()} Todos los derechos reservados.
+                © {new Date().getFullYear()} Todos los derechos reservados, Página con fines educativos.
               </Typography>
             </Box>
           </Grid>
