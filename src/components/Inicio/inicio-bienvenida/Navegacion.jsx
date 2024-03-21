@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navbar, Container, Nav } from "react-bootstrap";
 import WorkLinkerRecortada from "../../../landing/assets/img/WorkLinkerRecortada.png";
 import { Link } from "react-router-dom";
@@ -11,6 +12,12 @@ function NavegacionInicio() {
   const navStyle = useColorModeValue({ backgroundColor: '#f8f9fa' }, { backgroundColor: '#343a40' });
   const buttonStyle = useColorModeValue({ color: '#000', borderColor: '#000' }, { color: '#fff', borderColor: '#fff' });
 
+  // Función para manejar el desplazamiento suave
+  const scrollToQuienesSomos = () => {
+    const quienesSomosSection = document.getElementById('quienes-somos');
+    quienesSomosSection && quienesSomosSection.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <Navbar style={navStyle} expand="lg">
       <Container>
@@ -22,6 +29,10 @@ function NavegacionInicio() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
+            {/* Agregar un Nav.Link para "Quiénes somos" */}
+            <Nav.Link onClick={scrollToQuienesSomos} style={{ cursor: 'pointer', ...buttonStyle }}>
+              Quiénes somos
+            </Nav.Link>
             <Link to="/login-users" style={buttonStyle} className="nav-link me-3">
               Inicio de sesión
             </Link>

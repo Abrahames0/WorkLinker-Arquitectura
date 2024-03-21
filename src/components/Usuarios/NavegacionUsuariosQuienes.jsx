@@ -32,7 +32,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function NavegacionUsuarios({ setSession }) {
+function NavegacionUsuariosQuienes({ setSession }) {
 
   // Estados y funciones relacionadas con el routing y la navegación
   const navigate = useNavigate();
@@ -212,6 +212,12 @@ function NavegacionUsuarios({ setSession }) {
     }
   }, []);
 
+    // Función para manejar el desplazamiento suave
+    const scrollToQuienesSomos = () => {
+      const quienesSomosSection = document.getElementById('quienes-somos');
+      quienesSomosSection && quienesSomosSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
   return (
     <div>
     <Navbar style={navStyle} expand="lg">
@@ -259,6 +265,12 @@ function NavegacionUsuarios({ setSession }) {
             {colorMode === 'light' ? <BiSearch  style={{ color: 'black' }} /> : <BiSearch style={{ color: 'white' }} />}
           </IconButton>
         </Box>
+        {/* Agregar un Nav.Link para "Quiénes somos" */}
+        <Nav.Link onClick={scrollToQuienesSomos} style={{ color: colorMode === 'dark' ? 'white' : 'black', backgroundColor: colorMode === 'dark' ? '#343a40' : '#f8f9fa',
+            padding: '5px 10px', fontSize: '0.875rem', width: 'auto', height: 'auto' 
+          }}>
+              Quiénes somos
+            </Nav.Link>
         {/* Categorias */}
          <div className=" d-flex justify-content-center my-2">
         <select 
@@ -305,7 +317,7 @@ function NavegacionUsuarios({ setSession }) {
   );
 }
 
-export default NavegacionUsuarios;
+export default NavegacionUsuariosQuienes;
 
 
 

@@ -4,9 +4,10 @@ import { Producto } from "../../models";
 import { DataStore, SortDirection } from "aws-amplify";
 
 import { SinCoincidencias } from "../Empresas/SinCoincidencias";
-import CarruselProductos from "./CarriselProductos";
+import CarruselProductosCategoria from "./CarruselProductosCategoria";
+import { Typography } from "@mui/material";
 
-function ListaProductosVender() {
+function ListaProductosVenderCategoria() {
   const [producto, setProducto] = useState([]);
  
   useEffect(() => {
@@ -25,7 +26,18 @@ function ListaProductosVender() {
       {producto.length > 0 ? (
         <div className="row p-1 justify-content-center" sx={{ width: '100%', position: 'relative' }}>
           <div className=" mb-4 col-lg-11 d-flex flex-row flex-wrap align-items-center justify-content-center">
-            <CarruselProductos producto={producto} />
+          <div className="mb-4 col-lg-11 flex-row flex-wrap">
+          <Typography variant="h4" component="h3" gutterBottom>
+          Deportes y Fitness
+          </Typography>
+            <CarruselProductosCategoria productos={producto} categoria="Deportes y Fitness" />
+          </div>
+          <div className="mb-4 col-lg-11 flex-row flex-wrap">
+            <Typography variant="h4" component="h3" gutterBottom>
+              Juegos y Juguetes
+            </Typography>
+            <CarruselProductosCategoria productos={producto} categoria="Juegos y Juguetes" />
+          </div>
           </div>
         </div>      
       ) : (
@@ -35,4 +47,4 @@ function ListaProductosVender() {
   );
 }
 
-export default ListaProductosVender;
+export default ListaProductosVenderCategoria;

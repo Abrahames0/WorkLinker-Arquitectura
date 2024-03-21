@@ -7,11 +7,16 @@ import { Usuarios } from '../../models';
 import { DataStore } from '@aws-amplify/datastore';
 
 import { NombreGrupo } from '../../hook/NombreGrupo';
-import NavegacionUsuarios from '../../components/Usuarios/NavegacionUsuarios';
 import CarouselInicio from '../../components/Inicio/inicio-bienvenida/Carrusel';
 import ListaProductosVender from '../../components/Usuarios/ListaProductosVender';
 import Footer from '../../components/Footer';
 import Loader from "../../components/componentesRecicables/Loader";
+import Features from '../../components/Usuarios/Feature';
+import DynamicBreadcrumbs from '../../components/componentesRecicables/MigasDePan';
+import QuienesSomos from './QuienesSomos';
+import NavegacionUsuariosQuienes from '../../components/Usuarios/NavegacionUsuariosQuienes';
+import ListaProductosVenderCategoria from '../../components/Usuarios/ListaProductosVenderCategoria';
+
 function RegistroUsuario() {
   const [session, setSession] = useState('');
   const [, setIdOwner] = useState('');
@@ -53,7 +58,6 @@ function RegistroUsuario() {
     }
   }
 
-
   return (
     <div>
       {session ? (
@@ -61,9 +65,15 @@ function RegistroUsuario() {
           {nombreGrupo === 'usuarios' ? (
             (existeBde === 1 && registroCompleto) ? (<Navigate to='/inicio-usuarios' />) : (existeBde === 0 || registroCompleto === false) && (
               <>
-                <NavegacionUsuarios setSession={setSession} />
+                <NavegacionUsuariosQuienes setSession={setSession} />
                 <CarouselInicio/>
+                <div alignItems="center" justifyContent="center" className=" p-3 col-10 pb-4 w-100 mx-0" >
+                <DynamicBreadcrumbs/>
+                </div>
+                <Features />
                 <ListaProductosVender/>
+                <QuienesSomos/>
+                <ListaProductosVenderCategoria/>
                 <Footer/>
               </>
             )

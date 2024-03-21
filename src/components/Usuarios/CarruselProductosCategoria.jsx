@@ -4,7 +4,7 @@ import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const CarouselProductos = ({ producto }) => {
+const CarruselProductosCategoria = ({ productos, categoria }) => {
   const navigate = useNavigate();
   const show = useBreakpointValue({ base: 2, md: 5 });
   const [startIndex, setStartIndex] = useState(0);
@@ -14,31 +14,31 @@ const CarouselProductos = ({ producto }) => {
     setIsAnimating(true);
     setStartIndex((prevIndex) => {
       const newIndex = prevIndex + show;
-      return newIndex < producto.length ? newIndex : prevIndex;
+      const filteredProducts = productos.filter(p => p.categoria === categoria);
+      return newIndex < filteredProducts.length ? newIndex : prevIndex;
     });
     setTimeout(() => setIsAnimating(false), 500);
   };
 
   const handlePrev = () => {
-    setIsAnimating(true); 
+    setIsAnimating(true);
     setStartIndex((prevIndex) => {
       const newIndex = prevIndex - show;
       return newIndex >= 0 ? newIndex : 0;
     });
     setTimeout(() => setIsAnimating(false), 500);
   };
-  
+
   return (
-    <div>
-      <Typography variant="h4" component="h3" gutterBottom>
-        Algunos productos
-      </Typography>
-      <Card raised sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        <IconButton onClick={handlePrev} aria-label="Previous" size="lg" isDisabled={startIndex === 0}>
-          <FaChevronLeft />
-        </IconButton>
-        <Flex alignItems="center" justifyContent="center" overflow="hidden" sx={{ width: '100%', position: 'relative' }} className={isAnimating ? 'slideAnimation' : ''}>
-          {producto?.slice(startIndex, startIndex + show).map((item, index) => (
+    <Card raised sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+      <IconButton onClick={handlePrev} aria-label="Previous" size="lg" isDisabled={startIndex === 0}>
+        <FaChevronLeft />
+      </IconButton>
+      <Flex alignItems="center" justifyContent="center" overflow="hidden" sx={{ width: '100%', position: 'relative' }} className={isAnimating ? 'slideAnimation' : ''}>
+        {productos
+          ?.filter(p => p.categoria === categoria) // Filtra los productos por la categoría pasada como prop
+          .slice(startIndex, startIndex + show)
+          .map((item, index) => (
             <Box key={index} p={2} mx={2} display="flex" flexDirection="column" alignItems="center">
               <CardActionArea onClick={() => navigate(`/producto/${item.categoria}/${item.id}`)}>
                 <Image src={item.imagenURL} alt={item.nombreProducto} sx={{ width: '180px', height: '180px', objectFit: 'contain' }} />
@@ -56,13 +56,12 @@ const CarouselProductos = ({ producto }) => {
               </Box>
             </Box>
           ))}
-        </Flex>
-        <IconButton onClick={handleNext} aria-label="Next" size="lg" isDisabled={startIndex + show >= producto.length}>
-          <FaChevronRight />
-        </IconButton>
-      </Card>
-    </div>
+      </Flex>
+      <IconButton onClick={handleNext} aria-label="Next" size="lg" isDisabled={startIndex + show >= productos.filter(p => p.categoria === categoria).length}>
+        <FaChevronRight />
+      </IconButton>
+    </Card>
   );
 };
 
-export default CarouselProductos;
+export default CarruselProductosCategoria;
